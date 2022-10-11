@@ -1,0 +1,130 @@
+.task-container {
+    display: flex;
+    flex-direction: row;;
+    width: 100%;
+    height: 100%;
+}
+
+.task-response-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+/* Task Text */
+.task-response-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 10px;
+}
+
+.task-response-header .header {
+    margin-bottom: 0px;
+    margin-right: 10px;
+}
+
+/* SYMBOLS */
+.task-response-body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 10px 10px;
+}
+
+.submission-message-container {
+    color: white;
+    display: flex;
+    padding: 25px 25px 0px 25px;
+
+}
+
+.task-response {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 0px 25px;
+}
+
+
+
+.symbol-container {
+    background-color: var(--darkblue);
+    margin: 0px 5px;
+}
+
+.symbol-container.selected{
+    border: 5px solid black;
+    background-color: rgba(58, 73, 105, 0.95);
+
+}
+
+.button-container {
+    display: flex;
+    flex-direction:row;
+    justify-content:space-between;
+}
+
+/* Type Message Box */
+
+.task-response-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 10px 10px;
+}
+
+.task-description-form-container {
+    display:flex;
+    width: 50%;
+    justify-content: center;
+    align-items:center;
+}
+
+.task-description-form {
+    width: 50%;
+    resize: vertical;
+    padding: 5px 5px 5px 5px;
+}
+
+/* -----------------
+- Styling the symbol buttons -
+----------------- */
+
+.symbol-container {
+    display: flex;
+    height: 100%;
+    max-height: 50%;
+}
+
+.symbolButtonUnselected{
+    padding: 0.8rem 1.0rem;
+    border: 5px solid rgb(53, 70, 124);
+    background-color: rgba(58, 73, 105, 0);
+    width: 100%;
+    height: 100%;
+}
+
+.symbolButtonUnselected:hover {
+    background-color: #ddd;
+    background-color: rgba(58, 73, 105, 0.70);
+}
+  
+.symbolButtonSelected {
+    padding: 0.8rem 1.0rem;
+    border: 5px solid black;
+    background-color: rgba(58, 73, 105, 0.95);
+    width: 100%;
+    height: 100%;
+}
+
+.noHover {
+    pointer-events: none;
+}
+
+.symbolButtonSelected:hover {
+    background-color: rgba(35, 55, 99, 0.95)
+}
