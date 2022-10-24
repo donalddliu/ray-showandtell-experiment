@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import SymbolButton from '../GameComponents/SymbolButton';
+import SymbolDisplay from '../GameComponents/SymbolDisplay';
 
 import { TimeSync } from "meteor/mizzao:timesync";
 import moment from "moment";
+import AdvisorList from '../GameComponents/AdvisorList';
 
 class ListenStage extends Component {
     constructor(props) {
@@ -12,7 +14,7 @@ class ListenStage extends Component {
     handleButtonSelect= (symbolName) => {
         const {game, round, stage, player} = this.props;
 
-        round.set("symbolSelected", symbolName)
+        player.round.set("symbolSelected", symbolName)
         round.append("log", {
           verb: "symbolSelected",
           subjectId: player.id,
@@ -26,8 +28,8 @@ class ListenStage extends Component {
         const {game, round, stage, player} = this.props;
         event.preventDefault();
 
-        const symbolSelected = round.get("symbolSelected");
-        round.set("symbolSubmitted", symbolSelected); 
+        const symbolSelected = player.round.get("symbolSelected");
+        player.round.set("symbolSubmitted", symbolSelected); 
         round.append("log", {
             verb: "symbolSubmitted",
             subjectId: player.id,
@@ -35,16 +37,16 @@ class ListenStage extends Component {
             at: moment(TimeSync.serverTime(null, 1000)),
         })
         
-        stage.set("submitted", true);
+        player.set("submitted", true);
     }
 
     renderSymbolButtons() {
         const {game, round, stage, player} = this.props;
-        const symbolSet = round.get("symbolSet");
+        const puzzleSet = player.round.get("puzzleSet");
 
-        const selectedSymbol = round.get("symbolSelected");
+        const selectedSymbol = player.round.get("symbolSelected");
         return(
-            symbolSet.map((symbol) => {
+            puzzleSet.map((symbol) => {
                 return (
                     <SymbolButton
                         key={symbol}
@@ -58,11 +60,51 @@ class ListenStage extends Component {
         )
     }
 
-
-    render() {
+    renderSymbolDisplay(puzzleSet) {
         const {game, round, stage, player} = this.props;
-        const symbolDescription = round.get("symbolDescription");
-        const selected = round.get("symbolSelected");
+
+        return(
+            puzzleSet.map((symbol) => {
+                return (
+                    <SymbolDisplay
+                        key={symbol}
+                        name={symbol}
+                        selected={false}
+                        {...this.props}
+                    />
+                )
+            })
+        )
+    }
+
+    
+    renderListenerSubmitted() {
+        return (
+            <div className="task-response-container">
+                <div className="task-response-header">
+                    <header> Please wait until all Listeners have chosen their symbol </header>
+                </div>
+            </div>
+        )
+    }
+
+    renderWait() {
+        return (
+            <div className="task-response-container">
+                <div className="task-response-header">
+                    <header> Please wait </header>
+                </div>
+            </div>
+        )
+    }
+
+    renderListenerStage() {
+        const {game, round, stage, player} = this.props;
+        const speakerId = player.round.get("pairedSpeaker");
+        const speakerPlayer = game.players.find((p) => p.get("nodeId") === speakerId);
+
+        const symbolDescription = speakerPlayer.round.get("symbolDescription");
+        const selected = player.round.get("symbolSelected");
         return (
             <div className="task-response-container">
                 <div className="task-response-header">
@@ -88,6 +130,60 @@ class ListenStage extends Component {
                 
             </div>
         );
+
+    }
+
+    renderAdvisorStage() {
+        const {game, round, stage, player} = this.props;
+        const requestQueue = player.round.get("requestQueue");
+         
+        if (requestQueue.length === 0) {
+            return this.renderWait();
+        } else {
+            const {requestorId, message, puzzleSet, symbolDescription} = requestQueue[0];
+
+            return (
+                <div className="task-response-container">
+                    <div className="task-response-header">
+                        <header> {requestorId} has asked for your advice on the following puzzle </header>
+                        <header> Choose the symbol that best represents the following description: </header>
+                        <header> {symbolDescription} </header>
+                    </div>
+                    <div className="task-response-body">
+                        <div className="task-response">
+                            {this.renderSymbolDisplay(puzzleSet)}
+                        </div>
+                    </div>
+                    <div className="task-response-footer">
+                    </div>
+                    
+                </div>
+            );
+        }
+
+    }
+
+
+    render() {
+        const {game, round, stage, player} = this.props;
+        if (player.round.get("role") === "Listener"){
+            if (player.get("submitted")) {
+                return this.renderListenerSubmitted();
+            } else {
+                return (
+                    <div className="listen-container"> 
+                        {this.renderListenerStage()}
+                        <AdvisorList {...this.props} />
+                    </div>
+                )
+            }
+        } else if (player.round.get("role") === "Advisor"){
+            return this.renderAdvisorStage();
+            
+        } else {
+            return this.renderWait()
+        }
+        
     }
 }
 

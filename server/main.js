@@ -3,6 +3,7 @@ import "./bots.js";
 import "./callbacks.js";
 
 import {testingRounds, taskRounds} from "./constants";
+import {getNeighbors} from "./util";
 
 // gameInit is where the structure of a game is defined.
 // Just before every game starts, once all the players needed are ready, this
@@ -18,7 +19,9 @@ Empirica.gameInit(game => {
       numTaskRounds,
       showDuration,
       tellDuration,
-      listenDuration
+      listenDuration,
+      chooseDuration,
+      networkStructure
     }
   } = game;
 
@@ -26,20 +29,23 @@ Empirica.gameInit(game => {
   game.players.forEach((player, i) => {
     player.set("avatar", `/avatars/jdenticon/${player._id}`);
     player.set("score", 0);
+    player.set("nodeId", i + 1);
+    player.set("neighbors", getNeighbors(networkStructure, player));
+    console.log(player.get("neighbors"));
   });
 
   _.times(numTaskRounds, i => {
     const round = game.addRound();
 
-    const {symbols, taskName, answer} = testingRounds[0];
-    round.set("answer", answer);
-    round.set("symbolSet", symbols);
+    // const {symbols, taskName, answer} = testingRounds[0];
+    // round.set("answer", answer);
+    // round.set("symbolSet", symbols);
 
-    const showRound = round.addStage({
-      name: `Show ${i}`,
-      displayName: `Show`,
-      durationInSeconds: showDuration
-    });
+    // const showRound = round.addStage({
+    //   name: `Show ${i}`,
+    //   displayName: `Show`,
+    //   durationInSeconds: showDuration
+    // });
 
     const tellRound = round.addStage({
       name: `Tell ${i}`,

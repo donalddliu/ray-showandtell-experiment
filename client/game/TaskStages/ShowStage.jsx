@@ -9,16 +9,16 @@ class ShowStage extends Component {
 
     renderSymbols() {
         const {game, round, stage, player} = this.props;
-        const answer = round.get("answer");
-        const symbolSet = round.get("symbolSet");
+        const puzzleAnswer = player.round.get("puzzleAnswer");
+        const puzzleSet = player.round.get("puzzleSet");
 
         return(
-            symbolSet.map((symbol) => {
+            puzzleSet.map((symbol) => {
                 return (
                     <SymbolDisplay
                         key={symbol}
                         name={symbol}
-                        selected={answer === symbol}
+                        selected={puzzleAnswer === symbol}
                         {...this.props}
                     />
                 )
@@ -26,8 +26,8 @@ class ShowStage extends Component {
         )
     }
 
+    renderStage() {
 
-    render() {
         return (
             <div className="task-response-container">
                 <div className="task-response-header">
@@ -43,6 +43,27 @@ class ShowStage extends Component {
                 
             </div>
         );
+    }
+
+    renderWait() {
+        return (
+            <div className="task-response-container">
+                <div className="task-response-header">
+                    <header> Please wait </header>
+                </div>
+            </div>
+        )
+    }
+
+
+    render() {
+        const {game, round, stage, player} = this.props;
+
+        if (player.round.get("role") === "Speaker") {
+            return this.renderStage()
+        } else {
+            return this.renderWait()
+        }
     }
 }
 

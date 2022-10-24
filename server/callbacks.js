@@ -1,4 +1,7 @@
 import Empirica from "meteor/empirica:core";
+import { randomizeRoles, checkToGoNextStage, getPuzzles } from "./util";
+
+
 
 // onGameStart is triggered opnce per game before the game starts, and before
 // the first onRoundStart. It receives the game and list of all the players in
@@ -7,11 +10,31 @@ Empirica.onGameStart(game => {});
 
 // onRoundStart is triggered before each round starts, and before onStageStart.
 // It receives the same options as onGameStart, and the round that is starting.
-Empirica.onRoundStart((game, round) => {});
+Empirica.onRoundStart((game, round) => {
+  const {
+    treatment: {
+      networkStructure,
+      numSLPairs,
+      reqMutual,
+    }
+  } = game;
+  // Initiate all roles to None, then randomly assign speaker-listener roles
+  game.players.forEach(player => {
+    player.round.set("role", "None");
+    player.round.set("activeChats", []);
+  })
+  randomizeRoles(game, round, networkStructure, numSLPairs, reqMutual);
+  getPuzzles(game, round);
+
+});
 
 // onStageStart is triggered before each stage starts.
 // It receives the same options as onRoundStart, and the stage that is starting.
-Empirica.onStageStart((game, round, stage) => {});
+Empirica.onStageStart((game, round, stage) => {
+  game.players.forEach(player => {
+    player.set("submitted", false);
+  })
+});
 
 // onStageEnd is triggered after each stage.
 // It receives the same options as onRoundEnd, and the stage that just ended.
@@ -65,17 +88,21 @@ Empirica.onSet((
 ) => {
   const allPlayers = game.players;
 
-  if (stage.displayName === "Tell" && key === "submitted") {
+  if (stage.displayName === "Choose" && key === "submitted") {
+    console.log("Choose Submitted")
+    const role = "Listener";
+    checkToGoNextStage(allPlayers, role);
+
+  }
+  else if (stage.displayName === "Tell" && key === "submitted") {
     console.log("Tell Submitted");
-    allPlayers.forEach((player) => {
-      player.stage.submit();
-    })
+    const role = "Speaker";
+    checkToGoNextStage(allPlayers, role);
 
   } else if (stage.displayName === "Listen" && key === "submitted") {
     console.log("Listen Submitted");
-    allPlayers.forEach((player) => {
-      player.stage.submit();
-    })
+    const role = "Listener";
+    checkToGoNextStage(allPlayers, role);
   }
   // // Example filtering
   // if (key !== "value") {

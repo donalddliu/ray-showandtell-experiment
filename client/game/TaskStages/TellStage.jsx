@@ -22,29 +22,29 @@ class TellStage extends Component {
         event.preventDefault();
 
         const symbolDescription = this.state.symbolDescription;
-        round.set("symbolDescription", symbolDescription); 
+        player.round.set("symbolDescription", symbolDescription); 
         round.append("log", {
             verb: "symbolDescription",
             subjectId: player.id,
             object: symbolDescription,
             at: moment(TimeSync.serverTime(null, 1000)),
-        })
+        });
 
-        stage.set("submitted", true);
+        player.set("submitted", true);
     }
 
     renderSymbols() {
         const {game, round, stage, player} = this.props;
-        const answer = round.get("answer");
-        const symbolSet = round.get("symbolSet");
+        const puzzleAnswer = player.round.get("puzzleAnswer");
+        const puzzleSet = player.round.get("puzzleSet");
 
         return(
-            symbolSet.map((symbol) => {
+            puzzleSet.map((symbol) => {
                 return (
                     <SymbolDisplay
                         key={symbol}
                         name={symbol}
-                        selected={answer === symbol}
+                        selected={puzzleAnswer === symbol}
                         {...this.props}
                     />
                 )
@@ -52,9 +52,9 @@ class TellStage extends Component {
         )
     }
 
-
-    render() {
+    renderStage() {
         const {symbolDescription} = this.state;
+
         return (
             <div className="task-response-container">
                 <div className="task-response-header">
@@ -80,6 +80,40 @@ class TellStage extends Component {
                 
             </div>
         );
+    }
+
+    renderSpeakerSubmitted() {
+        return (
+            <div className="task-response-container">
+                <div className="task-response-header">
+                    <header> Please wait until all Speakers have described their symbol </header>
+                </div>
+            </div>
+        )
+    }
+
+    renderWait() {
+        return (
+            <div className="task-response-container">
+                <div className="task-response-header">
+                    <header> Please wait </header>
+                </div>
+            </div>
+        )
+    }
+
+
+    render() {
+        const {game, round, stage, player} = this.props;
+            if (player.round.get("role") === "Speaker") {
+                if (player.get("submitted")) {
+                    return this.renderSpeakerSubmitted();
+                } else {
+                    return this.renderStage();
+                }
+            } else {
+                return this.renderWait();
+            }
     }
 }
 

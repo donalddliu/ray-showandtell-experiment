@@ -7,6 +7,7 @@
   "dependencies": {
     "@babel/runtime": "^7.10.2",
     "bcrypt": "^5.0.0",
+    "lodash": "^4.17.21",
     "meteor-node-stubs": "0.4.1",
     "minimist": ">=0.2.1",
     "moment": "^2.29.4",

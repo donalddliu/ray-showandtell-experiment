@@ -24,11 +24,12 @@ Empirica.newPlayer(NewPlayer);
 // At this point they have been assigned a treatment. You can return
 // different instruction steps depending on the assigned treatment.
 Empirica.introSteps((game, treatment) => {
-  const steps = [InstructionStepOne];
-  if (treatment.playerCount > 1) {
-    steps.push(InstructionStepTwo);
-  }
-  steps.push(Quiz);
+  // const steps = [InstructionStepOne];
+  // if (treatment.playerCount > 1) {
+  //   steps.push(InstructionStepTwo);
+  // }
+  // steps.push(Quiz);
+  const steps = [];
   return steps;
 });
 
