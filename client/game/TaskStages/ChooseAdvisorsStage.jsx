@@ -19,7 +19,7 @@ class ChooseAdvisorsStage extends Component {
             chosenAdvisors.push(nodeId);
             player.round.set("chosenAdvisors", chosenAdvisors);
 
-            round.append("log", {
+            stage.append("log", {
                 verb: "advisorSelected",
                 subjectId: player.id,
                 object: nodeId,
@@ -35,7 +35,7 @@ class ChooseAdvisorsStage extends Component {
         const removedAdvisorId = _.remove(chosenAdvisors, (id) => id === nodeId);
         player.round.set("chosenAdvisors", chosenAdvisors);
 
-        round.append("log", {
+        stage.append("log", {
           verb: "advisorDeselected",
           subjectId: player.id,
           object: nodeId,
@@ -74,7 +74,7 @@ class ChooseAdvisorsStage extends Component {
 
 
         round.set("allRoles", allRoles); 
-        round.append("log", {
+        stage.append("log", {
             verb: "advisorsChosen",
             subjectId: player.id,
             object: currentTeam,

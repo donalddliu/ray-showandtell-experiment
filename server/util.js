@@ -32,6 +32,7 @@
 
   export function getPuzzles(game, round) {
     const allRoles = round.get("allRoles");
+    const numAdvisorsPerPair = game.treatment.numAdvisorsPerPair;
 
     for (let team of allRoles) {
       const {speaker, listener, availableAdvisors, chosenAdvisors} = team;
@@ -53,8 +54,18 @@
       team.puzzleAnswer = puzzleAnswer;
       speakerPlayer.round.set('puzzleSet', puzzleSet);
       listenerPlayer.round.set('puzzleSet', puzzleSet);
+      listenerPlayer.round.set('adviceReceived', {});
       speakerPlayer.round.set('puzzleAnswer', puzzleAnswer);
       listenerPlayer.round.set('puzzleAnswer', puzzleAnswer);
+      listenerPlayer.round.set('adviceReceived', {});
+
+      const advisorPool = availableAdvisors;
+      for (let i = 0; i < numAdvisorsPerPair; i++) {
+        var randomAdvisor = advisorPool[_.random(advisorPool.length-1)];
+        var usedAdvisor = _.remove[advisorPool, (p) => p === randomAdvisor];
+        chosenAdvisors.push(usedAdvisor);
+      }
+
     }
     round.set("allRoles", allRoles);
   }
@@ -128,25 +139,43 @@
     
   }
 
-export function checkToGoNextStage(allPlayers, role) {
-  let allSimilarRoleSubmitted = true;
+  export function assignRequestsToAdvisors(game, round, structure, numAdvisorsPerPair , reqMutual) {
+    const allRolesPerRound = round.get("allRoles");
+    for (let team of allRolesPerRound) {
+      const {speaker, listener, availableAdvisors, chosenAdvisors} = team;
+      for (let advisor of chosenAdvisors) {
+        const requestQueue = advisor.round.get("requestQueue");
+        const speakerPlayer = game.players.find((p) => p.get("nodeId") === speaker);
+        const symbolDescription = speakerPlayer.round.get("symbolDescription");
+        const puzzleSet = team.puzzleSet;
+        const request = {requestorId: listener, puzzleSet: puzzleSet, symbolDescription: symbolDescription, received: false}
 
-  allPlayers.forEach((player) => {
-    if (player.round.get("role") === role) {
-      allSimilarRoleSubmitted = player.get("submitted") && allSimilarRoleSubmitted;
+        requestQueue.push(request);
+        advisor.round.set("requestQueue", requestQueue);
+      }
     }
-  })
 
-  if (allSimilarRoleSubmitted) {
+  }
+
+  export function checkToGoNextStage(allPlayers, role) {
+    let allSimilarRoleSubmitted = true;
+
     allPlayers.forEach((player) => {
-      player.stage.submit();
+      if (player.round.get("role") === role) {
+        allSimilarRoleSubmitted = player.get("submitted") && allSimilarRoleSubmitted;
+      }
     })
-  }
-}
 
-export function checkCorrect(allPlayers) {
-  for (let pair of round.get("allRoles")) {
-    const {speaker, listener, availableAdvisors, chosenAdvisors} = pair;
-    // If 
+    if (allSimilarRoleSubmitted) {
+      allPlayers.forEach((player) => {
+        player.stage.submit();
+      })
+    }
   }
-}
+
+  export function checkCorrect(allPlayers) {
+    for (let pair of round.get("allRoles")) {
+      const {speaker, listener, availableAdvisors, chosenAdvisors} = pair;
+      // If 
+    }
+  }

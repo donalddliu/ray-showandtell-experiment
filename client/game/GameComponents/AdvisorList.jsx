@@ -29,7 +29,7 @@ class AdvisorList extends Component {
             player.round.set("activeChats", activeChats);
 
             // Log that advisor was selected
-            round.append("log", {
+            stage.append("log", {
                 verb: "advisorSelected",
                 subjectId: player.id,
                 object: nodeId,
@@ -60,7 +60,7 @@ class AdvisorList extends Component {
             player.round.set("activeChats", newActiveChats);
             
             // Log that advisor was deseleted
-            round.append("log", {
+            stage.append("log", {
               verb: "advisorDeselected",
               subjectId: player.id,
               object: nodeId,

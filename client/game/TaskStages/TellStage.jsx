@@ -23,7 +23,7 @@ class TellStage extends Component {
 
         const symbolDescription = this.state.symbolDescription;
         player.round.set("symbolDescription", symbolDescription); 
-        round.append("log", {
+        stage.append("log", {
             verb: "symbolDescription",
             subjectId: player.id,
             object: symbolDescription,
