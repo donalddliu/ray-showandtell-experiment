@@ -42,7 +42,7 @@ export default class ExitSurvey extends React.Component {
             <strong>{player._id}</strong>.
           </p>
           <p>
-            You final <strong>bonus</strong> is in addition of the{" "}
+            You final <strong>bonus</strong> of {player.get("score")} is in addition of the{" "}
             <strong>1 base reward</strong> for completing the HIT.
           </p>
           <br />

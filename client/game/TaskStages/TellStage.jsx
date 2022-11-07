@@ -30,7 +30,8 @@ class TellStage extends Component {
             at: moment(TimeSync.serverTime(null, 1000)),
         });
 
-        player.set("submitted", true);
+        player.stage.set("submitted", true);
+
     }
 
     renderSymbols() {
@@ -105,8 +106,9 @@ class TellStage extends Component {
 
     render() {
         const {game, round, stage, player} = this.props;
+
             if (player.round.get("role") === "Speaker") {
-                if (player.get("submitted")) {
+                if (player.stage.get("submitted")) {
                     return this.renderSpeakerSubmitted();
                 } else {
                     return this.renderStage();

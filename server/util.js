@@ -1,17 +1,5 @@
   import _ from 'lodash';
   
-  // Shuffling arrays:
-  // https://stackoverflow.com/questions/50536044/swapping-all-elements-of-an-array-except-for-first-and-last
-  export function shuffle(symbolSet) {
-    for (i = symbolSet.length -1 ; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-
-      [symbolSet[i], symbolSet[j]] = [symbolSet[j], symbolSet[i]];
-    }
-    return symbolSet;
-  }
-
-  
   export function getNeighbors(structure, player) {
     const neighbors = [];
     let network = structure.split(",");
@@ -53,10 +41,10 @@
       team.puzzleSet = puzzleSet;
       team.puzzleAnswer = puzzleAnswer;
       speakerPlayer.round.set('puzzleSet', puzzleSet);
-      listenerPlayer.round.set('puzzleSet', puzzleSet);
+      listenerPlayer.round.set('puzzleSet', _.shuffle(puzzleSet));
       listenerPlayer.round.set('adviceReceived', {});
       speakerPlayer.round.set('puzzleAnswer', puzzleAnswer);
-      listenerPlayer.round.set('puzzleAnswer', puzzleAnswer);
+      listenerPlayer.round.set('puzzleAnswer', _.shuffle(puzzleAnswer));
       listenerPlayer.round.set('adviceReceived', {});
 
       const advisorPool = [...availableAdvisors];
@@ -137,7 +125,6 @@
       allRolesPerRound.push(pair);
     }
 
-    console.log(allRolesPerRound);
     round.set("allRoles", allRolesPerRound);
     
   }
@@ -151,14 +138,25 @@
         const requestQueue = advisorPlayer.round.get("requestQueue");
         const speakerPlayer = game.players.find((p) => p.get("nodeId") === speaker);
         const symbolDescription = speakerPlayer.round.get("symbolDescription");
-        const puzzleSet = team.puzzleSet;
-        const request = {requestorId: listener, puzzleSet: puzzleSet, symbolDescription: symbolDescription, received: false}
+        const listenerPlayer = game.players.find((p) => p.get("nodeId") === listener);
+        const listenerPuzzleSet = listenerPlayer.round.get("puzzleSet");
+        // const puzzleSet = team.puzzleSet;
+        const request = {requestorId: listener, puzzleSet: listenerPuzzleSet, symbolDescription: symbolDescription, received: false}
 
         requestQueue.push(request);
         advisorPlayer.round.set("requestQueue", requestQueue);
       }
     }
 
+    // Shuffle the request queue
+    game.players.forEach((player) => {
+      if (player.round.get("role") === "Advisor") {
+        const requestQueue = player.round.get("requestQueue");
+        const shuffledRequestQueue = _.shuffle(requestQueue);
+        player.round.set("requestQueue", shuffledRequestQueue);
+      }
+    })
+    
   }
 
   export function checkToGoNextStage(allPlayers, role) {
@@ -166,7 +164,7 @@
 
     allPlayers.forEach((player) => {
       if (player.round.get("role") === role) {
-        allSimilarRoleSubmitted = player.get("submitted") && allSimilarRoleSubmitted;
+        allSimilarRoleSubmitted = player.stage.get("submitted") && allSimilarRoleSubmitted;
       }
     })
 
@@ -177,9 +175,22 @@
     }
   }
 
-  export function checkCorrect(allPlayers) {
+  export function updateScore(game, round) {
     for (let pair of round.get("allRoles")) {
-      const {speaker, listener, availableAdvisors, chosenAdvisors} = pair;
+      const {speaker, listener, availableAdvisors, chosenAdvisors, puzzleSet, puzzleAnswer} = pair;
       // If 
+      const speakerPlayer = game.players.find((p) => p.get("nodeId") === speaker);
+      const listenerPlayer = game.players.find((p) => p.get("nodeId") === listener);
+      const prevListenerScore = listenerPlayer.get("score") || 0;
+      
+      // If listener selects correct answer, give them points, otherwise deduct points
+      let newListenerScore = prevListenerScore;
+      if (listenerPlayer.round.get("symbolSelected") === puzzleAnswer) {
+        newListenerScore = prevListenerScore + 1;
+      } else {
+        newListenerScore = Math.max(prevListenerScore - 0.1, 0);
+      }
+      listenerPlayer.set("score", newListenerScore);
+
     }
   }

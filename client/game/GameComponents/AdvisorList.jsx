@@ -77,7 +77,6 @@ class AdvisorList extends Component {
         const chosenAdvisors = player.round.get("chosenAdvisors");
         const puzzleSet = player.round.get("puzzleSet");
         const adviceReceived = player.round.get("adviceReceived"); // {advisorId: symbolSelected}
-        console.log(adviceReceived);
 
         return(
             chosenAdvisors.map((advisor) => {

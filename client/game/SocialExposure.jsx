@@ -91,7 +91,6 @@ export default class SocialExposure extends React.Component {
         const completedRequest = {request: removedRequest, reply: mostRecentMsg}
         completedRequests.push(completedRequest);
         sender.round.set("completedRequests", completedRequests);
-        console.log("remove request please");
 
         stage.append("log", {
           verb: "completedRequest",
@@ -148,7 +147,6 @@ export default class SocialExposure extends React.Component {
   renderSocialInteraction() {
     const { game, round, player } = this.props;
     const chosenAdvisors = player.round.get("chosenAdvisors");
-    console.log(chosenAdvisors);
 
     if (Object.keys(chosenAdvisors).length === 0) {
       return null;

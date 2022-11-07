@@ -1,5 +1,5 @@
 import Empirica from "meteor/empirica:core";
-import { randomizeRoles, checkToGoNextStage, getPuzzles, assignRequestsToAdvisors } from "./util";
+import { randomizeRoles, checkToGoNextStage, getPuzzles, assignRequestsToAdvisors, updateScore } from "./util";
 
 
 
@@ -32,10 +32,21 @@ Empirica.onRoundStart((game, round) => {
 // It receives the same options as onRoundStart, and the stage that is starting.
 Empirica.onStageStart((game, round, stage) => {
   game.players.forEach(player => {
-    player.set("submitted", false);
+    player.stage.get("submitted", false);
+    if (stage.displayName === "Tell") {
+      if (player.round.get("role") !== "Speaker") {
+        player.stage.set("submitted", true);
+      }
+   }
+
+    else if (stage.displayName === "Listen") {
+      if (player.round.get("role") === "Speaker") {
+        player.stage.set("submitted", true);
+      }
+    }
   })
+
   if (stage.displayName === "Listen") {
-    console.log(round.get("allRoles"));
     assignRequestsToAdvisors(game, round);
   }
 });
@@ -47,11 +58,7 @@ Empirica.onStageEnd((game, round, stage) => {});
 // onRoundEnd is triggered after each round.
 // It receives the same options as onGameEnd, and the round that just ended.
 Empirica.onRoundEnd((game, round) => {
-  game.players.forEach(player => {
-    const value = player.round.get("value") || 0;
-    const prevScore = player.get("score") || 0;
-    player.set("score", prevScore + value);
-  });
+  updateScore(game, round);
 });
 
 // onGameEnd is triggered when the game ends.
@@ -77,8 +84,8 @@ Empirica.onGameEnd(game => {});
 // If you are not using these callbacks, comment them out so the system does
 // not call them for nothing.
 
-// // onSet is called when the experiment code call the .set() method
-// // on games, rounds, stages, players, playerRounds or playerStages.
+// onSet is called when the experiment code call the .set() method
+// on games, rounds, stages, players, playerRounds or playerStages.
 Empirica.onSet((
   game,
   round,

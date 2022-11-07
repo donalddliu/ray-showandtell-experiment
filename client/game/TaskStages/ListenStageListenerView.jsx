@@ -11,6 +11,7 @@ class ListenStageListenerView extends Component {
         super(props);  
     }
 
+
     handleButtonSelect= (symbolName) => {
         const {game, round, stage, player} = this.props;
 
@@ -37,7 +38,8 @@ class ListenStageListenerView extends Component {
             at: moment(TimeSync.serverTime(null, 1000)),
         })
 
-        player.set("submitted", true);
+        player.stage.set("submitted", true);
+
 
     }
 
@@ -77,7 +79,7 @@ class ListenStageListenerView extends Component {
 
     renderListenerStage() {
         const {game, round, stage, player} = this.props;
-        if (player.get("submitted")) {
+        if (player.stage.get("submitted")) {
             return this.renderListenerSubmitted();
         } else {
             const speakerId = player.round.get("pairedSpeaker");

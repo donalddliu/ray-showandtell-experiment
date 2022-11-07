@@ -80,8 +80,7 @@ class ChooseAdvisorsStage extends Component {
             object: currentTeam,
             at: moment(TimeSync.serverTime(null, 1000)),
         })
-        console.log("submitted");
-        player.set("submitted", true);
+        player.stage.set("submitted", true);
     }
 
     renderPlayerCards() {
@@ -160,7 +159,7 @@ class ChooseAdvisorsStage extends Component {
         const {game, round, stage, player} = this.props;
 
         if (player.round.get("role") === "Listener"){
-            if (player.get("submitted")) {
+            if (player.stage.get("submitted")) {
                 return this.renderListenerSubmitted()
             } else {
                 return this.renderStage()
