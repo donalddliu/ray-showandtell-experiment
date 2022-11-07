@@ -6,22 +6,20 @@ class PlayerCard extends Component {
     }
 
     // When button is selected, player sets the id of the button he selected
-    handleClick = () => {
-        const { game, round, stage, player, name, selected, handlePlayerSelect, handlePlayerDeselect } = this.props;
-        if (selected) {
-            handlePlayerDeselect(name);
-        } else {
-            handlePlayerSelect(name);
-        }
-    }
+    // handleClick = () => {
+    //     const { game, round, stage, player, name, selected, handlePlayerSelect, handlePlayerDeselect } = this.props;
+    //     if (selected) {
+    //         handlePlayerDeselect(name);
+    //     } else {
+    //         handlePlayerSelect(name);
+    //     }
+    // }
 
     render() {
         const { name, selected } = this.props;
         return (
-            <div className={`symbol-container`} >
-                <button className={`${selected ? "symbolButtonSelected" : "symbolButtonUnselected"}`} onClick={this.handleClick}>
-                    {name}
-                </button>
+            <div className="advisor-name-container">
+                {name} advises
             </div>
         );
     }

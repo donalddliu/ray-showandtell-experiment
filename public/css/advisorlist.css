@@ -1,0 +1,20 @@
+.advisor-container{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 5px 0px;
+    border-bottom: 2px solid var(--darkblue);
+}
+
+.advisor-name-container {
+    display: flex;
+
+}
+
+.advisor-advice-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+}

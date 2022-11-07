@@ -59,12 +59,13 @@
       listenerPlayer.round.set('puzzleAnswer', puzzleAnswer);
       listenerPlayer.round.set('adviceReceived', {});
 
-      const advisorPool = availableAdvisors;
+      const advisorPool = [...availableAdvisors];
       for (let i = 0; i < numAdvisorsPerPair; i++) {
         var randomAdvisor = advisorPool[_.random(advisorPool.length-1)];
-        var usedAdvisor = _.remove[advisorPool, (p) => p === randomAdvisor];
-        chosenAdvisors.push(usedAdvisor);
+        var usedAdvisor = _.remove(advisorPool, (p) => p === randomAdvisor);
+        chosenAdvisors.push(randomAdvisor);
       }
+      listenerPlayer.round.set("chosenAdvisors", chosenAdvisors);
 
     }
     round.set("allRoles", allRoles);
@@ -132,26 +133,29 @@
       }
       const listenerPlayer = game.players.find((p) => p.get("nodeId") === listener);
       listenerPlayer.round.set("availableAdvisors", availableAdvisors);
-      listenerPlayer.round.set("chosenAdvisors", {}); // Stores {advisorId : requestUsed (bool), ... }
+      listenerPlayer.round.set("chosenAdvisors", []);
       allRolesPerRound.push(pair);
     }
+
+    console.log(allRolesPerRound);
     round.set("allRoles", allRolesPerRound);
     
   }
 
-  export function assignRequestsToAdvisors(game, round, structure, numAdvisorsPerPair , reqMutual) {
+  export function assignRequestsToAdvisors(game, round) {
     const allRolesPerRound = round.get("allRoles");
     for (let team of allRolesPerRound) {
       const {speaker, listener, availableAdvisors, chosenAdvisors} = team;
       for (let advisor of chosenAdvisors) {
-        const requestQueue = advisor.round.get("requestQueue");
+        const advisorPlayer = game.players.find((p) => p.get("nodeId") === advisor);
+        const requestQueue = advisorPlayer.round.get("requestQueue");
         const speakerPlayer = game.players.find((p) => p.get("nodeId") === speaker);
         const symbolDescription = speakerPlayer.round.get("symbolDescription");
         const puzzleSet = team.puzzleSet;
         const request = {requestorId: listener, puzzleSet: puzzleSet, symbolDescription: symbolDescription, received: false}
 
         requestQueue.push(request);
-        advisor.round.set("requestQueue", requestQueue);
+        advisorPlayer.round.set("requestQueue", requestQueue);
       }
     }
 

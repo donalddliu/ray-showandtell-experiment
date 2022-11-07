@@ -1,5 +1,5 @@
 import Empirica from "meteor/empirica:core";
-import { randomizeRoles, checkToGoNextStage, getPuzzles } from "./util";
+import { randomizeRoles, checkToGoNextStage, getPuzzles, assignRequestsToAdvisors } from "./util";
 
 
 
@@ -34,6 +34,10 @@ Empirica.onStageStart((game, round, stage) => {
   game.players.forEach(player => {
     player.set("submitted", false);
   })
+  if (stage.displayName === "Listen") {
+    console.log(round.get("allRoles"));
+    assignRequestsToAdvisors(game, round);
+  }
 });
 
 // onStageEnd is triggered after each stage.

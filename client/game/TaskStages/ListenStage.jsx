@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import SymbolButton from '../GameComponents/SymbolButton';
-import SymbolDisplay from '../GameComponents/SymbolDisplay';
 
 import { TimeSync } from "meteor/mizzao:timesync";
 import moment from "moment";
-import AdvisorList from '../GameComponents/AdvisorList';
+import ListenStageListenerView from './ListenStageListenerView';
+import ListenStageAdvisorView from "./ListenStageAdvisorView";
 
 class ListenStage extends Component {
     constructor(props) {
@@ -195,23 +194,17 @@ class ListenStage extends Component {
     render() {
         const {game, round, stage, player} = this.props;
         if (player.round.get("role") === "Listener"){
-            if (player.get("submitted")) {
-                return this.renderListenerSubmitted();
-            } else {
-                return (
-                    <div className="listen-container"> 
-                        {this.renderListenerStage()}
-                        <AdvisorList {...this.props} />
-                    </div>
-                )
-            }
-        } else if (player.round.get("role") === "Advisor"){
-            return this.renderAdvisorStage();
-            
+            return (
+                <ListenStageListenerView {...this.props} />
+            )
+        } else if (player.round.get("role") === "Advisor") {
+            console.log(player.round.get("requestQueue"));
+            return (
+                <ListenStageAdvisorView {...this.props} />
+            )
         } else {
-            return this.renderWait()
-        }
-        
+            return this.renderWait();
+        }      
     }
 }
 
