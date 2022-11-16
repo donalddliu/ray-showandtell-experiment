@@ -23,8 +23,18 @@ Empirica.onRoundStart((game, round) => {
     player.round.set("role", "None");
     player.round.set("activeChats", []);
   })
-  randomizeRoles(game, round, networkStructure, numSLPairs, reqMutual);
-  getPuzzles(game, round);
+
+  if (round.get("roundType") === "Task") {
+    randomizeRoles(game, round, networkStructure, numSLPairs, reqMutual);
+    getPuzzles(game, round);
+  }
+
+  if (round.get("roundType") === "Survey") {
+    game.players.forEach(player => {
+      player.round.set("surveyStageNumber", 1);
+    })
+  }
+
 
 });
 
@@ -34,6 +44,7 @@ Empirica.onStageStart((game, round, stage) => {
   game.players.forEach(player => {
     player.stage.get("submitted", false);
     if (stage.displayName === "Tell") {
+      // If it's a task round, get all the roles and puzzles
       if (player.round.get("role") !== "Speaker") {
         player.stage.set("submitted", true);
       }
@@ -44,6 +55,7 @@ Empirica.onStageStart((game, round, stage) => {
         player.stage.set("submitted", true);
       }
     }
+
   })
 
   if (stage.displayName === "Listen") {
@@ -58,7 +70,9 @@ Empirica.onStageEnd((game, round, stage) => {});
 // onRoundEnd is triggered after each round.
 // It receives the same options as onGameEnd, and the round that just ended.
 Empirica.onRoundEnd((game, round) => {
-  updateScore(game, round);
+  if (round.get("roundType") === "Task") {
+    updateScore(game, round);
+  }
 });
 
 // onGameEnd is triggered when the game ends.
@@ -114,6 +128,8 @@ Empirica.onSet((
     console.log("Listen Submitted");
     const role = "Listener";
     checkToGoNextStage(allPlayers, role);
+  } else if (stage.displayName === "Survey" && key === "submitted") {
+    
   }
   // // Example filtering
   // if (key !== "value") {

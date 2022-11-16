@@ -9,10 +9,20 @@ import ListenStage from "./TaskStages/ListenStage.jsx";
 import ChooseAdvisorsStage from "./TaskStages/ChooseAdvisorsStage.jsx";
 import AdvisorList from "./GameComponents/AdvisorList.jsx";
 
+// Mid Survey Imports
+import MidSurveyOne from "../mid-survey/MidSurvey1.jsx";
+import MidSurveyTwo from "../mid-survey/MidSurvey2.jsx";
+import MidSurveyThree from "../mid-survey/MidSurvey3.jsx";
+import MidSurveyFour from "../mid-survey/MidSurvey4.jsx";
+import MidSurveyFive from "../mid-survey/MidSurvey5.jsx";
+
+
+
 
 
 export default class Round extends React.Component {
-  render() {
+
+  renderTaskRound() {
     const { round, stage, player, game } = this.props;
 
     return (
@@ -25,11 +35,43 @@ export default class Round extends React.Component {
           { stage.displayName == "Listen" &&  <ListenStage {...this.props}/>}
           { stage.displayName == "Listen" && player.round.get("role") == "Listener" && <AdvisorList {...this.props}/>}
         </div>
-        <div>
-          {/* { stage.displayName == "Listen" &&  <SocialExposure {...this.props}/>} */}
-
-        </div>
       </div>
     );
+  }
+
+  onNextSurveyStage = () => {
+    const { round, stage, player, game } = this.props;
+    const currentSurveyStage = player.round.get("surveyStageNumber");
+    player.round.set("surveyStageNumber", currentSurveyStage + 1);
+  }
+
+  renderSurveyRound() {
+    const { round, stage, player, game } = this.props;
+
+    const currentSurveyStage = player.round.get("surveyStageNumber");
+    const surveyStageNumber = stage.name.split("_")[1]; // Survey 1_1 -> [Survey 1, 1]
+
+    return (
+      <div className="round">
+        {currentSurveyStage == 1 && <MidSurveyOne {...this.props} onNext={this.onNextSurveyStage}/>}
+        {currentSurveyStage == 2 && <MidSurveyTwo {...this.props} onNext={this.onNextSurveyStage}/>}
+        {currentSurveyStage == 3 && <MidSurveyThree {...this.props} onNext={this.onNextSurveyStage}/>}
+        {currentSurveyStage == 4 && <MidSurveyFour {...this.props} onNext={this.onNextSurveyStage}/>}
+        {currentSurveyStage == 5 && <MidSurveyFive {...this.props}/>}
+      </div>
+    )
+  }
+
+  render() {
+    const { round, stage, player, game } = this.props;
+    if (stage.displayName == "Survey") {
+      return (
+        this.renderSurveyRound()
+      )
+    }  else {
+      return (
+        this.renderTaskRound()
+      )
+    }
   }
 }

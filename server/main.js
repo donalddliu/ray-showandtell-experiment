@@ -1,3 +1,4 @@
+import _ from "lodash";
 import Empirica from "meteor/empirica:core";
 import "./bots.js";
 import "./callbacks.js";
@@ -17,13 +18,16 @@ Empirica.gameInit(game => {
     treatment: {
       playerCount,
       numTaskRounds,
-      showDuration,
+      numSurveyRounds,
       tellDuration,
       listenDuration,
-      chooseDuration,
+      surveyDuration,
       networkStructure
     }
   } = game;
+
+  let colors = ["Green", "Red", "Yellow", "Blue", "Purple", "White", "Black"]
+  colors = _.shuffle(colors);
 
 
   game.players.forEach((player, i) => {
@@ -31,32 +35,45 @@ Empirica.gameInit(game => {
     player.set("score", 0);
     player.set("nodeId", i + 1);
     player.set("neighbors", getNeighbors(networkStructure, player));
+    player.set("anonymousName", colors[i]);
     console.log(player.get("neighbors"));
   });
+
+  const numTasksPerSurvey = numTaskRounds/numSurveyRounds;
+  let surveyRoundsAdded = 0;
+  let taskRoundsAdded = 0;
 
   _.times(numTaskRounds, i => {
     const round = game.addRound();
 
-    // const {symbols, taskName, answer} = testingRounds[0];
-    // round.set("answer", answer);
-    // round.set("symbolSet", symbols);
+    if (taskRoundsAdded > 0 && taskRoundsAdded % numTasksPerSurvey == 0) {
 
-    // const showRound = round.addStage({
-    //   name: `Show ${i}`,
-    //   displayName: `Show`,
-    //   durationInSeconds: showDuration
-    // });
+      surveyRoundsAdded++;
 
-    const tellRound = round.addStage({
-      name: `Tell ${i}`,
-      displayName: `Tell`,
-      durationInSeconds: tellDuration
-    })
+      round.addStage({
+        name: `Survey ${surveyRoundsAdded}`,
+        displayName: `Survey`,
+        durationInSeconds: surveyDuration
+      })
 
-    const listenRound = round.addStage({
-      name: `Listen ${i}`,
-      displayName: `Listen`,
-      durationInSeconds: listenDuration
-    })
+      round.set("roundType", "Survey");
+
+    } else {
+      taskRoundsAdded++;
+
+      const tellStage = round.addStage({
+        name: `Tell ${taskRoundsAdded}`,
+        displayName: `Tell`,
+        durationInSeconds: tellDuration
+      })
+  
+      const listenStage = round.addStage({
+        name: `Listen ${taskRoundsAdded}`,
+        displayName: `Listen`,
+        durationInSeconds: listenDuration
+      })
+
+      round.set("roundType", "Task");
+    }
   });
 });

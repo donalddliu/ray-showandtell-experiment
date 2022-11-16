@@ -139,9 +139,11 @@
         const speakerPlayer = game.players.find((p) => p.get("nodeId") === speaker);
         const symbolDescription = speakerPlayer.round.get("symbolDescription");
         const listenerPlayer = game.players.find((p) => p.get("nodeId") === listener);
+        const listenerColor = listenerPlayer.get("anonymousName");
+
         const listenerPuzzleSet = listenerPlayer.round.get("puzzleSet");
         // const puzzleSet = team.puzzleSet;
-        const request = {requestorId: listener, puzzleSet: listenerPuzzleSet, symbolDescription: symbolDescription, received: false}
+        const request = {requestorId: listener, requestorColor: listenerColor, puzzleSet: listenerPuzzleSet, symbolDescription: symbolDescription, received: false}
 
         requestQueue.push(request);
         advisorPlayer.round.set("requestQueue", requestQueue);
@@ -169,6 +171,20 @@
     })
 
     if (allSimilarRoleSubmitted) {
+      allPlayers.forEach((player) => {
+        player.stage.submit();
+      })
+    }
+  }
+
+  export function checkEveryoneFinishedSurvey(allPlayers) {
+    let allSubmitted = true;
+
+    allPlayers.forEach((player) => {
+      allSubmitted = player.stage.get("submitted") && allSubmitted;
+    })
+
+    if (allSubmitted) {
       allPlayers.forEach((player) => {
         player.stage.submit();
       })

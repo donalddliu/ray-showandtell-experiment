@@ -84,6 +84,7 @@ class ListenStageListenerView extends Component {
         } else {
             const speakerId = player.round.get("pairedSpeaker");
             const speakerPlayer = game.players.find((p) => p.get("nodeId") === speakerId);
+            const speakerColor = speakerPlayer.get("anonymousName");
     
             const symbolDescription = speakerPlayer.round.get("symbolDescription");
             const puzzleSet = player.round.get("puzzleSet");
@@ -92,7 +93,7 @@ class ListenStageListenerView extends Component {
             return (
                 <div className="task-response-container">
                     <div className="task-response-header">
-                        <header> Choose the symbol that best represents the following description: </header>
+                        <header> Choose the symbol that best represents the following description given by Player {speakerColor}: </header>
                         <header> { symbolDescription } </header>
                     </div>
                     <div className="task-response-body">
