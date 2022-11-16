@@ -1,5 +1,5 @@
 treatments:
-  - name: debugGame
+  - name: debugGame1
     factorIds:
       - YJf3w33stc6maF5L5
       - QCBsQhfoia2qSktWq
@@ -9,6 +9,18 @@ treatments:
       - aAJmSP59JoHtH7349
       - mteWcmPNzGJ7PiNDg
       - ioMoR8wDe983oY6dz
+  - name: debugGame
+    factorIds:
+      - YJf3w33stc6maF5L5
+      - QCBsQhfoia2qSktWq
+      - P5vCxewiYFW9Ni5kA
+      - dymEsC3e744QWe4Bm
+      - y9Gosgtt6TjtRwDtu
+      - aAJmSP59JoHtH7349
+      - mteWcmPNzGJ7PiNDg
+      - ioMoR8wDe983oY6dz
+      - RbSWb6bnsbe3z9w32
+      - oEr7fJ8qbFpx5gEYe
 factorTypes:
   - _id: dpdxEZmi24ygd9wBB
     name: playerCount
@@ -82,6 +94,25 @@ factorTypes:
       listener.
     required: true
     type: Boolean
+  - _id: DtmwSjC5BTqxJN2p7
+    name: numSurveyRounds
+    description: >-
+      Number of survey rounds in a game. Survey rounds are rounds where all
+      players answer a brief survey about the game. These surveys will be evenly
+      placed throughout the entire game. Survey rounds are done asynchronously.
+    required: true
+    type: Number
+    min: 0
+    max: 999
+  - _id: ahdE3JQ8Hp3us8Tw2
+    name: surveyDuration
+    description: >-
+      Duration of time (in seconds) that players are allowed to complete the
+      mid-game surveys. If this duration passes, the stage will end.
+    required: true
+    type: Number
+    min: 0
+    max: 99999
 factors:
   - _id: eByq9fXjzZpaQfdaR
     name: 'true'
@@ -141,6 +172,26 @@ factors:
       1-2, 1-3, 1-4, 1-5, 1-6, 2-1, 2-3, 2-4, 2-5, 2-6, 3-1, 3-2, 3-4, 3-5, 3-6,
       4-1, 4-2, 4-3, 4-5, 4-6, 5-1, 5-2, 5-3, 5-4, 5-6, 6-1, 6-2, 6-3, 6-4, 6-5
     factorTypeId: uj7xmZrn9suPsaYfn
+  - _id: RbSWb6bnsbe3z9w32
+    name: two
+    value: 2
+    factorTypeId: DtmwSjC5BTqxJN2p7
+  - _id: XSkxthG9wfrD49Ja5
+    name: three
+    value: 3
+    factorTypeId: DtmwSjC5BTqxJN2p7
+  - _id: P5vCxewiYFW9Ni5kA
+    name: six
+    value: '6'
+    factorTypeId: aJr3d7oPHGLYPbKsa
+  - _id: oEr7fJ8qbFpx5gEYe
+    name: veryLong
+    value: 99999
+    factorTypeId: ahdE3JQ8Hp3us8Tw2
+  - _id: L4sx4p3AigdqqBwiH
+    name: tenMinutes
+    value: 600
+    factorTypeId: ahdE3JQ8Hp3us8Tw2
 lobbyConfigs:
   - name: Default
     timeoutType: lobby
