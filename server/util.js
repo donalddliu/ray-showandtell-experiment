@@ -137,13 +137,14 @@
         const advisorPlayer = game.players.find((p) => p.get("nodeId") === advisor);
         const requestQueue = advisorPlayer.round.get("requestQueue");
         const speakerPlayer = game.players.find((p) => p.get("nodeId") === speaker);
+        const speakerColor = speakerPlayer.get("anonymousName");
         const symbolDescription = speakerPlayer.round.get("symbolDescription");
         const listenerPlayer = game.players.find((p) => p.get("nodeId") === listener);
         const listenerColor = listenerPlayer.get("anonymousName");
 
         const listenerPuzzleSet = listenerPlayer.round.get("puzzleSet");
         // const puzzleSet = team.puzzleSet;
-        const request = {requestorId: listener, requestorColor: listenerColor, puzzleSet: listenerPuzzleSet, symbolDescription: symbolDescription, received: false}
+        const request = {requestorId: listener, requestorColor: listenerColor, speakerId: speaker, speakerColor: speakerColor, puzzleSet: listenerPuzzleSet, symbolDescription: symbolDescription, received: false}
 
         requestQueue.push(request);
         advisorPlayer.round.set("requestQueue", requestQueue);

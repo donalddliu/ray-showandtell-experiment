@@ -90,20 +90,22 @@ class ListenStageAdvisorView extends Component {
     renderAdvisorStage() {
         const {game, round, stage, player} = this.props;
         const requestQueue = player.round.get("requestQueue");
+        console.log(requestQueue);
          
         if (requestQueue.length === 0) {
             return this.renderWait();
         } else {
-            const {requestorId, puzzleSet, symbolDescription} = requestQueue[0];
+            const {requestorId, requestorColor, speakerId, speakerColor, puzzleSet, symbolDescription} = requestQueue[0];
+
             const selected = player.round.get("symbolSelected");
 
 
             return (
                 <div className="task-response-container">
                     <div className="task-response-header">
-                        <header> {requestorId} has asked for your advice on the following puzzle </header>
+                        <header> Player {requestorColor} has asked for your advice on the following puzzle </header>
                         <br></br>
-                        <header> Choose the symbol that best represents the following description: </header>
+                        <header> Choose the symbol that best represents the following description given by Player {speakerColor}: </header>
                         <header> {symbolDescription} </header>
                     </div>
                     <div className="task-response-body">

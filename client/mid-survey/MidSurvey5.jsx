@@ -55,13 +55,14 @@ export default class MidSurveyFive extends React.Component {
     const { game, round, stage, player } = this.props;
     const { response } = this.state;
 
-    const submitted = player.get("submitted");
 
+    console.log(player.stage.get("submitted"));
     const currentSurveyStage = player.round.get("surveyStageNumber");
     const completedWidth = 590/5 * currentSurveyStage
     const uncompletedWidth = 590 - completedWidth;
     const offset = 590/5 * 0.5;
     const stageNumPosition = completedWidth - offset;
+
 
     return (
       <Centered>

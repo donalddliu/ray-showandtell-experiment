@@ -44,36 +44,39 @@ Empirica.gameInit(game => {
   let taskRoundsAdded = 0;
 
   _.times(numTaskRounds, i => {
-    const round = game.addRound();
+    const taskRound = game.addRound();
+
+    taskRoundsAdded++;
+    const tellStage = taskRound.addStage({
+      name: `Tell ${taskRoundsAdded}`,
+      displayName: `Tell`,
+      durationInSeconds: tellDuration
+    })
+
+    const listenStage = taskRound.addStage({
+      name: `Listen ${taskRoundsAdded}`,
+      displayName: `Listen`,
+      durationInSeconds: listenDuration
+    })
+
+    taskRound.set("roundType", "Task");
+
+
 
     if (taskRoundsAdded > 0 && taskRoundsAdded % numTasksPerSurvey == 0) {
 
+      const surveyRound = game.addRound();
       surveyRoundsAdded++;
 
-      round.addStage({
+      surveyRound.addStage({
         name: `Survey ${surveyRoundsAdded}`,
         displayName: `Survey`,
         durationInSeconds: surveyDuration
       })
 
-      round.set("roundType", "Survey");
+      surveyRound.set("roundType", "Survey");
 
-    } else {
-      taskRoundsAdded++;
+    } 
 
-      const tellStage = round.addStage({
-        name: `Tell ${taskRoundsAdded}`,
-        displayName: `Tell`,
-        durationInSeconds: tellDuration
-      })
-  
-      const listenStage = round.addStage({
-        name: `Listen ${taskRoundsAdded}`,
-        displayName: `Listen`,
-        durationInSeconds: listenDuration
-      })
-
-      round.set("roundType", "Task");
-    }
   });
 });

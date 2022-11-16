@@ -1,5 +1,5 @@
 import Empirica from "meteor/empirica:core";
-import { randomizeRoles, checkToGoNextStage, getPuzzles, assignRequestsToAdvisors, updateScore } from "./util";
+import { randomizeRoles, checkToGoNextStage, getPuzzles, assignRequestsToAdvisors, updateScore, checkEveryoneFinishedSurvey } from "./util";
 
 
 
@@ -129,7 +129,8 @@ Empirica.onSet((
     const role = "Listener";
     checkToGoNextStage(allPlayers, role);
   } else if (stage.displayName === "Survey" && key === "submitted") {
-    
+    console.log("Survey Submitted");
+    checkEveryoneFinishedSurvey(allPlayers);
   }
   // // Example filtering
   // if (key !== "value") {

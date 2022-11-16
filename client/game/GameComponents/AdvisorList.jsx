@@ -80,11 +80,14 @@ class AdvisorList extends Component {
 
         return(
             chosenAdvisors.map((advisor) => {
+                const advisorPlayer = game.players.find((p) => p.get("nodeId") === advisor);
+                const advisorColor = advisorPlayer.get("anonymousName");
+
                 return (
                     <div className="advisor-container">
                         <PlayerCard
                             key={advisor}
-                            name={advisor}
+                            name={advisorColor}
                             {...this.props}
                         />
                         <div className="advisor-advice-container">
