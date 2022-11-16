@@ -29,11 +29,16 @@ export default class Round extends React.Component {
       <div className="round">
         <div className="content">
           <PlayerProfile player={player} stage={stage} game={game} />
+          {/* Display the stage for each type of role */}
           { stage.displayName == "Choose" && <ChooseAdvisorsStage {...this.props} />}
           { stage.displayName == "Show" &&  <ShowStage {...this.props}/> }
           { stage.displayName == "Tell" &&  <TellStage {...this.props}/> }
           { stage.displayName == "Listen" &&  <ListenStage {...this.props}/>}
           { stage.displayName == "Listen" && player.round.get("role") == "Listener" && <AdvisorList {...this.props}/>}
+
+          {/* Add empty advisor list column to make game symmetric */}
+          { stage.displayName != "Listen" && player.round.get("role") == "Listener" && <div className="advisor-list-container"> </div>}
+          { player.round.get("role") != "Listener" && <div className="advisor-list-container" > </div>}
         </div>
       </div>
     );

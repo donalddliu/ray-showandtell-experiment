@@ -79,46 +79,50 @@ class AdvisorList extends Component {
         const adviceReceived = player.round.get("adviceReceived"); // {advisorId: symbolSelected}
 
         return(
-            chosenAdvisors.map((advisor) => {
-                const advisorPlayer = game.players.find((p) => p.get("nodeId") === advisor);
-                const advisorColor = advisorPlayer.get("anonymousName");
+            <div className="advisor-list-container">
+                <h3 className="advisor-list-header">
+                    Your Advisor List
+                </h3>
+                {chosenAdvisors.map((advisor) => {
+                    const advisorPlayer = game.players.find((p) => p.get("nodeId") === advisor);
+                    const advisorColor = advisorPlayer.get("anonymousName");
 
-                return (
-                    <div className="advisor-container">
-                        <PlayerCard
-                            key={advisor}
-                            name={advisorColor}
-                            {...this.props}
-                        />
-                        <div className="advisor-advice-container">
-                            {adviceReceived.hasOwnProperty(advisor) ? 
-                                puzzleSet.map((symbol) => {
-                                    return (
-                                        <SymbolDisplay
-                                            key={symbol}
-                                            name={symbol}
-                                            selected={adviceReceived[advisor] === symbol}
-                                            {...this.props}
-                                        />
-                                    )
-                                })
-                                :
-                                "Waiting on advice..."
-                            }
-                        </div>
+                    return (
+                            <div className="advisor-container">
+                                <PlayerCard
+                                    key={advisor}
+                                    name={advisorColor}
+                                    {...this.props}
+                                />
+                                <div className="advisor-advice-container">
+                                    {adviceReceived.hasOwnProperty(advisor) ? 
+                                        puzzleSet.map((symbol) => {
+                                            return (
+                                                <SymbolDisplay
+                                                    key={symbol}
+                                                    name={symbol}
+                                                    selected={adviceReceived[advisor] === symbol}
+                                                    {...this.props}
+                                                />
+                                            )
+                                        })
+                                        :
+                                        "Waiting on advice..."
+                                    }
+                                </div>
 
-                    </div>
-                )
-            })
+                            </div>
+                    )
+                })}
+            </div>
+
         )
     }
 
     render() {
         const {game, round, stage, player} = this.props;
         return (
-            <div className="social-exposure">
-                {this.renderAdvisorList()}
-            </div>
+            this.renderAdvisorList()
         );
     }
 }

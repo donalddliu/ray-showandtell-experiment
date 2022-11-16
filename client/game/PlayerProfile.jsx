@@ -12,12 +12,12 @@ export default class PlayerProfile extends React.Component {
     return (
       <div className="profile-score">
         <h3>Your Profile</h3>
-        <h4> Node ID : {player.get("nodeId")} </h4>
+        <h4> Name : {player.get("anonymousName")} </h4>
         <h4> Role : {player.round.get("role")}</h4>
-        <h4> S: {pairedSpeakers}</h4>
+        {/* <h4> S: {pairedSpeakers}</h4>
         <h4> L: {pairedListeners}</h4>
         <h4> A: {advisors}</h4>
-        <img src={player.get("avatar")} className="profile-avatar" />
+        <img src={player.get("avatar")} className="profile-avatar" /> */}
       </div>
     );
   }

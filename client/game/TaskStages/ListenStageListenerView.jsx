@@ -108,7 +108,9 @@ class ListenStageListenerView extends Component {
                             <form onSubmit={this.handleSubmit}>
                                 <button 
                                 className={!selected ? "arrow-button button-submit-disabled" : "arrow-button button-submit"} 
-                                disabled= {!selected ? true : false} type="submit"> Submit </button> 
+                                disabled= {!selected ? true : false} 
+                                style={{marginTop: "20px"}}
+                                type="submit"> Submit </button> 
                             </form>
                         </div>
     
