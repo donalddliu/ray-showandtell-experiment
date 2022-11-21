@@ -1,4 +1,10 @@
-  import _ from 'lodash';
+  import _, { update } from 'lodash';
+
+  function updateRecentConnections(player, connectionId) {
+    const recentConnections = new Set(player.get("recentConnections"));
+    recentConnections.add(connectionId);
+    player.set("recentConnections", [...recentConnections]);
+  }
   
   export function getNeighbors(structure, player) {
     const neighbors = [];
@@ -90,6 +96,11 @@
         speakerPlayer.round.set("pairedListener", listenerId);
         listenerPlayer.round.set("role", "Listener");
         listenerPlayer.round.set("pairedSpeaker", speakerId);
+
+        // Add SL pair to each player's recent connections
+        updateRecentConnections(speakerPlayer, listenerId);
+        updateRecentConnections(listenerPlayer, speakerId);
+
       }
     }
     
@@ -148,6 +159,18 @@
 
         requestQueue.push(request);
         advisorPlayer.round.set("requestQueue", requestQueue);
+
+        // Add advisors to player's recent connections
+        // updateRecentConnections(speakerPlayer, advisor);
+        // updateRecentConnections(listenerPlayer, advisor);
+
+        // updateRecentConnections(advisorPlayer, speaker);
+        // updateRecentConnections(advisorPlayer, listener);
+        updateRecentConnections(speakerPlayer, advisor);
+        updateRecentConnections(listenerPlayer, advisor);
+
+        updateRecentConnections(advisorPlayer, speaker);
+        updateRecentConnections(advisorPlayer, listener);
       }
     }
 
@@ -202,12 +225,18 @@
       
       // If listener selects correct answer, give them points, otherwise deduct points
       let newListenerScore = prevListenerScore;
+      let taskCorrect = false;
       if (listenerPlayer.round.get("symbolSelected") === puzzleAnswer) {
         newListenerScore = prevListenerScore + 1;
+        taskCorrect = true;
+
       } else {
         newListenerScore = Math.max(prevListenerScore - 0.1, 0);
+
       }
       listenerPlayer.set("score", newListenerScore);
+      speakerPlayer.round.set("taskCorrect", taskCorrect);
+      listenerPlayer.round.set("taskCorrect", taskCorrect);
 
     }
   }

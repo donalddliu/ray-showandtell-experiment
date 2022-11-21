@@ -6,7 +6,11 @@ import { randomizeRoles, checkToGoNextStage, getPuzzles, assignRequestsToAdvisor
 // onGameStart is triggered opnce per game before the game starts, and before
 // the first onRoundStart. It receives the game and list of all the players in
 // the game.
-Empirica.onGameStart(game => {});
+Empirica.onGameStart(game => {
+  game.players.forEach(player => {
+    player.set("recentConnections", []);
+  })
+});
 
 // onRoundStart is triggered before each round starts, and before onStageStart.
 // It receives the same options as onGameStart, and the round that is starting.
@@ -21,7 +25,7 @@ Empirica.onRoundStart((game, round) => {
   // Initiate all roles to None, then randomly assign speaker-listener roles
   game.players.forEach(player => {
     player.round.set("role", "None");
-    player.round.set("activeChats", []);
+    // player.round.set("activeChats", []);
   })
 
   if (round.get("roundType") === "Task") {
@@ -65,13 +69,21 @@ Empirica.onStageStart((game, round, stage) => {
 
 // onStageEnd is triggered after each stage.
 // It receives the same options as onRoundEnd, and the stage that just ended.
-Empirica.onStageEnd((game, round, stage) => {});
+Empirica.onStageEnd((game, round, stage) => {
+  if (stage.displayName === "Listen") {
+    updateScore(game, round);
+  }
+
+});
 
 // onRoundEnd is triggered after each round.
 // It receives the same options as onGameEnd, and the round that just ended.
 Empirica.onRoundEnd((game, round) => {
-  if (round.get("roundType") === "Task") {
-    updateScore(game, round);
+
+  if (round.get("roundType") === "Survey") { // Reset a player's connections for next interval of tasks
+    game.players.forEach((player) => {
+      player.set("recentConnections", []);
+    })
   }
 });
 

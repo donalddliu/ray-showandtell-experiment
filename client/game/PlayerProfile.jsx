@@ -14,6 +14,7 @@ export default class PlayerProfile extends React.Component {
         <h3>Your Profile</h3>
         <h4> Name : {player.get("anonymousName")} </h4>
         <h4> Role : {player.round.get("role")}</h4>
+        <h4> Node Id : {player.get("nodeId")}</h4>
         {/* <h4> S: {pairedSpeakers}</h4>
         <h4> L: {pairedListeners}</h4>
         <h4> A: {advisors}</h4>

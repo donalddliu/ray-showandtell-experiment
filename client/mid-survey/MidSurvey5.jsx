@@ -56,7 +56,6 @@ export default class MidSurveyFive extends React.Component {
     const { response } = this.state;
 
 
-    console.log(player.stage.get("submitted"));
     const currentSurveyStage = player.round.get("surveyStageNumber");
     const completedWidth = 590/5 * currentSurveyStage
     const uncompletedWidth = 590 - completedWidth;

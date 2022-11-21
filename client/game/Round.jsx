@@ -15,6 +15,7 @@ import MidSurveyTwo from "../mid-survey/MidSurvey2.jsx";
 import MidSurveyThree from "../mid-survey/MidSurvey3.jsx";
 import MidSurveyFour from "../mid-survey/MidSurvey4.jsx";
 import MidSurveyFive from "../mid-survey/MidSurvey5.jsx";
+import Results from "./GameComponents/results/Results.jsx";
 
 
 
@@ -25,23 +26,31 @@ export default class Round extends React.Component {
   renderTaskRound() {
     const { round, stage, player, game } = this.props;
 
-    return (
-      <div className="round">
-        <div className="content">
-          <PlayerProfile player={player} stage={stage} game={game} />
-          {/* Display the stage for each type of role */}
-          { stage.displayName == "Choose" && <ChooseAdvisorsStage {...this.props} />}
-          { stage.displayName == "Show" &&  <ShowStage {...this.props}/> }
-          { stage.displayName == "Tell" &&  <TellStage {...this.props}/> }
-          { stage.displayName == "Listen" &&  <ListenStage {...this.props}/>}
-          { stage.displayName == "Listen" && player.round.get("role") == "Listener" && <AdvisorList {...this.props}/>}
-
-          {/* Add empty advisor list column to make game symmetric */}
-          { stage.displayName != "Listen" && player.round.get("role") == "Listener" && <div className="advisor-list-container"> </div>}
-          { player.round.get("role") != "Listener" && <div className="advisor-list-container" > </div>}
+    if (stage.displayName == "Result") {
+      return (
+        <div className="round">
+          <Results {...this.props} />
         </div>
-      </div>
-    );
+      )
+    } else {
+      return (
+        <div className="round">
+          <div className="content">
+            <PlayerProfile player={player} stage={stage} game={game} />
+            {/* Display the stage for each type of role */}
+            { stage.displayName == "Choose" && <ChooseAdvisorsStage {...this.props} />}
+            { stage.displayName == "Show" &&  <ShowStage {...this.props}/> }
+            { stage.displayName == "Tell" &&  <TellStage {...this.props}/> }
+            { stage.displayName == "Listen" &&  <ListenStage {...this.props}/>}
+            { stage.displayName == "Listen" && player.round.get("role") == "Listener" && <AdvisorList {...this.props}/>}
+
+            {/* Add empty advisor list column to make game symmetric */}
+            { stage.displayName != "Listen" && player.round.get("role") == "Listener" && <div className="advisor-list-container"> </div>}
+            { player.round.get("role") != "Listener" && <div className="advisor-list-container" > </div>}
+          </div>
+        </div>
+      );
+    }
   }
 
   onNextSurveyStage = () => {
@@ -67,8 +76,10 @@ export default class Round extends React.Component {
     )
   }
 
+
   render() {
     const { round, stage, player, game } = this.props;
+
     if (stage.displayName == "Survey") {
       return (
         this.renderSurveyRound()
