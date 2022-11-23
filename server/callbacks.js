@@ -142,7 +142,7 @@ Empirica.onSet((
     checkToGoNextStage(allPlayers, role);
   } else if (stage.displayName === "Survey" && key === "submitted") {
     console.log("Survey Submitted");
-    checkEveryoneFinishedSurvey(allPlayers);
+    checkEveryoneFinishedSurvey(allPlayers, round);
   }
   // // Example filtering
   // if (key !== "value") {

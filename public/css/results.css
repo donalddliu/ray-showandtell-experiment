@@ -73,6 +73,18 @@
 
 }
 
+.survey-progress-bar-container {
+    display: flex;
+    height: 3px;
+    width: 100%;
+    background-color: white;
+}
+
+.survey-progress-bar-filled {
+    background-color: var(--turquoise);
+    transition: 'width 1s ease-in-out',
+}
+
 /* -----------------
 - Failed Attention Check -
 ----------------- */

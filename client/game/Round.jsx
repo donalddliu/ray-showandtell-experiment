@@ -15,6 +15,7 @@ import MidSurveyTwo from "../mid-survey/MidSurvey2.jsx";
 import MidSurveyThree from "../mid-survey/MidSurvey3.jsx";
 import MidSurveyFour from "../mid-survey/MidSurvey4.jsx";
 import MidSurveyFive from "../mid-survey/MidSurvey5.jsx";
+import ProgressBar from "../mid-survey/ProgressBar.jsx";
 import Results from "./GameComponents/results/Results.jsx";
 
 
@@ -59,11 +60,38 @@ export default class Round extends React.Component {
     player.round.set("surveyStageNumber", currentSurveyStage + 1);
   }
 
+  renderSurveySubmitted() {
+    const { round, stage, player, game } = this.props;
+
+    const numActivePlayers = game.players.filter(p => !p.get("inactive")).length;
+
+    let numPlayersSubmitted = round.get("numPlayersSubmitted");
+    let numPlayersNotSubmitted = numActivePlayers - numPlayersSubmitted;
+
+    
+    return (
+      <div className="survey-wait-container">
+        <img className="survey-wait-static-image" src={`images/title-please-hold.png`} />
+        <div className="survey-wait-content">
+          <h1 className="results-text">Waiting for all members to submit the survey </h1>
+          <h1 className="results-text"> {numPlayersSubmitted}/{numActivePlayers} submitted </h1>
+          <ProgressBar percentSubmitted={numPlayersSubmitted/numActivePlayers * 100} />
+        </div>
+      </div>
+    );
+
+
+  }
+
   renderSurveyRound() {
     const { round, stage, player, game } = this.props;
 
+    const surveySubmitted = player.stage.get("submitted");
     const currentSurveyStage = player.round.get("surveyStageNumber");
     const surveyStageNumber = stage.name.split("_")[1]; // Survey 1_1 -> [Survey 1, 1]
+    if (surveySubmitted) {
+      return this.renderSurveySubmitted();
+    }
 
     return (
       <div className="round">

@@ -201,12 +201,19 @@
     }
   }
 
-  export function checkEveryoneFinishedSurvey(allPlayers) {
+  export function checkEveryoneFinishedSurvey(allPlayers, round) {
     let allSubmitted = true;
+    let numPlayersSubmitted = 0;
+
 
     allPlayers.forEach((player) => {
+      if (player.stage.get("submitted")) {
+        numPlayersSubmitted += 1;
+      }
       allSubmitted = player.stage.get("submitted") && allSubmitted;
     })
+
+    round.set("numPlayersSubmitted", numPlayersSubmitted);
 
     if (allSubmitted) {
       allPlayers.forEach((player) => {
