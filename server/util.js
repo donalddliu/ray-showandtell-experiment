@@ -166,10 +166,8 @@
 
         // updateRecentConnections(advisorPlayer, speaker);
         // updateRecentConnections(advisorPlayer, listener);
-        updateRecentConnections(speakerPlayer, advisor);
         updateRecentConnections(listenerPlayer, advisor);
 
-        updateRecentConnections(advisorPlayer, speaker);
         updateRecentConnections(advisorPlayer, listener);
       }
     }
