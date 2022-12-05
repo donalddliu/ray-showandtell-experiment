@@ -50,7 +50,7 @@
       listenerPlayer.round.set('puzzleSet', _.shuffle(puzzleSet));
       listenerPlayer.round.set('adviceReceived', {});
       speakerPlayer.round.set('puzzleAnswer', puzzleAnswer);
-      listenerPlayer.round.set('puzzleAnswer', _.shuffle(puzzleAnswer));
+      listenerPlayer.round.set('puzzleAnswer', puzzleAnswer);
       listenerPlayer.round.set('adviceReceived', {});
 
       const advisorPool = [...availableAdvisors];
@@ -239,8 +239,8 @@
         newListenerScore = Math.max(prevListenerScore - 0.1, 0);
       }
       listenerPlayer.set("score", newListenerScore);
-      speakerPlayer.round.set("taskCorrect", [taskCorrect, puzzleAnswer]);
-      listenerPlayer.round.set("taskCorrect", [taskCorrect, puzzleAnswer]);
+      speakerPlayer.round.set("taskCorrect", taskCorrect);
+      listenerPlayer.round.set("taskCorrect", taskCorrect);
 
     }
   }

@@ -14,9 +14,10 @@ export default class Results extends React.Component {
     const correctMessage = "Your team was correct, congratulations!";
     const incorrectMessage = "Your team was not correct, better luck on the next one.";
 
-    const [result, listenerPuzzleAnswer] = player.round.get("taskCorrect");
+    const result = player.round.get("taskCorrect");
 
     const listenerPuzzleSet = player.round.get("puzzleSet");
+    const listenerPuzzleAnswer = player.round.get("puzzleAnswer");
     const listenerAnswer = player.round.get("symbolSubmitted");
     const adviceReceived = player.round.get("adviceReceived"); // {advisorId: symbolSelected}
     
@@ -28,16 +29,12 @@ export default class Results extends React.Component {
             <div className="results-symbol-display">
               {
                 listenerPuzzleSet.map((symbol) => {
-                  console.log(symbol);
-                  console.log(Object.values(adviceReceived).includes(symbol));
-                  console.log(listenerPuzzleAnswer === symbol);
-
                   return(
                     <div>
                       <div className="players-selected-container">
                         <div className="listeners-selected">
                           {symbol === listenerAnswer ? 
-                            <div>{player.get("anonymousName")} (You) </div> : ""
+                            <div>{player.get("anonymousName")}(You) </div> : ""
                           }
                         </div>
                         <div className="advisors-selected">
@@ -73,7 +70,56 @@ export default class Results extends React.Component {
   }
 
 
-  renderSpeakerResults = (listenerAnswer) => {
+  renderSpeakerResults = () => {
+    const { stage, round, player, game } = this.props;
+
+    const correctMessage = "Your team was correct, congratulations!";
+    const incorrectMessage = "Your team was not correct, better luck on the next one.";
+
+    const result = player.round.get("taskCorrect");
+
+    const speakerPuzzleSet = player.round.get("puzzleSet");
+    const speakerPuzzleAnswer = player.round.get("puzzleAnswer");
+    const listenerId = player.round.get("pairedListener");
+    const listenerPlayer = game.players.find((p)  => p.get("nodeId") === listenerId);
+    const listenerAnswer = listenerPlayer.round.get("symbolSubmitted");
+
+    return(
+      <div className="results-container">
+          <div className="results-content">
+              <h1 className="results-text"> {result ? correctMessage : incorrectMessage} </h1>
+              <img src={`images/hr-color.png`} width="200px" height="3px" />
+              <div className="results-symbol-display">
+                {
+                  speakerPuzzleSet.map((symbol) => {
+                    return(
+                      <div>
+                        <div className="players-selected-container">
+                          <div className="listeners-selected">
+                            {symbol === listenerAnswer ? 
+                              <div>{player.get("anonymousName")}</div> : ""
+                            }
+                          </div>
+                          <div className="advisors-selected">
+                            
+                          </div>
+                        </div>  
+                        <SymbolDisplay
+                          key={symbol}
+                          name={symbol}
+                          selected={symbol == listenerAnswer && result ? "correct" : "wrong"} 
+                          {...this.props}
+                        />
+                      </div>
+                    )
+                  }) 
+                }  
+              
+              </div>  
+              <ResultsTimer stage={stage}/>
+          </div>
+        </div>
+    );
 
   }
 
@@ -86,16 +132,8 @@ export default class Results extends React.Component {
 
     if (player.round.get("role") === "Listener") {
       return this.renderListenerResults();
-      // const result = player.round.get("taskCorrect");
-      // const listenerPuzzleSet = player.round.get("puzzleSet");
-      // const listenerAnswer = player.round.get("symbolCorrect");
-      // const adviceReceived = player.round.get("adviceReceived"); // {advisorId: symbolSelected}
     } else if (player.round.get("role") === "Speaker") {
-      const result = player.round.get("taskCorrect");
-      const listenerId = player.round.get("pairedListener");
-      const listenerPlayer = game.players.find((p)  => p.get("nodeId") === listenerId);
-      const speakerPuzzleSet = player.round.get("puzzleSet");
-      const listenerAnswer = listenerPlayer.round.get("symbolCorrect");
+      return this.renderSpeakerResults();
     } else if (player.round.get("role") === "Advisor") {
 
     }
