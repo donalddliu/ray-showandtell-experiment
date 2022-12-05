@@ -22,11 +22,37 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    width: 400px;
+    width: 100%;
     background-color: var(--mediumblue);
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     color: white;
     padding: 25px 25px;
+}
+
+.players-selected-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    min-height: 1.4rem;
+}
+
+.listeners-selected {
+    display: flex;
+    flex-direction:row;
+}
+
+.advisors-selected {
+    display: flex;
+    flex-direction: row;
+}
+
+.results-symbol-display {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    font-size: 1.4rem;
 }
 
 /* .results-content {

@@ -51,12 +51,6 @@
 }
 
 
-.symbol-container.selected{
-    border: 5px solid black;
-    background-color: rgba(58, 73, 105, 0.95);
-
-}
-
 .button-container {
     display: flex;
     flex-direction:row;
@@ -97,6 +91,19 @@
     width: fit-content;
     align-items: center;
     justify-content: center;
+}
+
+.symbol-container.selected{
+    border: 5px solid black;
+    background-color: rgba(58, 73, 105, 0.95);
+}
+
+.symbol-container.correct{
+    border: 5px solid green;
+}
+
+.symbol-container.wrong{
+    border: 5px solid red;
 }
 
 .symbolButtonUnselected{

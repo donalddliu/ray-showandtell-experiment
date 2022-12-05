@@ -237,11 +237,10 @@
 
       } else {
         newListenerScore = Math.max(prevListenerScore - 0.1, 0);
-
       }
       listenerPlayer.set("score", newListenerScore);
-      speakerPlayer.round.set("taskCorrect", taskCorrect);
-      listenerPlayer.round.set("taskCorrect", taskCorrect);
+      speakerPlayer.round.set("taskCorrect", [taskCorrect, puzzleAnswer]);
+      listenerPlayer.round.set("taskCorrect", [taskCorrect, puzzleAnswer]);
 
     }
   }

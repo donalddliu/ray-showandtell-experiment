@@ -101,7 +101,7 @@ class AdvisorList extends Component {
                                                 <SymbolDisplay
                                                     key={symbol}
                                                     name={symbol}
-                                                    selected={adviceReceived[advisor] === symbol}
+                                                    selected={adviceReceived[advisor] === symbol ? "selected" : ""}
                                                     {...this.props}
                                                 />
                                             )

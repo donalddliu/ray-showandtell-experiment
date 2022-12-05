@@ -17,7 +17,7 @@ import MidSurveyFour from "../mid-survey/MidSurvey4.jsx";
 import MidSurveyFive from "../mid-survey/MidSurvey5.jsx";
 import ProgressBar from "../mid-survey/ProgressBar.jsx";
 import Results from "./GameComponents/results/Results.jsx";
-
+import Results2 from "./GameComponents/results/Results2.jsx";
 
 
 
@@ -30,7 +30,8 @@ export default class Round extends React.Component {
     if (stage.displayName == "Result") {
       return (
         <div className="round">
-          <Results {...this.props} />
+          {/* <Results {...this.props} /> */}
+          <Results2 {...this.props} />
         </div>
       )
     } else {

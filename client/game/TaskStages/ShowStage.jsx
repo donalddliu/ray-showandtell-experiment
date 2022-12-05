@@ -18,7 +18,7 @@ class ShowStage extends Component {
                     <SymbolDisplay
                         key={symbol}
                         name={symbol}
-                        selected={puzzleAnswer === symbol}
+                        selected={puzzleAnswer === symbol ? "selected" : ""}
                         {...this.props}
                     />
                 )
