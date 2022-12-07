@@ -1,9 +1,15 @@
   import _, { update } from 'lodash';
 
-  function updateRecentConnections(player, connectionId) {
-    const recentConnections = new Set(player.get("recentConnections"));
-    recentConnections.add(connectionId);
-    player.set("recentConnections", [...recentConnections]);
+  function updateRecentSLConnections(player, connectionId) {
+    const recentSLConnections = new Set(player.get("recentSLConnections"));
+    recentSLConnections.add(connectionId);
+    player.set("recentSLConnections", [...recentSLConnections]);
+  }
+
+  function updateAllRecentConnections(player, connectionId) {
+    const allRecentConnections = new Set(player.get("allRecentConnections"));
+    allRecentConnections.add(connectionId);
+    player.set("allRecentConnections", [...allRecentConnections]);
   }
   
   export function getNeighbors(structure, player) {
@@ -97,9 +103,13 @@
         listenerPlayer.round.set("role", "Listener");
         listenerPlayer.round.set("pairedSpeaker", speakerId);
 
-        // Add SL pair to each player's recent connections
-        updateRecentConnections(speakerPlayer, listenerId);
-        updateRecentConnections(listenerPlayer, speakerId);
+        // Add SL pair to each player's recent sl connections (no advisors)
+        updateRecentSLConnections(speakerPlayer, listenerId);
+        updateRecentSLConnections(listenerPlayer, speakerId);
+
+        // Add SL pair to eahc player's overall recent connections (will include advisors)
+        updateAllRecentConnections(speakerPlayer, listenerId);
+        updateAllRecentConnections(listenerPlayer, speakerId);
 
       }
     }
@@ -161,14 +171,15 @@
         advisorPlayer.round.set("requestQueue", requestQueue);
 
         // Add advisors to player's recent connections
-        // updateRecentConnections(speakerPlayer, advisor);
-        // updateRecentConnections(listenerPlayer, advisor);
+        // updateRecentSLConnections(speakerPlayer, advisor);
+        // updateRecentSLConnections(listenerPlayer, advisor);
 
-        // updateRecentConnections(advisorPlayer, speaker);
-        // updateRecentConnections(advisorPlayer, listener);
-        updateRecentConnections(listenerPlayer, advisor);
+        // updateRecentSLConnections(advisorPlayer, speaker);
+        // updateRecentSLConnections(advisorPlayer, listener);
 
-        updateRecentConnections(advisorPlayer, listener);
+        // Add SL pair to eahc player's overall recent connections (will include advisors)
+        updateAllRecentConnections(listenerPlayer, advisor);
+        updateAllRecentConnections(advisorPlayer, listener);
       }
     }
 

@@ -52,7 +52,7 @@ export default class MidSurveyTwo extends React.Component {
   render() {
     const { game, round, stage, player } = this.props;
     const { response } = this.state;
-    const recentConnections =  player.get("recentConnections");
+    const recentSLConnections =  player.get("recentSLConnections");
 
     const currentSurveyStage = player.round.get("surveyStageNumber");
     const completedWidth = 590/5 * currentSurveyStage
@@ -73,7 +73,7 @@ export default class MidSurveyTwo extends React.Component {
                 </div>
                 <div className="questionnaire-body">
                     <label className="questionnaire-question"> Please rate how well you have been working with each teammate in the recent trials?</label>
-                    {recentConnections.map(otherNodeId => {
+                    {recentSLConnections.map(otherNodeId => {
                         const otherPlayer = game.players.find(p => p.get("nodeId") === parseInt(otherNodeId));
                         const otherPlayerId = otherPlayer.get("anonymousName");
                         // const playerIsOnline = otherPlayer.online === true && !otherPlayer.get("inactive");

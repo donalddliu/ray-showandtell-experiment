@@ -29,6 +29,18 @@ export default class Results extends React.Component {
             <div className="results-symbol-display">
               {
                 listenerPuzzleSet.map((symbol) => {
+                  const isAnswer = symbol === listenerPuzzleAnswer;
+                  const listenerPicked = symbol === listenerAnswer;
+                  const advisorPicked = Object.values(adviceReceived).includes(symbol);
+                  let borderColor;
+                  if (isAnswer) {
+                    borderColor = "correct";
+                  } else if (advisorPicked || listenerPicked && !isAnswer) {
+                    borderColor = "wrong";
+                  } else if (!advisorPicked || !listenerPicked) {
+                    borderColor = "";
+                  }
+
                   return(
                     <div>
                       <div className="players-selected-container">
@@ -54,7 +66,7 @@ export default class Results extends React.Component {
                       <SymbolDisplay
                         key={symbol}
                         name={symbol}
-                        selected={symbol == listenerAnswer && result || Object.values(adviceReceived).includes(symbol) && symbol == listenerPuzzleAnswer ? "correct" : "wrong"} 
+                        selected={borderColor} 
                         {...this.props}
                       />
                     </div>
@@ -92,6 +104,17 @@ export default class Results extends React.Component {
               <div className="results-symbol-display">
                 {
                   speakerPuzzleSet.map((symbol) => {
+                    const isAnswer = symbol === speakerPuzzleAnswer;
+                    const listenerPicked = symbol === listenerAnswer;
+                    let borderColor;
+                    if (isAnswer) {
+                      borderColor = "correct";
+                    } else if (listenerPicked && !isAnswer) {
+                      borderColor = "wrong";
+                    } else if (!listenerPicked) {
+                      borderColor = "";
+                    }
+                    
                     return(
                       <div>
                         <div className="players-selected-container">
@@ -107,7 +130,7 @@ export default class Results extends React.Component {
                         <SymbolDisplay
                           key={symbol}
                           name={symbol}
-                          selected={symbol == listenerAnswer && result ? "correct" : "wrong"} 
+                          selected={borderColor} 
                           {...this.props}
                         />
                       </div>
@@ -127,44 +150,64 @@ export default class Results extends React.Component {
     const { stage, round, player, game } = this.props;
 
     const completedRequests = player.round.get("completedRequests");
-    console.log(completedRequests);
 
     return(
       <div className="results-container">
           <div className="results-content">
               <h1 className="results-text"> Results </h1>
               <img src={`images/hr-color.png`} width="200px" height="3px" />
-              <div className="results-symbol-display">
                 {
                   completedRequests.map((request) => {
-                    const listenerId = request['requestorId']
-                    const listenerPlayer = game.players.find((p) => p.get("nodeId") === listenerId);
-                    
 
-                    return(
-                      <div>
-                        <div className="players-selected-container">
-                          <div className="listeners-selected">
-                            {symbol === listenerAnswer ? 
-                              <div>{player.get("anonymousName")}</div> : ""
-                            }
-                          </div>
-                          <div className="advisors-selected">
-                            
-                          </div>
-                        </div>  
-                        <SymbolDisplay
-                          key={symbol}
-                          name={symbol}
-                          selected={symbol == listenerAnswer && result ? "correct" : "wrong"} 
-                          {...this.props}
-                        />
+                    const listenerId = request['request']['requestorId'];
+                    const listenerPuzzleSet = request['request']['puzzleSet'];
+                    const listenerPlayer = game.players.find((p) => p.get("nodeId") === listenerId);
+                    const listenerPuzzleAnswer = listenerPlayer.round.get("puzzleAnswer");
+                    const listenerAnswer = listenerPlayer.round.get("symbolSubmitted");
+                    const advisorReply = request['advice'];
+
+                    return (
+                      <div className="results-symbol-display">
+                        {listenerPuzzleSet.map((symbol) => {
+                          const isAnswer = symbol === listenerPuzzleAnswer;
+                          const listenerPicked = symbol === listenerAnswer;
+                          const advisorPicked = symbol === advisorReply;
+                          let borderColor;
+                          if (isAnswer) {
+                            borderColor = "correct";
+                          } else if (advisorPicked || listenerPicked && !isAnswer) {
+                            borderColor = "wrong";
+                          } else if (!advisorPicked || !listenerPicked) {
+                            borderColor = "";
+                          }
+
+                          return(
+                            <div>
+                              <div className="players-selected-container">
+                                <div className="listeners-selected">
+                                  {symbol === listenerAnswer ? 
+                                    <div>{listenerPlayer.get("anonymousName")}</div> : ""
+                                  }
+                                </div>
+                                <div className="advisors-selected">
+                                  {symbol === advisorReply ?
+                                    <div>{player.get("anonymousName")}</div> : ""
+                                  }
+                                </div>
+                              </div>  
+                              <SymbolDisplay
+                                key={symbol}
+                                name={symbol}
+                                selected={borderColor} 
+                                {...this.props}
+                              />
+                            </div>
+                          )
+                        })}
                       </div>
                     )
                   }) 
                 }  
-              
-              </div>  
               <ResultsTimer stage={stage}/>
           </div>
         </div>
@@ -188,23 +231,8 @@ export default class Results extends React.Component {
     } else if (player.round.get("role") === "Speaker") {
       return this.renderSpeakerResults();
     } else if (player.round.get("role") === "Advisor") {
-      const completedRequests = player.round.get("completedRequests");
-      console.log(completedRequests);
-
-      return (
-        <div className="results-container">
-          <div className="results-content">
-              <h1 className="results-text"> {player.round.get("taskCorrect") ? correctMessage : incorrectMessage} </h1>
-              <img src={`images/hr-color.png`} width="200px" height="3px" />
-
-
-              <ResultsTimer stage={stage}/>
-          </div>
-        </div>
-      );
+      return this.renderAdvisorResults();
     }
-
-    return null;
       
     // return (
     //   <div className="results-container">

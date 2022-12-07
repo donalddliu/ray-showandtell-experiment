@@ -8,7 +8,7 @@ import { randomizeRoles, checkToGoNextStage, getPuzzles, assignRequestsToAdvisor
 // the game.
 Empirica.onGameStart(game => {
   game.players.forEach(player => {
-    player.set("recentConnections", []);
+    player.set("recentSLConnections", []);
   })
 });
 
@@ -82,7 +82,7 @@ Empirica.onRoundEnd((game, round) => {
 
   if (round.get("roundType") === "Survey") { // Reset a player's connections for next interval of tasks
     game.players.forEach((player) => {
-      player.set("recentConnections", []);
+      player.set("recentSLConnections", []);
     })
   }
 });

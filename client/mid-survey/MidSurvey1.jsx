@@ -56,7 +56,7 @@ export default class MidSurveyOne extends React.Component {
     const { game, round, stage, player } = this.props;
     const { response } = this.state;
 
-    const recentConnections =  player.get("recentConnections");
+    const recentSLConnections =  player.get("recentSLConnections");
 
     const currentSurveyStage = player.round.get("surveyStageNumber");
     const completedWidth = 590/5 * currentSurveyStage
@@ -76,7 +76,7 @@ export default class MidSurveyOne extends React.Component {
                 </div>
                 <div className="questionnaire-body">
                     <label className="questionnaire-question"> Did your group have a leader? If so, who?</label>
-                    {recentConnections.map(otherNodeId => {
+                    {recentSLConnections.map(otherNodeId => {
                         const otherPlayer = game.players.find(p => p.get("nodeId") === parseInt(otherNodeId));
                         const otherPlayerId = otherPlayer.get("anonymousName");
                         const playerIsOnline = !otherPlayer.get("inactive");
