@@ -123,6 +123,59 @@ export default class Results extends React.Component {
 
   }
 
+  renderAdvisorResults = () => {
+    const { stage, round, player, game } = this.props;
+
+    const completedRequests = player.round.get("completedRequests");
+    console.log(completedRequests);
+
+    return(
+      <div className="results-container">
+          <div className="results-content">
+              <h1 className="results-text"> Results </h1>
+              <img src={`images/hr-color.png`} width="200px" height="3px" />
+              <div className="results-symbol-display">
+                {
+                  completedRequests.map((request) => {
+                    const listenerId = request['requestorId']
+                    const listenerPlayer = game.players.find((p) => p.get("nodeId") === listenerId);
+                    
+
+                    return(
+                      <div>
+                        <div className="players-selected-container">
+                          <div className="listeners-selected">
+                            {symbol === listenerAnswer ? 
+                              <div>{player.get("anonymousName")}</div> : ""
+                            }
+                          </div>
+                          <div className="advisors-selected">
+                            
+                          </div>
+                        </div>  
+                        <SymbolDisplay
+                          key={symbol}
+                          name={symbol}
+                          selected={symbol == listenerAnswer && result ? "correct" : "wrong"} 
+                          {...this.props}
+                        />
+                      </div>
+                    )
+                  }) 
+                }  
+              
+              </div>  
+              <ResultsTimer stage={stage}/>
+          </div>
+        </div>
+    );
+
+
+
+
+
+  }
+
   render() {
     const { stage, round, player, game } = this.props;
 
@@ -135,7 +188,20 @@ export default class Results extends React.Component {
     } else if (player.round.get("role") === "Speaker") {
       return this.renderSpeakerResults();
     } else if (player.round.get("role") === "Advisor") {
+      const completedRequests = player.round.get("completedRequests");
+      console.log(completedRequests);
 
+      return (
+        <div className="results-container">
+          <div className="results-content">
+              <h1 className="results-text"> {player.round.get("taskCorrect") ? correctMessage : incorrectMessage} </h1>
+              <img src={`images/hr-color.png`} width="200px" height="3px" />
+
+
+              <ResultsTimer stage={stage}/>
+          </div>
+        </div>
+      );
     }
 
     return null;
