@@ -48,11 +48,60 @@
     flex-direction: row;
 }
 
+.results-symbol-set-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.results-symbol-description {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem 0;
+
+}
+
 .results-symbol-display {
     display: flex;
     flex-direction: row;
     align-items: flex-end;
     font-size: 1.4rem;
+}
+
+.results-bar-separator {
+    margin: 2rem 0 1rem 0;
+}
+
+.profile-icon {
+    display: flex;
+}
+
+.profile-icon .black {
+    filter: invert(0%) sepia(0%) saturate(7488%) hue-rotate(301deg) brightness(95%) contrast(103%);
+}
+
+.profile-icon .blue {
+    filter: invert(73%) sepia(49%) saturate(342%) hue-rotate(162deg) brightness(100%) contrast(89%);
+}
+
+.profile-icon .green {
+    filter: invert(39%) sepia(91%) saturate(411%) hue-rotate(70deg) brightness(91%) contrast(98%);
+}
+
+.profile-icon .red {
+    filter: invert(12%) sepia(93%) saturate(4190%) hue-rotate(340deg) brightness(103%) contrast(95%);
+}
+
+.profile-icon .purple {
+    filter: invert(72%) sepia(82%) saturate(844%) hue-rotate(204deg) brightness(89%) contrast(100%);
+}
+
+.profile-icon .yellow {
+    filter: invert(75%) sepia(100%) saturate(2436%) hue-rotate(6deg) brightness(111%) contrast(107%);
+}
+
+.profile-icon .white {
+    filter: invert(100%) sepia(99%) saturate(0%) hue-rotate(218deg) brightness(107%) contrast(101%);
 }
 
 /* .results-content {
