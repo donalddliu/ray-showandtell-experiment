@@ -56,8 +56,6 @@ export default class Results extends React.Component {
                                 // <div>{listenerPlayer.get("anonymousName")}</div> : ""
                                 <div className="profile-icon">
                                   <img className={`${listenerPlayer.get("anonymousName").toLowerCase()}`}src="images/profile-icons/profile-listener.svg" />
-                                  <img className={`green`}src="images/profile-icons/profile-listener.svg" />
-
                                 </div> : ""
 
                               }
