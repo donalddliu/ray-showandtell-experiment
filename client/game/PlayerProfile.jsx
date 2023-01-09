@@ -4,7 +4,7 @@ import Timer from "./Timer.jsx";
 
 export default class PlayerProfile extends React.Component {
   renderProfile() {
-    const { player } = this.props;
+    const { player, game } = this.props;
     const role = player.round.get("role");
     const pairedSpeakers = role === "Advisor" ? player.round.get("pairedSpeakers") : player.round.get("pairedSpeaker");
     const pairedListeners = role === "Advisor" ? player.round.get("pairedListeners") : player.round.get("pairedListener");
@@ -24,11 +24,11 @@ export default class PlayerProfile extends React.Component {
   }
 
   renderScore() {
-    const { player } = this.props;
+    const { player, game } = this.props;
     return (
       <div className="profile-score">
         <h4>Total score</h4>
-        <span>{(player.get("score") || 0).toFixed(2)}</span>
+        <span>{(game.get("score") || 0).toFixed(2)}</span>
       </div>
     );
   }

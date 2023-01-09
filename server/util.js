@@ -232,26 +232,39 @@
   }
 
   export function updateScore(game, round) {
+    const prevGameScore = game.get("score");
+    const scoreChanges = [];
     for (let pair of round.get("allRoles")) {
       const {speaker, listener, availableAdvisors, chosenAdvisors, puzzleSet, puzzleAnswer} = pair;
-      // If 
+
       const speakerPlayer = game.players.find((p) => p.get("nodeId") === speaker);
       const listenerPlayer = game.players.find((p) => p.get("nodeId") === listener);
-      const prevListenerScore = listenerPlayer.get("score") || 0;
       
       // If listener selects correct answer, give them points, otherwise deduct points
-      let newListenerScore = prevListenerScore;
       let taskCorrect = false;
       if (listenerPlayer.round.get("symbolSelected") === puzzleAnswer) {
-        newListenerScore = prevListenerScore + 1;
+        scoreChanges.push(0.10);
         taskCorrect = true;
-
       } else {
-        newListenerScore = Math.max(prevListenerScore - 0.1, 0);
+        scoreChanges.push(-0.01);
       }
-      listenerPlayer.set("score", newListenerScore);
+
+      // If advisor selects correct answer, give them points
+      const adviceReceivedDict = listenerPlayer.round.get("adviceReceived");
+      for (let [advisorId, symbolSelected] of Object.entries(adviceReceivedDict)) { // adviceDict[advisorId] = symbolSelected
+        if (symbolSelected === puzzleAnswer) {
+          scoreChanges.push(0.05);
+        }
+      }
+
+
       speakerPlayer.round.set("taskCorrect", taskCorrect);
       listenerPlayer.round.set("taskCorrect", taskCorrect);
 
     }
+
+    const finalScoreChange = scoreChanges.reduce((sum,value)=> sum + value);
+    console.log(scoreChanges);
+    const newGameScore = Math.max(prevGameScore + finalScoreChange, 0);
+    game.set("score", newGameScore);
   }

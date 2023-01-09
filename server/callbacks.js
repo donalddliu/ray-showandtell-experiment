@@ -10,6 +10,7 @@ Empirica.onGameStart(game => {
   game.players.forEach(player => {
     player.set("recentSLConnections", []);
   })
+  game.set("score", 0);
 });
 
 // onRoundStart is triggered before each round starts, and before onStageStart.

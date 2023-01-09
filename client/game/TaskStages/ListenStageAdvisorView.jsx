@@ -48,7 +48,7 @@ class ListenStageAdvisorView extends Component {
         const requestorPlayer = game.players.find((p) => p.get("nodeId") === requestorId);
         const adviceDict = requestorPlayer.round.get("adviceReceived");
         adviceDict[player.get("nodeId")] = symbolSelected;
-        requestorPlayer.round.set("adviceReceived", adviceDict);
+        requestorPlayer.round.set("adviceReceived", adviceDict); 
 
         stage.append("log", {
             verb: "completedRequest",
