@@ -4,6 +4,9 @@ import SymbolDisplay from '../GameComponents/SymbolDisplay';
 import { TimeSync } from "meteor/mizzao:timesync";
 import moment from "moment";
 
+import Timer from "../Timer.jsx";
+
+
 class TellStage extends Component {
     constructor(props) {
         super(props);  
@@ -38,36 +41,59 @@ class TellStage extends Component {
         const {game, round, stage, player} = this.props;
         const puzzleAnswer = player.round.get("puzzleAnswer");
         const puzzleSet = player.round.get("puzzleSet");
+        const {symbolDescription} = this.state;
+
 
         return(
             puzzleSet.map((symbol) => {
                 return (
-                    <SymbolDisplay
-                        key={symbol}
-                        name={symbol}
-                        selected={puzzleAnswer === symbol ? "selected" : ""}
-                        {...this.props}
-                    />
+                    <div className="task-description-symbol-container">
+                        <SymbolDisplay
+                            key={symbol}
+                            name={symbol}
+                            selected={puzzleAnswer === symbol ? "selected" : ""}
+                            {...this.props}
+                        />
+                        {puzzleAnswer === symbol ? 
+                            <form className="task-description-form-container" onSubmit={this.handleSubmit}>
+                                <input
+                                    className="task-description-form"
+                                    id="symbolDescripition"
+                                    name="symbolDescription"
+                                    value={symbolDescription}
+                                    onChange={this.handleChange}
+                                    required
+                                />
+                                <button className="task-description-submit" type="button" onClick={this.handleSubmit}>
+                                    Submit
+                                </button>
+                            </form> :
+                            null
+                        }
+                    </div>
                 )
             })
         )
     }
 
     renderStage() {
-        const {symbolDescription} = this.state;
+        // const {symbolDescription} = this.state;
+        const {stage} = this.props;
 
         return (
             <div className="task-response-container">
                 <div className="task-response-header">
-                    <header> Type a message into the box to get your teammate to select the highlighted symbol </header>
+                    {/* <header> Type a message into the box to get your teammate to select the highlighted symbol </header> */}
+                    <header> Ask your partner to click on this shape by sending a name or a label: </header>
                 </div>
                 <div className="task-response-body">
                     <div className="task-response">
                         {this.renderSymbols()}
                     </div>
                 </div>
-                <div className="task-response-footer">
-                    <form className="task-description-form-container" onSubmit={this.handleSubmit}>
+                <div className="task-response-footer-timer">
+                    <Timer stage={stage}/>
+                    {/* <form className="task-description-form-container" onSubmit={this.handleSubmit}>
                         <input
                             className="task-description-form"
                             id="symbolDescripition"
@@ -76,7 +102,7 @@ class TellStage extends Component {
                             onChange={this.handleChange}
                             required
                         />
-                    </form>
+                    </form> */}
                 </div>
                 
             </div>

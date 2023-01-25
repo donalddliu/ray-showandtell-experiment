@@ -6,6 +6,16 @@ import Sorry from "./exit/Sorry";
 import About from "./game/About";
 import Round from "./game/Round";
 import Consent from "./intro/Consent";
+
+// Tutorial Imports
+import TutorialOverview from "./intro/tutorial/TutorialOverview";
+import TutorialProfile from "./intro/tutorial/TutorialProfile";
+import TutorialSpeaker from "./intro/tutorial/TutorialSpeaker";
+import TutorialListener from "./intro/tutorial/TutorialListener";
+import TutorialAdvisor from "./intro/tutorial/TutorialAdvisor";
+import TutorialResults from "./intro/tutorial/TutorialResults";
+
+// Quiz Imports
 import InstructionStepOne from "./intro/InstructionStepOne";
 import InstructionStepTwo from "./intro/InstructionStepTwo";
 import Quiz from "./intro/Quiz";
@@ -29,7 +39,10 @@ Empirica.introSteps((game, treatment) => {
   //   steps.push(InstructionStepTwo);
   // }
   // steps.push(Quiz);
-  const steps = [];
+  let steps = [];
+  const tutorial = [TutorialOverview, TutorialProfile, TutorialSpeaker, TutorialListener, TutorialAdvisor, TutorialResults];
+  // steps = steps.concat(tutorial);
+
   return steps;
 });
 

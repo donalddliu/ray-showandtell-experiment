@@ -4,6 +4,11 @@ import SymbolButton from '../GameComponents/SymbolButton';
 import { TimeSync } from "meteor/mizzao:timesync";
 import moment from "moment";
 
+import Timer from "../Timer.jsx";
+
+
+
+
 class ListenStageAdvisorView extends Component {
     constructor(props) {
         super(props);  
@@ -103,10 +108,11 @@ class ListenStageAdvisorView extends Component {
             return (
                 <div className="task-response-container">
                     <div className="task-response-header">
-                        <header> Player {requestorColor} has asked for your advice on the following puzzle </header>
+                        {/* <header> Player {requestorColor} has asked for your advice on the following puzzle </header>
                         <br></br>
                         <header> Choose the symbol that best represents the following description given by Player {speakerColor}: </header>
-                        <header> {symbolDescription} </header>
+                        <header> {symbolDescription} </header> */}
+                        <header>Which one is <span style={{fontWeight: "bold"}}> {symbolDescription}</span> ? </header> 
                     </div>
                     <div className="task-response-body">
                         <div className="task-response">
@@ -123,6 +129,9 @@ class ListenStageAdvisorView extends Component {
                                 type="submit"> Submit </button> 
                             </form>
                         </div>
+                    </div>
+                    <div className="task-response-footer-timer">
+                        <Timer stage = {stage} />
                     </div>
                     
                 </div>

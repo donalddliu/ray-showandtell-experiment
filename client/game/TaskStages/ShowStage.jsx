@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import SymbolDisplay from '../GameComponents/SymbolDisplay';
+import Timer from "../Timer.jsx";
+
 
 
 class ShowStage extends Component {
@@ -27,6 +29,7 @@ class ShowStage extends Component {
     }
 
     renderStage() {
+        const {stage} = this.props;
 
         return (
             <div className="task-response-container">
@@ -39,6 +42,8 @@ class ShowStage extends Component {
                     </div>
                 </div>
                 <div className="task-response-footer">
+                    <Timer stage={stage}/>
+
                 </div>
                 
             </div>

@@ -1,6 +1,7 @@
 import React from "react";
 
 import Timer from "./Timer.jsx";
+import "../../public/css/profiletab.css"
 
 export default class PlayerProfile extends React.Component {
   renderProfile() {
@@ -14,11 +15,11 @@ export default class PlayerProfile extends React.Component {
         <h3>Your Profile</h3>
         <h4> Name : {player.get("anonymousName")} </h4>
         <h4> Role : {player.round.get("role")}</h4>
-        <h4> Node Id : {player.get("nodeId")}</h4>
-        {/* <h4> S: {pairedSpeakers}</h4>
-        <h4> L: {pairedListeners}</h4>
-        <h4> A: {advisors}</h4>
-        <img src={player.get("avatar")} className="profile-avatar" /> */}
+        <div className="profile-tab-icon">
+          <div div className="profile-icon">
+            <img className={`${player.get("anonymousName").toLowerCase()}`}src={`images/profile-icons/profile-${player.round.get("role").toLowerCase()}.svg`} />
+          </div>
+        </div>
       </div>
     );
   }
@@ -40,7 +41,7 @@ export default class PlayerProfile extends React.Component {
       <aside className="player-profile">
         {this.renderProfile()}
         {this.renderScore()}
-        <Timer stage={stage} />
+        {/* <Timer stage={stage} /> */}
       </aside>
     );
   }

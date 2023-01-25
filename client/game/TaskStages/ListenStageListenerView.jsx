@@ -6,6 +6,9 @@ import { TimeSync } from "meteor/mizzao:timesync";
 import moment from "moment";
 import AdvisorList from '../GameComponents/AdvisorList';
 
+import Timer from "../Timer.jsx";
+
+
 class ListenStageListenerView extends Component {
     constructor(props) {
         super(props);  
@@ -113,9 +116,10 @@ class ListenStageListenerView extends Component {
                                 type="submit"> Submit </button> 
                             </form>
                         </div>
-    
                     </div>
-                    
+                    <div className="task-response-footer-timer">
+                        <Timer stage = {stage} />
+                    </div>
                 </div>
             );
         }
