@@ -22,6 +22,7 @@ Empirica.gameInit(game => {
       tellDuration,
       listenDuration,
       surveyDuration,
+      resultsDuration,
       networkStructure
     }
   } = game;
@@ -62,7 +63,7 @@ Empirica.gameInit(game => {
     const resultStage = taskRound.addStage({
       name: `Result  ${taskRoundsAdded}`,
       displayName: `Result`,
-      durationInSeconds: 10
+      durationInSeconds: resultsDuration,
     })
 
     taskRound.set("roundType", "Task");

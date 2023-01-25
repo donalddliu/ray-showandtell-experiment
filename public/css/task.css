@@ -131,7 +131,7 @@
 
 .symbol-container {
     background-color: var(--darkblue);
-    border: 5px solid lightgrey;
+    border: 5px solid transparent;
     margin: 0px 5px;
     display: flex;
     width: fit-content;
