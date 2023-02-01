@@ -13,13 +13,13 @@ export default class PlayerProfile extends React.Component {
     return (
       <div className="profile-score">
         <h3>Your Profile</h3>
-        <h4> Name : {player.get("anonymousName")} </h4>
+        {/* <h4> Name : {player.get("anonymousName")} </h4> */}
         <h4> Role : {player.round.get("role")}</h4>
-        <div className="profile-tab-icon">
+        {/* <div className="profile-tab-icon">
           <div div className="profile-icon">
             <img className={`${player.get("anonymousName").toLowerCase()}`}src={`images/profile-icons/profile-${player.round.get("role").toLowerCase()}.svg`} />
           </div>
-        </div>
+        </div> */}
       </div>
     );
   }

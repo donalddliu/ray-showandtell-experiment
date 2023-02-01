@@ -129,6 +129,13 @@ td, th, tr { vertical-align: inherit } /* add this rule */
     padding: 30px 15px;
 }
 
+.one-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 60%;
+}
+
 .two-col {
     display: flex;
     flex-direction: row;

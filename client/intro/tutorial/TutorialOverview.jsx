@@ -16,13 +16,13 @@ export default class TutorialOverview extends React.Component {
         <Centered>
           <div className="two-col">
             <div className="tutorial-static-image">
-              <img src={`images/tut3-slide1.png`} width="100%" />
+              <img src={`images/tutorial-images/Overview Tutorial Circle.png`} width="100%" />
             </div>
             <div className="tutorial-info">
-              <div className="intro-heading"> THIS IS MY CARD </div>
+              <div className="intro-heading"> Overview </div>
               <img src={`images/hr-color.png`} width="180px" height="2px"/>
               <div className="tutorial-body">
-                This is an experiment on effective communication. The task requires that members of a small network work together to identify abstract symbols for multiple trials. At the beginning of each trial, each member of your network will be assigned a set of symbols. One and only one of those symbols will be shared among you. Your job is to discover the shared symbol by communicating with the members of your network within the time allotted. Your symbols are illustrated in the "my card" box. When you believe you have identified the shared symbol, select it and then hit the submit answer button. If your team runs out of time, your team will be marked incorrect and you will move onto the next round. 
+                Social conventions, like driving on the right side of the road, provide a foundation for social life. Despite their importance, we know very little about how social conventions emerge, especially in the context of newly formed groups. The current experiment provides you with an opportunity to work in a group and develop a social convention, in particular a name for an abstract symbol. The task will last for multiple trials. At the beginning of each trial, you will be randomly assigned to one of three roles on a team (Speaker, Listener, Advisor). 
               </div>
             </div>
           </div>

@@ -23,7 +23,11 @@ Empirica.gameInit(game => {
       listenDuration,
       surveyDuration,
       resultsDuration,
-      networkStructure
+      networkStructure,
+      slReward,
+      slPenalty,
+      advisorReward,
+
     }
   } = game;
 

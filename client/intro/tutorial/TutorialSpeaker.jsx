@@ -15,13 +15,13 @@ export default class TutorialSpeaker extends React.Component {
         <Centered>
           <div className="two-col">
             <div className="tutorial-static-image">
-              <img src={`images/tut3-slide3.png`} width="100%" />
+              <img src={`images/tutorial-images/Speaker Tutorial Circle.png`} width="100%" />
             </div>
             <div className="tutorial-info">
-              <div className="intro-heading"> SPEAKER </div>
+              <div className="intro-heading"> Speaker View </div>
               <img src={`images/hr-color.png`} width="180px" height="2px"/>
               <div className="tutorial-body">
-                  Each player will have a network of people they can talk to through individual chats. Each member of your network has an unique dialogue box and you can have multiple dialogue boxes open on your screen as you communicate during a trial. You can open or close a box. You can also scroll up and down within a box to view the messages you have exchanged with a specific contact. There will be no overall team chat where you can talk to everyone at once.
+                The speaker will be given {game.treatment.tellDuration} seconds to provide a name or a label. If the speaker enters the word sumo for the symbol, the listener will receive the following message.
               </div>
             </div>
           </div>

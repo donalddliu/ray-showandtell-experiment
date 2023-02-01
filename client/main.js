@@ -40,8 +40,8 @@ Empirica.introSteps((game, treatment) => {
   // }
   // steps.push(Quiz);
   let steps = [];
-  const tutorial = [TutorialOverview, TutorialProfile, TutorialSpeaker, TutorialListener, TutorialAdvisor, TutorialResults];
-  // steps = steps.concat(tutorial);
+  const tutorial = [TutorialOverview, TutorialSpeaker, TutorialListener, TutorialAdvisor, TutorialResults, TutorialProfile];
+  steps = steps.concat(tutorial);
 
   return steps;
 });

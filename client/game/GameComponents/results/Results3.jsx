@@ -40,14 +40,13 @@ export default class Results3 extends React.Component {
                       const isAnswer = symbol === speakerPuzzleAnswer;
                       const listenerPicked = symbol === listenerAnswer;
                       let borderColor;
-                      if (isAnswer) {
+                      if (listenerPicked && isAnswer) {
                         borderColor = "correct";
+                      } else if (listenerPicked && !isAnswer) {
+                        borderColor = "wrong";
+                      } else if (!listenerPicked) {
+                        borderColor = "";
                       }
-                    //   } else if (listenerPicked && !isAnswer) {
-                    //     borderColor = "wrong";
-                    //   } else if (!listenerPicked) {
-                    //     borderColor = "";
-                    //   }
                       
                       return(
                         // <div>
@@ -103,6 +102,8 @@ export default class Results3 extends React.Component {
     const speakerPlayer = game.players.find((p) => p.get("nodeId") === speakerId);
     const symbolDescription = speakerPlayer.round.get("symbolDescription");
 
+    console.log(listenerAnswer);
+
 
     return (
       <div className="results-container">
@@ -120,14 +121,13 @@ export default class Results3 extends React.Component {
                     const listenerPicked = symbol === listenerAnswer;
                     const advisorPicked = Object.values(adviceReceived).includes(symbol);
                     let borderColor;
-                    if (isAnswer) {
+                    if (listenerPicked && isAnswer) {
                       borderColor = "correct";
+                    } else if (listenerPicked && !isAnswer) {
+                      borderColor = "wrong";
+                    } else if (!listenerPicked) {
+                      borderColor = "";
                     }
-                    // } else if (advisorPicked || listenerPicked && !isAnswer) {
-                    //   borderColor = "wrong";
-                    // } else if (!advisorPicked || !listenerPicked) {
-                    //   borderColor = "";
-                    // }
 
                     return(
                       <div>
@@ -214,14 +214,13 @@ export default class Results3 extends React.Component {
                             const listenerPicked = symbol === listenerAnswer;
                             const advisorPicked = symbol === advisorReply;
                             let borderColor;
-                            if (isAnswer) {
+                            if (advisorPicked && isAnswer) {
                               borderColor = "correct";
+                            } else if (advisorPicked && !isAnswer) {
+                              borderColor = "wrong";
+                            } else if (!advisorPicked ) {
+                              borderColor = "";
                             }
-                            // } else if (advisorPicked || listenerPicked && !isAnswer) {
-                            //   borderColor = "wrong";
-                            // } else if (!advisorPicked || !listenerPicked) {
-                            //   borderColor = "";
-                            // }
 
                             return(
                               <div>

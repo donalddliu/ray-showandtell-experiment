@@ -10,19 +10,18 @@ export default class TutorialListener extends React.Component {
     return (
       <div className="tutorial-container">
         <div className="title-static-image">
-          <img src={`images/title-tut3.png`} />
+            <img src={`images/title-tut3.png`} />
         </div>
         <Centered>
           <div className="two-col">
             <div className="tutorial-static-image">
-              <img src={`images/tut3-slide3.png`} width="100%" />
+              <img src={`images/tutorial-images/Listener Tutorial Circle.png`} width="100%" />
             </div>
             <div className="tutorial-info">
-              <div className="intro-heading"> LISTENER </div>
+              <div className="intro-heading"> Listener View </div>
               <img src={`images/hr-color.png`} width="180px" height="2px"/>
               <div className="tutorial-body">
-                  Each player will have a network of people they can talk to through individual chats. Each member of your network has an unique dialogue box and you can have multiple dialogue boxes open on your screen as you communicate during a trial. You can open or close a box. You can also scroll up and down within a box to view the messages you have exchanged with a specific contact. There will be no overall team chat where you can talk to everyone at once.
-              </div>
+                The listener will be given {game.treatment.listenDuration} seconds to select a symbol. On some trials, the listener can have one or more advisors. The advisors will be asked to share their response given the clue given to you by the speaker. Their responses will be shown on the right of the screen.              </div>
             </div>
           </div>
         </Centered>
