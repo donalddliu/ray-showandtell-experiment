@@ -3,3 +3,17 @@
     justify-content: left;
     align-items: center;
 }
+
+.round-metadata-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.round-number-container {
+    display: flex;
+    flex-direction: column;
+    font-family:"Trebuchet MS", Arial, Helvetica, sans-serif; 
+    font-weight: bold;
+  }

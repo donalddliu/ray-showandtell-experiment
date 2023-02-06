@@ -84,7 +84,7 @@ class TellStage extends Component {
             <div className="task-response-container">
                 <div className="task-response-header">
                     {/* <header> Type a message into the box to get your teammate to select the highlighted symbol </header> */}
-                    <header> Ask your partner to click on this shape by sending a name or a label: </header>
+                    <header> Ask your partner to click on this shape by sending them a name or a label: </header>
                 </div>
                 <div className="task-response-body">
                     <div className="task-response">
