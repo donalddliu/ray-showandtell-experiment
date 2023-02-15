@@ -72,7 +72,7 @@
   }
 
 
-  export function randomizeRoles(game, round, structure, numSLPairs, reqMutual) {
+  export function randomizeRoles(game, round, structure, numSLPairs, reqMutual) { 
     // Player pool contains nodeId of all players in game
     const playerPool = [];
     for (var i = 1; i <= game.players.length; i++) {
@@ -84,7 +84,9 @@
     const speakerListenerPairs = [];
     const allRolesPerRound = [];
     while (speakerListenerPairs.length < numSLPairs) {
+      // Randomly pick a connection from the total network
       var slPair = network[_.random(network.length-1)].split("-");
+      // Randomly assign one of the two players in the connection to speaker and the other to listener
       var randomNum = Math.round(Math.random());
       var speakerId = parseInt(slPair[randomNum]);
       var listenerId = parseInt(slPair[1-randomNum]);
@@ -145,7 +147,6 @@
       listenerPlayer.round.set("chosenAdvisors", []);
       allRolesPerRound.push(pair);
     }
-
     round.set("allRoles", allRolesPerRound);
     
   }
@@ -177,7 +178,7 @@
         // updateRecentSLConnections(advisorPlayer, speaker);
         // updateRecentSLConnections(advisorPlayer, listener);
 
-        // Add SL pair to eahc player's overall recent connections (will include advisors)
+        // Add SL pair to each player's overall recent connections (will include advisors)
         updateAllRecentConnections(listenerPlayer, advisor);
         updateAllRecentConnections(advisorPlayer, listener);
       }
@@ -191,7 +192,47 @@
         player.round.set("requestQueue", shuffledRequestQueue);
       }
     })
-    
+  }
+
+  export function assignPassiveOutcomes(game, round) {
+    const numAdvisorsPerPair = game.treatment.numAdvisorsPerPair;
+    const allRolesPerRound = round.get("allRoles");
+    const allPairs = []
+    for (let team of allRolesPerRound) {
+      const {speaker, listener, availableAdvisors, chosenAdvisors} = team;
+
+      allPairs.push({speaker: speaker, listener: listener});
+    }
+
+    // Get a random shift to shift the elements of allPairs
+    // allPairs[i] and allPairsShifted[i:numAdvisorsPerPair] correlate to the passive outcomes
+    const shift = _.random(numAdvisorsPerPair, allPairs.length-1);
+    const allPairsShifted = allPairs.slice(-shift).concat(allPairs.slice(0,-shift)) // Shift numbers to the right
+
+    console.log("Compare pairs and shifted pairs");
+    console.log(shift);
+    console.log(allPairs);
+    console.log(allPairsShifted);
+    const passiveOutcomes = {}
+
+    for (const [i, pair] of allPairs.entries()) {
+      passiveOutcomes[pair] = []
+      console.log("Pair")
+      console.log(pair);
+      for (const j of Array(numAdvisorsPerPair).keys()) {
+        passiveOutcomes[pair].push(allPairsShifted[(i+j) % allPairs.length]);
+        console.log("Passive Outcomes");
+        console.log(allPairsShifted[(i+j) % allPairs.length]);
+      }
+    }
+
+    console.log(passiveOutcomes);
+
+
+  }
+
+  export function getRandomNumber(min, max) {
+      return Math.random() * (max - min) + min;    
   }
 
   export function checkToGoNextStage(allPlayers, role) {

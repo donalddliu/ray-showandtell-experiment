@@ -9,7 +9,7 @@ class SymbolDisplay extends Component {
         const { name, selected } = this.props;
         return (
             <div className={`symbol-display-container ${selected}`} >
-                <img src={`images/symbols/tangrams/${name}.png`} style={{maxWidth:"100%", maxHeight:"100%"}} />
+                <img className={`symbol-img ${selected}`} src={`images/symbols/tangrams/${name}.png`} style={{width:"100%"}} />
             </div>
         );
     }

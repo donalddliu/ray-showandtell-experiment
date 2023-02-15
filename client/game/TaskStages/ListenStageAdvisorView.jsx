@@ -85,7 +85,7 @@ class ListenStageAdvisorView extends Component {
         return (
             <div className="task-response-container">
                 <div className="task-response-header">
-                    <header> Please wait </header>
+                    <div className="task-instruction-text"> Please wait </div>
                 </div>
             </div>
         )
@@ -112,7 +112,7 @@ class ListenStageAdvisorView extends Component {
                         <br></br>
                         <header> Choose the symbol that best represents the following description given by Player {speakerColor}: </header>
                         <header> {symbolDescription} </header> */}
-                        <header>Which one is <span style={{fontWeight: "bold"}}> {symbolDescription}</span> ? </header> 
+                        <div className="task-instruction-text">Click on the <span style={{fontWeight: "bold"}}> {symbolDescription}</span> . </div> 
                     </div>
                     <div className="task-response-body">
                         <div className="task-response">

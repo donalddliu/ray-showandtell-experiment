@@ -21,12 +21,45 @@ import MidSurveyFive from "../mid-survey/MidSurvey5.jsx";
 import ProgressBar from "../mid-survey/ProgressBar.jsx";
 import Results from "./GameComponents/results/Results.jsx";
 import Results2 from "./GameComponents/results/Results2.jsx";
-import Results3 from "./GameComponents/results/Results3.jsx";
+import Results3 from "./GameComponents/results/Results3.jsx"; 
+import Results4 from "./GameComponents/results/Results4.jsx";
 
 
 
 
 export default class Round extends React.Component {
+
+  renderPassiveTaskRound() {
+    const { round, stage, player, game } = this.props;
+
+    if (stage.displayName == "Result") {
+      return (
+        <div className="round">
+          {/* <Results {...this.props} /> */}
+          {/* <Results2 {...this.props} /> */}
+          {/* <Results3 {...this.props} /> */}
+          <Results4 {...this.props} />
+        </div>
+      )
+    } else {
+      return (
+        <div className="round">
+          <RoundMetadata {...this.props} />
+          <div className="content">
+            <div className="row">
+              <div className="passive-col">
+                {/* Display the stage for each type of role */}
+                { stage.displayName == "Show" &&  <ShowStage {...this.props}/> }
+                { stage.displayName == "Tell" &&  <TellStage {...this.props}/> }
+                { stage.displayName == "Listen" &&  <ListenStage {...this.props}/>}
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+  }
 
   renderTaskRound() {
     const { round, stage, player, game } = this.props;
@@ -36,30 +69,33 @@ export default class Round extends React.Component {
         <div className="round">
           {/* <Results {...this.props} /> */}
           {/* <Results2 {...this.props} /> */}
-          <Results3 {...this.props} />
+          {/* <Results3 {...this.props} /> */}
+          <Results4 {...this.props} />
         </div>
       )
     } else {
       return (
         <div className="round">
-          <div className="">
-            <RoundMetadata {...this.props} />
-          </div>
+          <RoundMetadata {...this.props} />
           <div className="content">
-            {/* Display the stage for each type of role */}
-            { stage.displayName == "Show" &&  <ShowStage {...this.props}/> }
-            { stage.displayName == "Tell" &&  <TellStage {...this.props}/> }
-            { stage.displayName == "Listen" &&  <ListenStage {...this.props}/>}
-            { false &&
-              <>
+            <div className="row">
+              <div className="active-left-col">
+                {/* Display the stage for each type of role */}
+                { stage.displayName == "Show" &&  <ShowStage {...this.props}/> }
+                { stage.displayName == "Tell" &&  <TellStage {...this.props}/> }
+                { stage.displayName == "Listen" &&  <ListenStage {...this.props}/>}
+              </div>
+              <div className="active-right-col">
                 { stage.displayName == "Listen" && player.round.get("role") == "Listener" && <AdvisorList {...this.props}/>}
                 {/* Add empty advisor list column to make game symmetric */}
                 { stage.displayName != "Listen" && player.round.get("role") == "Listener" && <div className="advisor-list-container"> </div>}
                 { player.round.get("role") != "Listener" && <div className="advisor-list-container" > </div>}
-              </>
-            }
+              </div>
+
+            </div>
 
           </div>
+
         </div>
       );
     }
@@ -125,7 +161,8 @@ export default class Round extends React.Component {
       )
     }  else {
       return (
-        this.renderTaskRound()
+        // this.renderTaskRound()
+        this.renderPassiveTaskRound()
       )
     }
   }

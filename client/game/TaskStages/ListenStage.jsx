@@ -14,7 +14,7 @@ class ListenStage extends Component {
         return (
             <div className="task-response-container">
                 <div className="task-response-header">
-                    <header> Please wait </header>
+                    <div className="task-instruction-text"> Please wait </div>
                 </div>
             </div>
         )

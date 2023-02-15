@@ -16,7 +16,7 @@ class SymbolButton extends Component {
         return (
             <div className={`symbol-container`} >
                 <button className={`${selected ? "symbolButtonSelected" : "symbolButtonUnselected"}`} onClick={this.handleClick}>
-                    <img src={`images/symbols/tangrams/${name}.png`} style={{maxWidth:"100%", maxHeight:"100%"}} />
+                    <img className={`symbol-img ${selected ? "selected" : ""}`}src={`images/symbols/tangrams/${name}.png`} style={{width: "100%"}} />
                 </button>
             </div>
         );

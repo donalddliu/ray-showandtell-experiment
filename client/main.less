@@ -2,10 +2,12 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+  width: 100%;
 
   .content {
     flex-grow: 1;
     height: 100%;
+    width: 100%;
     display: flex;
     justify-content: center;
   }
@@ -46,7 +48,7 @@
       text-align: center;
 
       .seconds {
-        font-size: 3rem;
+        font-size: 1.5rem;
         // Helvetica has tabular numbers (fixed width), which looks better
         // for a timer, doesn't jump all over the place.
         font-family: Helvetica, Arial, sans-serif;
@@ -202,4 +204,30 @@ button {
   height: 97vh;
   width: 100%;
   margin: 0px 0rem -6rem;
+}
+
+
+.row {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.active-left-col {
+  display: flex;
+  width: 100%;
+}
+
+.active-right-col {
+  display: flex;
+}
+
+.passive-col {
+  display: flex;
+  width: 100%;
+}
+
+.main{
+  width: 100%;
+  height: 100%;
 }

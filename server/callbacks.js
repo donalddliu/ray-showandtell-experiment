@@ -1,5 +1,5 @@
 import Empirica from "meteor/empirica:core";
-import { randomizeRoles, checkToGoNextStage, getPuzzles, assignRequestsToAdvisors, updateScore, checkEveryoneFinishedSurvey } from "./util";
+import { randomizeRoles, checkToGoNextStage, getPuzzles, assignRequestsToAdvisors, updateScore, checkEveryoneFinishedSurvey, assignPassiveOutcomes } from "./util";
 
 
 
@@ -32,6 +32,7 @@ Empirica.onRoundStart((game, round) => {
   if (round.get("roundType") === "Task") {
     randomizeRoles(game, round, networkStructure, numSLPairs, reqMutual);
     getPuzzles(game, round);
+    assignPassiveOutcomes(game, round);
   }
 
   if (round.get("roundType") === "Survey") {

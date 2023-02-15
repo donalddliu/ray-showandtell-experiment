@@ -84,7 +84,7 @@ class TellStage extends Component {
             <div className="task-response-container">
                 <div className="task-response-header">
                     {/* <header> Type a message into the box to get your teammate to select the highlighted symbol </header> */}
-                    <header> Ask your partner to click on this shape by sending them a name or a label: </header>
+                    <div className="task-instruction-text"> Ask your partner to click on this shape by sending them a name or a label: </div>
                 </div>
                 <div className="task-response-body">
                     <div className="task-response">
@@ -113,7 +113,7 @@ class TellStage extends Component {
         return (
             <div className="task-response-container">
                 <div className="task-response-header">
-                    <header> Please wait until all Speakers have described their symbol </header>
+                    <div className="task-instruction-text"> Please wait until all Speakers have described their symbol </div>
                 </div>
             </div>
         )
@@ -123,7 +123,7 @@ class TellStage extends Component {
         return (
             <div className="task-response-container">
                 <div className="task-response-header">
-                    <header> Please wait </header>
+                    <div className="task-instruction-text"> Please wait </div>
                 </div>
             </div>
         )

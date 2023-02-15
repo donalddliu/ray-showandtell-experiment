@@ -32,7 +32,7 @@ export default class Results3 extends React.Component {
               <img src={`images/hr-color.png`} width="200px" height="3px" />
               <div className="results-symbol-set-container">
                 <div className="results-symbol-description">
-                  Symbol Description: {symbolDescription}
+                  Your partner selected the following for the: {symbolDescription}. The correct answer is highlighted green.
                 </div>
                 <div className="results-symbol-display">
                   {
@@ -47,30 +47,40 @@ export default class Results3 extends React.Component {
                       } else if (!listenerPicked) {
                         borderColor = "";
                       }
+
+                      if (isAnswer) {
+                        borderColor = "correct";
+                      }
                       
                       return(
-                        // <div>
-                        //   <div className="players-selected-container">
-                        //     <div className="listeners-selected">
-                        //       {symbol === listenerAnswer ? 
-                        //         // <div>{listenerPlayer.get("anonymousName")}</div> : ""
-                        //         <div className="profile-icon">
-                        //           <img className={`${listenerPlayer.get("anonymousName").toLowerCase()}`}src="images/profile-icons/profile-listener.svg" />
-                        //         </div> : ""
+                        <div>
+                          <div className="players-selected-container">
+                            <div className="listeners-selected">
+                                {symbol === listenerAnswer ? 
+                                    // <div>{listenerPlayer.get("anonymousName")}</div> : ""
+                                    <div className="profile-icon">
+                                    <img src="images/symbols/down-arrow-32.svg" />
+                                    </div> : ""
+                                }
+                            </div>
+                            <div className="advisors-selected">
+                                {symbol === listenerAnswer ? 
+                                    // <div>{listenerPlayer.get("anonymousName")}</div> : ""
+                                    <div className="profile-icon">
+                                        <img src="images/symbols/checkmark.svg" />
+                                    </div> : ""
+                                }
 
-                        //       }
-                        //     </div>
-                        //     <div className="advisors-selected">
                               
-                        //     </div>
-                        //   </div>  
+                            </div>
+                          </div>  
                           <SymbolDisplay
                             key={symbol}
                             name={symbol}
                             selected={borderColor} 
                             {...this.props}
                           />
-                        // </div>
+                        </div>
                       )
                     }) 
                   }  
@@ -112,7 +122,7 @@ export default class Results3 extends React.Component {
             <img src={`images/hr-color.png`} width="200px" height="3px" />
             <div className="results-symbol-set-container">
               <div className="results-symbol-description">
-                Symbol Description: {symbolDescription}
+                You selected the following for the: {symbolDescription}. The correct answer is highlighted in green.
               </div>
               <div className="results-symbol-display">
                 {
@@ -129,8 +139,30 @@ export default class Results3 extends React.Component {
                       borderColor = "";
                     }
 
+                    if (isAnswer) {
+                        borderColor = "correct";
+                    }
+
                     return(
                       <div>
+                            <div className="players-selected-container">
+                                <div className="listeners-selected">
+                                    {symbol === listenerAnswer ? 
+                                        // <div>{listenerPlayer.get("anonymousName")}</div> : ""
+                                        <div className="profile-icon">
+                                        <img src="images/symbols/down-arrow-32.svg" />
+                                        </div> : ""
+                                    }
+                                </div>
+                                <div className="advisors-selected">
+                                    {symbol === listenerAnswer ? 
+                                        // <div>{listenerPlayer.get("anonymousName")}</div> : ""
+                                        <div className="profile-icon">
+                                            <img src="images/symbols/checkmark.svg" />
+                                        </div> : ""
+                                    }
+                                </div>
+                            </div>
                         {/* <div className="players-selected-container">
                           <div className="listeners-selected">
                             {symbol === listenerAnswer ? 

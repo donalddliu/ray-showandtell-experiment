@@ -74,7 +74,7 @@ class ListenStageListenerView extends Component {
         return (
             <div className="task-response-container">
                 <div className="task-response-header">
-                    <header> Please wait until all Listeners have chosen their symbol </header>
+                    <div className="task-instruction-text"> Please wait until all Listeners have chosen their symbol </div>
                 </div>
             </div>
         )
@@ -98,7 +98,7 @@ class ListenStageListenerView extends Component {
                     <div className="task-response-header">
                         {/* <header> Choose the symbol that best represents the following description given by Player {speakerColor}: </header>
                         <header> { symbolDescription } </header> */}
-                        <header>Your partner is asking you to click on the <span style={{fontWeight: "bold"}}> {symbolDescription}</span>. </header> 
+                        <div className="task-instruction-text">Your partner is asking you to click on the <span style={{fontWeight: "bold"}}> {symbolDescription}</span>. </div> 
 
                     </div>
                     <div className="task-response-body">

@@ -10,9 +10,9 @@ export default class RoundMetadata extends React.Component {
     const pairedListeners = role === "Advisor" ? player.round.get("pairedListeners") : player.round.get("pairedListener");
     const advisors = role === "Listener" ? Object.keys(player.round.get("chosenAdvisors")) : "";
     return (
-      <div className="profile-score">
+      <div className="profile-container">
         {/* <h4> Name : {player.get("anonymousName")} </h4> */}
-        <h4> Role : {player.round.get("role")}</h4>
+        <div className="profile-role-text"> Role : {player.round.get("role")}</div>
         {/* <div className="profile-tab-icon">
           <div div className="profile-icon">
             <img className={`${player.get("anonymousName").toLowerCase()}`}src={`images/profile-icons/profile-${player.round.get("role").toLowerCase()}.svg`} />
@@ -22,11 +22,11 @@ export default class RoundMetadata extends React.Component {
     );
   }
 
-  renderScore() {
+  renderEarnings() {
     const { player, game } = this.props;
     return (
-      <div className="profile-score">
-        <h4>Earnings: <span>{(game.get("score") || 0).toFixed(2)}</span> </h4>
+      <div className="earnings-container">
+        <div className="earnings-text">Earnings: {(game.get("score") || 0).toFixed(2)} </div>
       </div>
     );
   }
@@ -36,9 +36,9 @@ export default class RoundMetadata extends React.Component {
     const stageNum = stage.name.split(" ")[1];
     const totalTaskRounds = game.treatment.numTaskRounds;
     return (
-        <h4 className="round-number-container">
-            Task {stageNum} of {totalTaskRounds}
-        </h4>
+        <div className="round-number-container">
+            <div className="round-number-text"> Task {stageNum} of {totalTaskRounds} </div>
+        </div>
     )
     console.log(stage.name.split(" ")[1]);
 
@@ -51,7 +51,7 @@ export default class RoundMetadata extends React.Component {
       <div className="round-metadata-container">
         {this.renderTrials()}
         {this.renderProfile()}
-        {this.renderScore()}
+        {this.renderEarnings()}
         {/* <Timer stage={stage} /> */}
       </div>
     );

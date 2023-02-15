@@ -13,7 +13,25 @@
 
 .round-number-container {
     display: flex;
-    flex-direction: column;
-    font-family:"Trebuchet MS", Arial, Helvetica, sans-serif; 
-    font-weight: bold;
-  }
+    font-size: 2rem;
+}
+
+.round-number-text {
+    font-size: 2rem;
+}
+
+.profile-container {
+    display: flex;
+}
+
+.profile-role-text {
+    font-size: 2rem;
+}
+
+.earnings-container {
+    display: flex;
+}
+
+.earnings-text {
+    font-size: 2rem;
+}
