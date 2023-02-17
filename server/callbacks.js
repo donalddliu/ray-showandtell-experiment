@@ -64,7 +64,7 @@ Empirica.onStageStart((game, round, stage) => {
 
   })
 
-  if (stage.displayName === "Listen") {
+  if (stage.displayName === "Listen" && !game.treatment.passiveMode) {
     assignRequestsToAdvisors(game, round);
   }
 });

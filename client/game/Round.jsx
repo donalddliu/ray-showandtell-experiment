@@ -23,6 +23,7 @@ import Results from "./GameComponents/results/Results.jsx";
 import Results2 from "./GameComponents/results/Results2.jsx";
 import Results3 from "./GameComponents/results/Results3.jsx"; 
 import Results4 from "./GameComponents/results/Results4.jsx";
+import PassiveResults from "./GameComponents/results/PassiveResults.jsx";
 
 
 
@@ -41,7 +42,15 @@ export default class Round extends React.Component {
           <Results4 {...this.props} />
         </div>
       )
-    } else {
+    }
+    if (stage.displayName == "Passive") {
+      return (
+        <div className="round">
+          <PassiveResults {...this.props} />
+        </div>
+      )
+    }
+    else {
       return (
         <div className="round">
           <RoundMetadata {...this.props} />

@@ -226,8 +226,19 @@
       }
     }
 
-    console.log(passiveOutcomes);
+    for (let team of allRolesPerRound) {
+      const {speaker, listener, availableAdvisors, chosenAdvisors} = team;
 
+      const pair = {speaker: speaker, listener: listener};
+      const speakerPlayer = game.players.find((p) => p.get("nodeId") === speaker);
+      const listenerPlayer = game.players.find((p) => p.get("nodeId") === listener);
+      team.passiveOutcomes = passiveOutcomes[pair];
+      speakerPlayer.round.set("passiveOutcomes", passiveOutcomes[pair]);
+      listenerPlayer.round.set("passiveOutcomes", passiveOutcomes[pair]);
+
+    }
+
+    round.set("allRoles", allRolesPerRound);
 
   }
 

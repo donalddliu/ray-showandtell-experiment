@@ -18,7 +18,7 @@ export default class TutorialResults extends React.Component {
               <img src={`images/tutorial-images/Results Tutorial Circle.png`} width="100%" />
             </div>
             <div className="tutorial-info">
-              <div className="intro-heading"> Results </div>
+              <div className="intro-heading"> Earnings </div>
               <img src={`images/hr-color.png`} width="180px" height="2px"/>
               <div className="tutorial-body">
                 Your team will be asked to name abstract symbols for a fixed number of trials. Every time a listener or advisor selects the correct symbol, your team will receive a bonus. A {game.treatment.slReward * 100}-cent bonus for a correct response from a listener and a {game.treatment.advisorReward * 100}-cent bonus for a correct response from an advisor.  
