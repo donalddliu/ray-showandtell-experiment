@@ -21,7 +21,9 @@ export default class TutorialListener extends React.Component {
               <div className="intro-heading"> Listener View </div>
               <img src={`images/hr-color.png`} width="180px" height="2px"/>
               <div className="tutorial-body">
-                The listener will be given {game.treatment.listenDuration} seconds to select a symbol. On some trials, the listener can have one or more advisors. The advisors will be asked to share their response given the clue given to you by the speaker. Their responses will be shown on the right of the screen.              </div>
+                The listener will be given {game.treatment.listenDuration} seconds to select a symbol using the description provided by the speaker. 
+                {!game.treatment.passiveMode ? <span> On some trials, the listener can have one or more advisors. The advisors will be asked to share their response given the clue given to you by the speaker. Their responses will be shown on the right of the screen. </span> : ""}
+                </div>
             </div>
           </div>
         </Centered>

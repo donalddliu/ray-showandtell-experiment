@@ -14,6 +14,7 @@ import TutorialSpeaker from "./intro/tutorial/TutorialSpeaker";
 import TutorialListener from "./intro/tutorial/TutorialListener";
 import TutorialAdvisor from "./intro/tutorial/TutorialAdvisor";
 import TutorialResults from "./intro/tutorial/TutorialResults";
+import TutorialEarnings from "./intro/tutorial/TutorialEarnings";
 
 // Quiz Imports
 import InstructionStepOne from "./intro/InstructionStepOne";
@@ -40,8 +41,11 @@ Empirica.introSteps((game, treatment) => {
   // }
   // steps.push(Quiz);
   let steps = [];
-  const tutorial = [TutorialOverview, TutorialSpeaker, TutorialListener, TutorialAdvisor, TutorialResults, TutorialProfile];
-  // steps = steps.concat(tutorial);
+  const tutorial = game.treatment.passiveMode ? 
+  [TutorialOverview, TutorialAdvisor, TutorialSpeaker, TutorialListener, TutorialResults, TutorialEarnings, ] :
+  [TutorialOverview, TutorialSpeaker, TutorialListener, TutorialAdvisor, TutorialResults, TutorialEarnings];
+  ;
+  steps = steps.concat(tutorial);
 
   return steps;
 });

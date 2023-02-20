@@ -10,18 +10,19 @@ export default class TutorialResults extends React.Component {
     return (
       <div className="tutorial-container">
         <div className="title-static-image">
-          <img src={`images/title-tut3.png`} />
+            <img src={`images/title-tut3.png`} />
         </div>
         <Centered>
           <div className="two-col">
             <div className="tutorial-static-image">
-              <img src={`images/tutorial-images/Results Tutorial Circle.png`} width="100%" />
+              <img src={`images/tutorial-images/Wrong Results Tutorial Circle.png`} width="100%" />
             </div>
             <div className="tutorial-info">
-              <div className="intro-heading"> Earnings </div>
+              <div className="intro-heading"> Results </div>
               <img src={`images/hr-color.png`} width="180px" height="2px"/>
               <div className="tutorial-body">
-                Your team will be asked to name abstract symbols for a fixed number of trials. Every time a listener or advisor selects the correct symbol, your team will receive a bonus. A {game.treatment.slReward * 100}-cent bonus for a correct response from a listener and a {game.treatment.advisorReward * 100}-cent bonus for a correct response from an advisor.  
+                After each round, we will share the results from your specific team. The symbol your team picked will be on the left and the correct symbol will be on the right. If the two symbols match, you will get a checkmark, indicating a correct answer. Otherwise, you will get an X.
+                To facilitate learning, in addition to sharing outcomes from your specific interactions, you can also observe outcomes from other teams in the game.
               </div>
             </div>
           </div>
@@ -29,11 +30,12 @@ export default class TutorialResults extends React.Component {
         {hasPrev && <button className="arrow-button tutorial-prev-btn" type="button" onClick={onPrev} disabled={!hasPrev}>
           Previous
         </button>}
-        { hasNext && <button className="arrow-button tutorial-next-btn" type="button" onClick={onNext}>
+        
+        {hasNext &&
+        <button className="arrow-button tutorial-next-btn" type="button" onClick={onNext} disabled={!hasNext}>
           Next
         </button>
         }
-        
       </div>
     );
   }

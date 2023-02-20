@@ -21,7 +21,7 @@ export default class TutorialSpeaker extends React.Component {
               <div className="intro-heading"> Speaker View </div>
               <img src={`images/hr-color.png`} width="180px" height="2px"/>
               <div className="tutorial-body">
-                The speaker will be given {game.treatment.tellDuration} seconds to provide a name or a label. If the speaker enters the word sumo for the symbol, the listener will receive the following message.
+                The speaker will be given {game.treatment.tellDuration} seconds to provide a name or a label for the highlighted symbol. If the speaker enters the word sumo for the symbol, the listener will receive the following message.
               </div>
             </div>
           </div>
