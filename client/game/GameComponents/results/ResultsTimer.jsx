@@ -15,7 +15,7 @@ class timer extends React.Component {
       <div className={classes.join(" ")} style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
         <div>
           <div className="results-text">Next Round In</div>
-          <div className="results-text" style={{marginTop: "0px"}}>{remainingSeconds}</div>
+          <div className="results-text" style={{marginTop: "0px"}}>{remainingSeconds} seconds</div>
         </div> 
       </div>
     );

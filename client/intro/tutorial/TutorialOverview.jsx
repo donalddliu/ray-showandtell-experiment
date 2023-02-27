@@ -22,7 +22,7 @@ export default class TutorialOverview extends React.Component {
               <div className="intro-heading"> Overview </div>
               <img src={`images/hr-color.png`} width="180px" height="2px"/>
               <div className="tutorial-body">
-                Social conventions, like driving on the right side of the road, provide a foundation for social life. Despite their importance, we know very little about how social conventions emerge, especially in the context of newly formed groups. The current experiment provides you with an opportunity to work in a group and develop a social convention, in particular a name for an abstract symbol. The task will last for multiple trials. At the beginning of each trial, you will be randomly assigned to one of three roles on a team (Speaker, Listener, Advisor). 
+                Social conventions, like driving on the right side of the road or the manner in which people greet each other, provide a foundation for social life. Despite their importance, we know very little about how social conventions emerge, especially in the context of newly formed groups. The current study provides you with an opportunity to work in a group and develop a social convention. The objective is to name an abstract symbol. A social convention exists when you and your team members decide to use the same name. The task will last for multiple trials. At the beginning of each trial, you will be randomly assigned to either a Speaker or Listener role.
               </div>
             </div>
           </div>

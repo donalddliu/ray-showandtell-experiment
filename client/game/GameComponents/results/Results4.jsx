@@ -30,26 +30,37 @@ export default class Results4 extends React.Component {
     return(
         <div className="results-container">
             <div className="results-content">
-                <div className="results-text"> {result ? correctMessage : incorrectMessage} </div>
+                <div className="results-text"> Results From Your Trial </div>
                 <img src={`images/hr-color.png`} width="200px" height="3px" />
                 <div className="results-symbol-set-container">
-                    <div className="results-symbol-description">
-                        Symbol Description : {symbolDescription}
-                    </div>
+                    {/* <div className="results-symbol-description">
+                        Speaker, you asked the Listener to select the : {symbolDescription}
+                    </div> */}
                     <div className="results-symbol-display">
-                        <div className="results-side-symbol">
-                            Team choice
-                            <SymbolDisplayResults
-                                key={listenerAnswer}
-                                name={listenerAnswer}
-                                {...this.props}
-                            />
+                        <div className="results-left-container">
+                            <div className="results-symbol-description">
+                                Speaker asked the Listener to select the : {symbolDescription}
+                            </div>
+                            <div className="results-left-symbols-container">               
+                                {speakerPuzzleSet.map((symbol) => {
+                                    return (
+                                        <SymbolDisplayResults
+                                            key={symbol}
+                                            name={symbol}
+                                            selected={symbol === speakerPuzzleAnswer ? "selected" : ""}
+                                            {...this.props}
+                                        />
+                                    )
+                                })}
+                            </div>
                         </div>
 
                         <img className="results-img" src={`${resultImg}`}/>
 
-                        <div className="results-side-symbol">
-                            Correct Answer
+                        <div className="results-right-container" style={{width: "33%"}}>
+                            <div className="results-symbol-description">
+                                The Listener selected
+                            </div>
                             <SymbolDisplayResults
                                 key={speakerPuzzleAnswer}
                                 name={speakerPuzzleAnswer}
@@ -69,49 +80,57 @@ export default class Results4 extends React.Component {
   renderListenerResults = () => {
     const { stage, round, player, game } = this.props;
 
-    const correctMessage = "Your team was correct, congratulations!";
-    const incorrectMessage = "Your team was not correct, better luck on the next one.";
-
-    const result = player.round.get("taskCorrect");
-
     const listenerPuzzleSet = player.round.get("puzzleSet");
     const listenerPuzzleAnswer = player.round.get("puzzleAnswer");
     const listenerAnswer = player.round.get("symbolSubmitted");
 
     const speakerId = player.round.get("pairedSpeaker");
     const speakerPlayer = game.players.find((p) => p.get("nodeId") === speakerId);
+    const speakerPuzzleSet = speakerPlayer.round.get("puzzleSet")
+    const speakerPuzzleAnswer = speakerPlayer.round.get("puzzleAnswer");
     const symbolDescription = speakerPlayer.round.get("symbolDescription");
-    
-    const resultImg = listenerAnswer === listenerPuzzleAnswer ? "images/symbols/circle-checkmark.svg" : "images/symbols/circle-cancel.svg";
+
+    const resultImg = listenerAnswer === speakerPuzzleAnswer ? "images/symbols/circle-checkmark.svg" : "images/symbols/circle-cancel.svg";
 
     console.log(symbolDescription);
 
     return(
         <div className="results-container">
             <div className="results-content">
-                <div className="results-text"> {result ? correctMessage : incorrectMessage} </div>
+                <div className="results-text"> Results From Your Trial </div>
                 <img src={`images/hr-color.png`} width="200px" height="3px" />
                 <div className="results-symbol-set-container">
-                    <div className="results-symbol-description">
-                        Symbol Description : {symbolDescription}
-                    </div>
+                    {/* <div className="results-symbol-description">
+                        Speaker, you asked the Listener to select the : {symbolDescription}
+                    </div> */}
                     <div className="results-symbol-display">
-                        <div className="results-side-symbol">
-                            Team choice
-                            <SymbolDisplayResults
-                                key={listenerAnswer}
-                                name={listenerAnswer}
-                                {...this.props}
-                            />
+                        <div className="results-left-container">
+                            <div className="results-symbol-description">
+                                Speaker asked the Listener to select the : {symbolDescription}
+                            </div>
+                            <div className="results-left-symbols-container">               
+                                {speakerPuzzleSet.map((symbol) => {
+                                    return (
+                                        <SymbolDisplayResults
+                                            key={symbol}
+                                            name={symbol}
+                                            selected={symbol === speakerPuzzleAnswer ? "selected" : ""}
+                                            {...this.props}
+                                        />
+                                    )
+                                })}
+                            </div>
                         </div>
 
                         <img className="results-img" src={`${resultImg}`}/>
 
-                        <div className="results-side-symbol">
-                            Correct Answer
+                        <div className="results-right-container" style={{width: "33%"}}>
+                            <div className="results-symbol-description">
+                                The Listener selected
+                            </div>
                             <SymbolDisplayResults
-                                key={listenerPuzzleAnswer}
-                                name={listenerPuzzleAnswer}
+                                key={speakerPuzzleAnswer}
+                                name={speakerPuzzleAnswer}
                                 {...this.props}
                             />
                         </div>
@@ -154,11 +173,11 @@ export default class Results4 extends React.Component {
                     return (
                     <div>
                         <div className="results-symbol-description">
-                          Symbol Description: {symbolDescription}
+                            The listener was asked to select the : {symbolDescription}
                         </div>
                         <div className="results-symbol-display">
                             <div className="results-side-symbol">
-                                Team choice
+                                Symbol Selected
                                 <SymbolDisplayResults
                                     key={advisorReply}
                                     name={advisorReply}
@@ -169,7 +188,7 @@ export default class Results4 extends React.Component {
                             <img className="results-img" src={`${resultImg}`}/>
 
                             <div className="results-side-symbol">
-                                Correct Answer
+                                Correct Symbol
                                 <SymbolDisplayResults
                                     key={listenerPuzzleAnswer}
                                     name={listenerPuzzleAnswer}
@@ -183,7 +202,7 @@ export default class Results4 extends React.Component {
                         </div>
                         <div className="results-symbol-display">
                             <div className="results-side-symbol">
-                                Team choice
+                                Symbol Selected
                                 <SymbolDisplayResults
                                     key={advisorReply}
                                     name={advisorReply}
@@ -194,7 +213,7 @@ export default class Results4 extends React.Component {
                             <img className="results-img" src={`${resultImg}`}/>
 
                             <div className="results-side-symbol">
-                                Correct Answer
+                                Correct Symbol
                                 <SymbolDisplayResults
                                     key={listenerPuzzleAnswer}
                                     name={listenerPuzzleAnswer}

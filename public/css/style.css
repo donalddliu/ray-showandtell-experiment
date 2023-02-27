@@ -593,16 +593,17 @@ body > div:first-child, .dark, .light {height:auto}
 a, button {text-decoration:none; transition:.35s ease; -moz-transition:.35s ease; -webkit-transition:.35s ease}
 
 /* Styling an arrow button */
-.arrow-button {padding:15px 23px 13px; font-family:"Palatino Linotype", "Book Antiqua", Palatino, serif; font-style:italic; text-transform:uppercase; color:white; display:block; width:201px; position:relative; font-size:15.5px; height:46px; border:0; cursor:pointer; z-index: 5;}
-.arrow-button::after {content:" "; width:0; height:0; border-top:23px solid transparent; border-bottom:23px solid transparent; position:absolute; top:50%; margin-top:-23px; right:-18px}
-.arrow-button::before {content:" "; width:0; height:0; border-top:23px solid transparent; border-bottom:23px solid transparent; position:absolute; top:50%; margin-top:-23px; left:-18px;}
+.arrow-button {padding:15px 23px 13px; font-family:"Palatino Linotype", "Book Antiqua", Palatino, serif; font-style:italic; text-transform:uppercase; color:white; display:block; width:201px; position:relative; font-size:15.5px; height:46px; border:0; cursor:pointer; z-index: 5; }
+.arrow-button::after {content:" "; width:0; height:0; border-top:23px solid transparent; border-bottom:23px solid transparent; position:absolute; top:50%; margin-top:-23px; right:-18px;     transition: .35s ease;}
+.arrow-button::before {content:" "; width:0; height:0; border-top:23px solid transparent; border-bottom:23px solid transparent; position:absolute; top:50%; margin-top:-23px; left:-18px;    transition: .35s ease;}
 .arrow-button:disabled { cursor: default }
 
 /* Offset the submit button by half its height to be centerd on the task box*/
 .button-submit {
     text-align:left;
     background: var(--turquoise); 
-    margin-top: -23px} 
+    margin-top: -23px;
+} 
 .button-submit:hover {background:var(--darkblue)}
 /* Shows the triangle */
 .button-submit:after {border-left:21px solid var(--turquoise); transition:.35s ease; -moz-transition:.35s ease; -webkit-transition:.35s ease}

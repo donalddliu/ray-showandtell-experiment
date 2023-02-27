@@ -109,6 +109,7 @@
 
 .task-description-form-container {
     display:flex;
+    flex-direction: column;
     justify-content: space-between;
     align-items:center;
     margin: 10px 0px;
@@ -118,6 +119,7 @@
     display: flex;
     width: 60%;
     resize: vertical;
+    text-align: center;
     padding: 5px 5px 5px 5px;
 }
 

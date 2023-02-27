@@ -1,0 +1,113 @@
+import React from "react";
+import '../../../public/css/intro.css';
+
+import { Centered } from "meteor/empirica:core";
+import AttentionCheckModal from "./AttentionCheckModal";
+
+
+const Radio = ({ selected, name, value, label, onChange }) => (
+    <label className="questionnaire-radio">
+        <input
+        className="quiz-button"
+        type="radio"
+        name={name}
+        value={value}
+        checked={selected === value}
+        onChange={onChange}
+        />
+        {label}
+    </label>
+);
+
+export default class QuizOne extends React.Component {
+  state = {modalIsOpen: false, sum: "", horse: "" };
+
+  componentDidMount() {
+    const {player} = this.props;
+    if (!player.get("attentionCheck2Tries")) {
+      player.set("attentionCheck2Tries", 2);
+    }
+  }
+
+  handleChange = event => {
+    const el = event.currentTarget;
+    this.setState({ [el.name]: el.value.trim().toLowerCase() });
+  };
+
+  handleSubmit = event => {
+    const { hasPrev, hasNext, onNext, onPrev, game, player } = this.props;
+
+    event.preventDefault();
+    if (this.state.sum === 'two' && this.state.horse === "white") {
+        const currentTriesLeft = player.get("attentionCheck2Tries");
+        const attentionCheck2Answer = {sum: this.state.sum, horse: this.state.horse};
+        player.set(`attentionCheck2-${currentTriesLeft}`, attentionCheck2Answer);
+        onNext();
+    } else {
+      const currentTriesLeft = player.get("attentionCheck2Tries");
+      const attentionCheck2Answer = {sum: this.state.sum, horse: this.state.horse};
+      player.set(`attentionCheck2-${currentTriesLeft}`, attentionCheck2Answer);
+      player.set("attentionCheck2Tries", currentTriesLeft-1);
+
+      if (currentTriesLeft-1 <= 0) {
+        player.exit("failedQuestion");
+      } else {
+        this.onOpenModal();
+      }
+    }
+  };
+
+  onOpenModal = () => {
+    this.setState({modalIsOpen: true});
+  }
+
+  onCloseModal = () => {
+    this.setState({modalIsOpen: false});
+  }
+
+  render() {
+    const { player, game } = this.props;
+    const { response } = this.state;
+
+    return (
+      <Centered>
+        <div className="intro-heading questionnaire-heading"> Questionnaire </div>
+            <div className="questionnaire-content-container">
+                <div className="questionnaire-body">
+                    <label>What is 2+2?</label>
+                    <input
+                        type="text"
+                        dir="auto"
+                        id="sum"
+                        name="sum"
+                        placeholder="e.g. 3"
+                        value={sum}
+                        onChange={this.handleChange}
+                        autoComplete="off"
+                        required
+                    />
+                    <label> What color was Napoleon's white horse? </label>
+                    <input
+                        type="text"
+                        dir="auto"
+                        id="horse"
+                        name="horse"
+                        placeholder="e.g. brown"
+                        value={horse}
+                        onChange={this.handleChange}
+                        autoComplete="off"
+                        required
+                    />
+                </div>
+                <form className="questionnaire-btn-container" onSubmit={this.handleSubmit}>
+                    <button 
+                        className={!response ? "arrow-button button-submit-disabled" : "arrow-button button-submit"}
+                        disabled={!response} type="submit"> Submit </button> 
+                </form>
+                {this.state.modalIsOpen && <AttentionCheckModal player={player} triesLeft={player.get("attentionCheck1Tries")} onCloseModal={this.onCloseModal} /> }
+
+            </div>
+      </Centered>
+    );
+  }
+}

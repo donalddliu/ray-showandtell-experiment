@@ -12,7 +12,7 @@ export default class RoundMetadata extends React.Component {
     return (
       <div className="profile-container">
         {/* <h4> Name : {player.get("anonymousName")} </h4> */}
-        <div className="profile-role-text"> Role : {player.round.get("role")}</div>
+        <div className="profile-role-text"> Your Role : {player.round.get("role")}</div>
         {/* <div className="profile-tab-icon">
           <div div className="profile-icon">
             <img className={`${player.get("anonymousName").toLowerCase()}`}src={`images/profile-icons/profile-${player.round.get("role").toLowerCase()}.svg`} />

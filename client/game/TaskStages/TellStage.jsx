@@ -64,9 +64,15 @@ class TellStage extends Component {
                                     onChange={this.handleChange}
                                     required
                                 />
-                                <button className="task-description-submit" type="button" onClick={this.handleSubmit}>
-                                    Submit
-                                </button>
+                                <div className="button-container">
+                                    <form onSubmit={this.handleSubmit}>
+                                        <button 
+                                        className={!symbolDescription ? "arrow-button button-submit-disabled" : "arrow-button button-submit"} 
+                                        disabled= {!symbolDescription ? true : false} 
+                                        style={{marginTop: "20px"}}
+                                        type="submit"> Submit </button> 
+                                    </form>
+                                </div>
                             </form> :
                             null
                         }

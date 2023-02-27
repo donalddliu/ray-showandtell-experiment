@@ -21,8 +21,10 @@ export default class TutorialResults extends React.Component {
               <div className="intro-heading"> Results </div>
               <img src={`images/hr-color.png`} width="180px" height="2px"/>
               <div className="tutorial-body">
-                After each round, we will share the results from your specific team. The symbol your team picked will be on the left and the correct symbol will be on the right. If the two symbols match, you will get a checkmark, indicating a correct answer. Otherwise, you will get an X.
-                To facilitate learning, in addition to sharing outcomes from your specific interactions, you can also observe outcomes from other teams in the game.
+                After each trial, two sets of results will be displayed. We will show you the results from your most recent trial. The Speaker view along with the word the Speaker used to describe the symbol will be on the left. The symbol selected by the Listener will be on the right. If the two symbols match, you will see a green checkmark, indicating a correct response and successful coordination. Otherwise, you will see an X. 
+                <br></br>
+
+                To facilitate learning, we will also share results from trials on your team. The results will be presented using the same format as the result from your trial.
               </div>
             </div>
           </div>

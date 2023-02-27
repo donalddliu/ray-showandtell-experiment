@@ -9,7 +9,7 @@ class SymbolDisplayResults extends Component {
         const { name, selected } = this.props;
         return (
             <div className={`symbol-display-container ${selected}`} >
-                <img className={`symbol-img ${selected}`} src={`images/symbols/tangrams/${name}.png`} style={{width:"70%"}} />
+                <img className={`symbol-img ${selected}`} src={`images/symbols/tangrams/${name}.png`} style={{width:"100%"}} />
             </div>
         );
     }
