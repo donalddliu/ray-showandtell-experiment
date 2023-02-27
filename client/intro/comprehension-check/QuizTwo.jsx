@@ -38,7 +38,7 @@ export default class QuizOne extends React.Component {
     const { hasPrev, hasNext, onNext, onPrev, game, player } = this.props;
 
     event.preventDefault();
-    if (this.state.sum === 'two' && this.state.horse === "white") {
+    if (this.state.sum === '4' && this.state.horse === "white") {
         const currentTriesLeft = player.get("attentionCheck2Tries");
         const attentionCheck2Answer = {sum: this.state.sum, horse: this.state.horse};
         player.set(`attentionCheck2-${currentTriesLeft}`, attentionCheck2Answer);
@@ -67,7 +67,7 @@ export default class QuizOne extends React.Component {
 
   render() {
     const { player, game } = this.props;
-    const { response } = this.state;
+    const { sum, horse } = this.state;
 
     return (
       <Centered>
@@ -86,6 +86,7 @@ export default class QuizOne extends React.Component {
                         autoComplete="off"
                         required
                     />
+                    <br></br>
                     <label> What color was Napoleon's white horse? </label>
                     <input
                         type="text"
@@ -98,13 +99,14 @@ export default class QuizOne extends React.Component {
                         autoComplete="off"
                         required
                     />
+                    <br></br>
                 </div>
                 <form className="questionnaire-btn-container" onSubmit={this.handleSubmit}>
                     <button 
-                        className={!response ? "arrow-button button-submit-disabled" : "arrow-button button-submit"}
-                        disabled={!response} type="submit"> Submit </button> 
+                        className={!sum && !horse ? "arrow-button button-submit-disabled" : "arrow-button button-submit"}
+                        disabled={!sum && !horse} type="submit"> Submit </button> 
                 </form>
-                {this.state.modalIsOpen && <AttentionCheckModal player={player} triesLeft={player.get("attentionCheck1Tries")} onCloseModal={this.onCloseModal} /> }
+                {this.state.modalIsOpen && <AttentionCheckModal player={player} triesLeft={player.get("attentionCheck2Tries")} onCloseModal={this.onCloseModal} /> }
 
             </div>
       </Centered>

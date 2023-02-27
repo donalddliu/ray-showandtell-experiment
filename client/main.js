@@ -22,6 +22,8 @@ import InstructionStepTwo from "./intro/InstructionStepTwo";
 import Quiz from "./intro/Quiz";
 import NewPlayer from "./intro/NewPlayer";
 import QuizOne from "./intro/comprehension-check/QuizOne";
+import QuizTwo from "./intro/comprehension-check/QuizTwo";
+
 
 // Set the About Component you want to use for the About dialog (optional).
 Empirica.about(About);
@@ -46,7 +48,7 @@ Empirica.introSteps((game, treatment) => {
   [TutorialOverview, TutorialAdvisor, TutorialSpeaker, TutorialListener, TutorialResults, TutorialEarnings, ] :
   [TutorialOverview, TutorialSpeaker, TutorialListener, TutorialAdvisor, TutorialResults, TutorialEarnings];
   ;
-  const quiz = [QuizOne];
+  const quiz = [QuizOne, QuizTwo];
   steps = steps.concat(tutorial);
   // return [];
   return quiz;
