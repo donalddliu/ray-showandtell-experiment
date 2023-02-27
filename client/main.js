@@ -45,7 +45,7 @@ Empirica.introSteps((game, treatment) => {
   // steps.push(Quiz);
   let steps = [];
   const tutorial = game.treatment.passiveMode ? 
-  [TutorialOverview, TutorialAdvisor, TutorialSpeaker, TutorialListener, TutorialResults, TutorialEarnings, ] :
+  [TutorialOverview, TutorialSpeaker, TutorialListener, TutorialResults, TutorialEarnings, ] :
   [TutorialOverview, TutorialSpeaker, TutorialListener, TutorialAdvisor, TutorialResults, TutorialEarnings];
   ;
   const quiz = [QuizOne, QuizTwo];
