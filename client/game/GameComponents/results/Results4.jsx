@@ -25,6 +25,8 @@ export default class Results4 extends React.Component {
 
     const symbolDescription = player.round.get("symbolDescription");
     const resultImg = listenerAnswer === speakerPuzzleAnswer ? "images/symbols/circle-checkmark.svg" : "images/symbols/circle-cancel.svg";
+    const resultText = listenerAnswer === speakerPuzzleAnswer ? "Correct" : "Incorrect";
+
 
 
     return(
@@ -55,15 +57,19 @@ export default class Results4 extends React.Component {
                             </div>
                         </div>
 
-                        <img className="results-img" src={`${resultImg}`}/>
+                        <div className="results-middle-container">
+                            <div className="results-symbol-description"> <br></br> </div>
+                            <img className="results-img" style={{width:"100px", height:"100px"}} src={`${resultImg}`}/>
+                            {resultText}
+                        </div>
 
                         <div className="results-right-container" style={{width: "33%"}}>
                             <div className="results-symbol-description">
                                 The Listener selected
                             </div>
                             <SymbolDisplayResults
-                                key={speakerPuzzleAnswer}
-                                name={speakerPuzzleAnswer}
+                                key={listenerAnswer}
+                                name={listenerAnswer}
                                 {...this.props}
                             />
                         </div>
@@ -91,6 +97,7 @@ export default class Results4 extends React.Component {
     const symbolDescription = speakerPlayer.round.get("symbolDescription");
 
     const resultImg = listenerAnswer === speakerPuzzleAnswer ? "images/symbols/circle-checkmark.svg" : "images/symbols/circle-cancel.svg";
+    const resultText = listenerAnswer === speakerPuzzleAnswer ? "Correct" : "Incorrect";
 
     console.log(symbolDescription);
 
@@ -122,15 +129,25 @@ export default class Results4 extends React.Component {
                             </div>
                         </div>
 
-                        <img className="results-img" src={`${resultImg}`}/>
+                        <div className="results-middle-container">
+                            <div className="results-symbol-description">
+                                <br></br>
+                            </div>
+                                <img className="results-img" style={{width:"100px", height:"100px"}} src={`${resultImg}`}/>
+                            <div>
+                                {resultText}
+                            </div>
+                            
+                        </div>
+
 
                         <div className="results-right-container" style={{width: "33%"}}>
                             <div className="results-symbol-description">
                                 The Listener selected
                             </div>
                             <SymbolDisplayResults
-                                key={speakerPuzzleAnswer}
-                                name={speakerPuzzleAnswer}
+                                key={listenerAnswer}
+                                name={listenerAnswer}
                                 {...this.props}
                             />
                         </div>
@@ -209,8 +226,6 @@ export default class Results4 extends React.Component {
                                     {...this.props}
                                 />
                             </div>
-
-                            <img className="results-img" src={`${resultImg}`}/>
 
                             <div className="results-side-symbol">
                                 Correct Symbol

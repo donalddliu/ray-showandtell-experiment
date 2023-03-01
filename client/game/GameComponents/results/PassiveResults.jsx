@@ -48,7 +48,8 @@ export default class PassiveResults extends React.Component {
                         console.log(puzzleSet);
     
                         const resultImg = answer === submission ? "images/symbols/circle-checkmark.svg" : "images/symbols/circle-cancel.svg";
-    
+                        const resultText = answer === submission ? "Correct" : "Incorrect";
+
                         return (
                         <div className="results-symbol-set">
                             <div className="results-symbol-display">
@@ -63,24 +64,27 @@ export default class PassiveResults extends React.Component {
                                                         key={symbol}
                                                         name={symbol}
                                                         selected={symbol === answer ? "selected" : ""}
-                                                        width={"150px"}
+                                                        width={"200px"}
                                                         {...this.props}
                                                     />
                                                 )
                                         })}
                                     </div>
                                     </div>
-                                <div style={{width:"10%"}}>
-                                    <img className="results-img" style={{width: "100%"}} src={`${resultImg}`}/>
+                                    
+                                <div className="results-middle-container" style={{width:"12.5%"}}>
+                                    <div className="results-symbol-description"> <br></br> </div>
+                                    <img className="results-img" style={{width:"70px", height:"70px"}} src={`${resultImg}`}/>
+                                    {resultText}
                                 </div>
                                 <div className="results-right-container" style={{width: "fit-content"}}>
                                     <div className="results-symbol-description">
                                         The Listener selected
                                     </div>
                                     <SymbolDisplayPassiveResults
-                                        key={answer}
-                                        name={answer}
-                                        width={"150px"}
+                                        key={submission}
+                                        name={submission}
+                                        width={"200px"}
                                         {...this.props}
                                     />
                                 </div>

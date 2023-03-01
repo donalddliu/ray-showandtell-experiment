@@ -50,7 +50,7 @@ Empirica.introSteps((game, treatment) => {
   ;
   const quiz = [QuizOne, QuizTwo];
   steps = steps.concat(tutorial);
-  // return [];
+  return [];
   return quiz;
   return steps;
 });

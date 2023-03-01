@@ -68,7 +68,7 @@ Empirica.gameInit(game => {
       name: `Result  ${taskRoundsAdded}`,
       displayName: `Result`,
       // durationInSeconds: resultsDuration,
-      durationInSeconds: 999999,
+      durationInSeconds: 10,
     })
 
     const passiveStage = taskRound.addStage({

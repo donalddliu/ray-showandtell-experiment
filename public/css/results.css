@@ -110,6 +110,14 @@
     width: 100%;
 }
 
+.results-middle-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 25%;
+}
+
 .results-right-container {
     display: flex;
     flex-direction: column;
@@ -156,7 +164,6 @@
 
 .results-img {
     display: flex;
-    width: 20%;
 }
 
 
