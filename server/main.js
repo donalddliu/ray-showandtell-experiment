@@ -41,8 +41,12 @@ Empirica.gameInit(game => {
     player.set("nodeId", i + 1);
     player.set("neighbors", getNeighbors(networkStructure, player));
     player.set("anonymousName", colors[i]);
+    player.set("inactive", false);
     console.log(player.get("neighbors"));
   });
+
+  game.set("inactivePlayers", []);
+  game.set("networkArray", networkStructure.split(","));
 
   const numTasksPerSurvey = numTaskRounds/numSurveyRounds;
   let surveyRoundsAdded = 0;
@@ -55,13 +59,15 @@ Empirica.gameInit(game => {
     const tellStage = taskRound.addStage({
       name: `Tell ${taskRoundsAdded}`,
       displayName: `Tell`,
-      durationInSeconds: tellDuration
+      // durationInSeconds: tellDuration
+      durationInSeconds: 30
     })
 
     const listenStage = taskRound.addStage({
       name: `Listen ${taskRoundsAdded}`,
       displayName: `Listen`,
-      durationInSeconds: listenDuration
+      // durationInSeconds: listenDuration
+      durationInSeconds: 30
     })
 
     const resultStage = taskRound.addStage({
@@ -74,7 +80,7 @@ Empirica.gameInit(game => {
     const passiveStage = taskRound.addStage({
       name: `Passive ${taskRoundsAdded}`,
       displayName: `Passive`,
-      durationInSeconds: 999999,
+      durationInSeconds: 10,
     })
 
     taskRound.set("roundType", "Task");

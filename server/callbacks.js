@@ -1,5 +1,5 @@
 import Empirica from "meteor/empirica:core";
-import { randomizeRoles, checkToGoNextStage, getPuzzles, assignRequestsToAdvisors, updateScore, checkEveryoneFinishedSurvey, assignPassiveOutcomes } from "./util";
+import { randomizeRoles, checkToGoNextStage, getPuzzles, assignRequestsToAdvisors, updateScore, checkEveryoneFinishedSurvey, assignPassiveOutcomes, removeInactivePlayers, updateNeighbors } from "./util";
 
 
 
@@ -26,6 +26,8 @@ Empirica.onRoundStart((game, round) => {
   // Initiate all roles to None, then randomly assign speaker-listener roles
   game.players.forEach(player => {
     player.round.set("role", "None");
+    console.log("NEXT ROUND");
+    console.log(player.get("neighbors"));
     // player.round.set("activeChats", []);
   })
 
@@ -72,6 +74,38 @@ Empirica.onStageStart((game, round, stage) => {
 // onStageEnd is triggered after each stage.
 // It receives the same options as onRoundEnd, and the stage that just ended.
 Empirica.onStageEnd((game, round, stage) => {
+  game.players.forEach(player => {
+    // Check if any speakers didn't give description
+    if (stage.displayName === "Tell") {
+      if (player.round.get("role") === "Speaker") {
+        if (!player.round.get("symbolDescription")) {
+          player.set("inactive", true);
+          player.set("inactivityUpdated", false);
+          let inactivePlayers = game.get("inactivePlayers");
+          inactivePlayers.push(player.get("nodeId"));
+          game.set("inactivePlayers", inactivePlayers);
+          console.log("INACTIVE");
+          console.log(inactivePlayers);
+        }
+      }
+    }
+
+    // Check if any listener didn't select a symbol
+    if (stage.displayName === "Listen") {
+      if (player.round.get("role") === "Listener") {
+        if (!player.round.get("symbolSubmitted")) {
+          player.set("inactive", true);
+          player.set("inactivityUpdated", false);
+          let inactivePlayers = game.get("inactivePlayers");
+          inactivePlayers.push(player.get("nodeId"));
+          game.set("inactivePlayers", inactivePlayers);
+        }
+      }
+    }
+
+  })
+  
+
   if (stage.displayName === "Listen") {
     updateScore(game, round);
   }
@@ -81,6 +115,22 @@ Empirica.onStageEnd((game, round, stage) => {
 // onRoundEnd is triggered after each round.
 // It receives the same options as onGameEnd, and the round that just ended.
 Empirica.onRoundEnd((game, round) => {
+  if (round.get("roundType") === "Task") {
+    game.players.forEach((player) => {
+      // If player is inactive and network has not been adjusted
+      if (player.get("inactive") && !player.get("inactivityUpdated")) {
+        removeInactivePlayers(game);
+        player.set("inactivityUpdated", true);
+        game.players.forEach((p) => {
+          p.set("neighbors", updateNeighbors(game, p));
+        })
+
+        player.exit("inactive");
+      }
+    })
+  }
+
+
 
   if (round.get("roundType") === "Survey") { // Reset a player's connections for next interval of tasks
     game.players.forEach((player) => {

@@ -27,6 +27,10 @@ export default class Sorry extends Component {
             msg =
                 "Unfortunately you did not meet the conditions required to play the game.";
         }
+        if (player.exitReason === "inactive") {
+            msg =
+                "You were inactive.";
+        }
         // Only for dev
         if (!game && Meteor.isDevelopment) {
             msg =

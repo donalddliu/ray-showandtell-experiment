@@ -30,6 +30,44 @@
     return [... new Set(neighbors)];
   }
 
+  export function updateNeighbors(game, player) {
+    const neighbors = [];
+    let network = game.get("networkArray");
+    const playerIndex = player.get("nodeId");
+
+    network.forEach((n) => {
+      const connection = n.split("-");
+
+      if (playerIndex === parseInt(connection[0])) {
+        neighbors.push(parseInt(connection[1].replace(/\s/g, '')));
+      } else if (playerIndex === parseInt(connection[1])) {
+        neighbors.push(parseInt(connection[0].replace(/\s/g, '')));
+      }
+    });
+  
+    return [... new Set(neighbors)];
+  }
+
+  export function removeInactivePlayers(game) {
+    let oldNetwork = game.get("networkArray");
+    let newNetwork = [...oldNetwork];
+    let inactivePlayers = game.get("inactivePlayers");
+
+    oldNetwork.forEach((n) => {
+      const connection = n.split("-");
+      const c1 = parseInt(connection[1]);
+      const c2 = parseInt(connection[2]);
+
+      if (inactivePlayers.includes(parseInt(connection[0])) || inactivePlayers.includes(parseInt(connection[1])) ) {
+        let removedConnection = _.remove(newNetwork, (c) => c === n);
+      }
+    });
+
+    game.set("networkArray", newNetwork);
+    console.log("New Network")
+    console.log(newNetwork);
+  }
+
   export function getPuzzles(game, round) {
     const allRoles = round.get("allRoles");
     const numAdvisorsPerPair = game.treatment.numAdvisorsPerPair;
@@ -213,28 +251,39 @@
     console.log(shift);
     console.log(allPairs);
     console.log(allPairsShifted);
-    const passiveOutcomes = {}
+    const allPassiveOutcomes = {}
 
     for (const [i, pair] of allPairs.entries()) {
-      passiveOutcomes[pair] = []
+      const {speaker, listener} = pair;
+      let passiveOutcomes = []
       console.log("Pair")
       console.log(pair);
+      let slPair = `${speaker}-${listener}`;
       for (const j of Array(numAdvisorsPerPair).keys()) {
-        passiveOutcomes[pair].push(allPairsShifted[(i+j) % allPairs.length]);
+        passiveOutcomes.push(allPairsShifted[(i+j) % allPairs.length]);
         console.log("Passive Outcomes");
         console.log(allPairsShifted[(i+j) % allPairs.length]);
       }
+      console.log("Final");
+      console.log(passiveOutcomes);
+      allPassiveOutcomes[slPair] = passiveOutcomes; 
+      console.log("Updated?")
+      console.log(allPassiveOutcomes);
     }
+
+    console.log("PASSIVE OUTCOMES");
+    console.log(allPassiveOutcomes);
 
     for (let team of allRolesPerRound) {
       const {speaker, listener, availableAdvisors, chosenAdvisors} = team;
 
-      const pair = {speaker: speaker, listener: listener};
+      let slPair = `${speaker}-${listener}`;
+
       const speakerPlayer = game.players.find((p) => p.get("nodeId") === speaker);
       const listenerPlayer = game.players.find((p) => p.get("nodeId") === listener);
-      team.passiveOutcomes = passiveOutcomes[pair];
-      speakerPlayer.round.set("passiveOutcomes", passiveOutcomes[pair]);
-      listenerPlayer.round.set("passiveOutcomes", passiveOutcomes[pair]);
+      team.passiveOutcomes = allPassiveOutcomes[slPair];
+      speakerPlayer.round.set("passiveOutcomes", allPassiveOutcomes[slPair]);
+      listenerPlayer.round.set("passiveOutcomes", allPassiveOutcomes[slPair]);
 
     }
 
