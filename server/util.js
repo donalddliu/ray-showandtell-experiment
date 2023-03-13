@@ -64,8 +64,6 @@
     });
 
     game.set("networkArray", newNetwork);
-    console.log("New Network")
-    console.log(newNetwork);
   }
 
   export function getPuzzles(game, round) {
@@ -73,7 +71,9 @@
     const numAdvisorsPerPair = game.treatment.numAdvisorsPerPair;
 
     for (let team of allRoles) {
-      const {speaker, listener, availableAdvisors, chosenAdvisors} = team;
+      // const {speaker, listener, availableAdvisors, chosenAdvisors} = team;
+      const {speaker, listener} = team;
+
 
       const symbolPool = ["t1", "t2", "t3", "t4", "t5", "t6", "t7","t8","t9","t10","t11","t12"];
       const puzzleSet = [];
@@ -88,36 +88,50 @@
       // Set puzzle and puzzle answer to each pair and each speaker/listener player
       const speakerPlayer = game.players.find((p) => p.get("nodeId") === speaker);
       const listenerPlayer = game.players.find((p) => p.get("nodeId") === listener);
-      team.puzzleSet = puzzleSet;
-      team.puzzleAnswer = puzzleAnswer;
-      speakerPlayer.round.set('puzzleSet', puzzleSet);
-      listenerPlayer.round.set('puzzleSet', _.shuffle(puzzleSet));
-      listenerPlayer.round.set('adviceReceived', {});
-      speakerPlayer.round.set('puzzleAnswer', puzzleAnswer);
-      listenerPlayer.round.set('puzzleAnswer', puzzleAnswer);
-      listenerPlayer.round.set('adviceReceived', {});
+      if (speakerPlayer.round.get('puzzleSet')) {
+        team.puzzleSet = speakerPlayer.round.get('puzzleSet');
+        team.puzzleAnswer = speakerPlayer.round.get('puzzleAnswer');
+        listenerPlayer.round.set('puzzleSet', _.shuffle(speakerPlayer.round.get('puzzleSet')));
+        listenerPlayer.round.set('adviceReceived', {});
+        listenerPlayer.round.set('puzzleAnswer', speakerPlayer.round.get('puzzleAnswer'));
 
-      const advisorPool = [...availableAdvisors];
-      for (let i = 0; i < numAdvisorsPerPair; i++) {
-        var randomAdvisor = advisorPool[_.random(advisorPool.length-1)];
-        var usedAdvisor = _.remove(advisorPool, (p) => p === randomAdvisor);
-        chosenAdvisors.push(randomAdvisor);
+      } else {
+        team.puzzleSet = puzzleSet;
+        team.puzzleAnswer = puzzleAnswer;
+        speakerPlayer.round.set('puzzleSet', puzzleSet);
+        listenerPlayer.round.set('puzzleSet', _.shuffle(puzzleSet));
+        listenerPlayer.round.set('adviceReceived', {});
+        speakerPlayer.round.set('puzzleAnswer', puzzleAnswer);
+        listenerPlayer.round.set('puzzleAnswer', puzzleAnswer);
+        listenerPlayer.round.set('adviceReceived', {});
       }
-      listenerPlayer.round.set("chosenAdvisors", chosenAdvisors);
+
+      // const advisorPool = [...availableAdvisors];
+      // for (let i = 0; i < numAdvisorsPerPair; i++) {
+      //   var randomAdvisor = advisorPool[_.random(advisorPool.length-1)];
+      //   var usedAdvisor = _.remove(advisorPool, (p) => p === randomAdvisor);
+      //   chosenAdvisors.push(randomAdvisor);
+      // }
+      // listenerPlayer.round.set("chosenAdvisors", chosenAdvisors);
 
     }
     round.set("allRoles", allRoles);
   }
 
 
-  export function randomizeRoles(game, round, structure, numSLPairs, reqMutual) { 
+  export function randomizeRoles(game, round, reqMutual) { 
     // Player pool contains nodeId of all players in game
     const playerPool = [];
-    for (var i = 1; i <= game.players.length; i++) {
-      playerPool.push(i);
-    }
+    game.players.forEach((player) => {
+      if (!player.get("inactive")) {
+        playerPool.push(player.get("nodeId"));
+      }
+    })
 
-    let network = structure.split(",");
+    let network = game.get("networkArray");
+    console.log(playerPool);
+    console.log(Math.floor(playerPool.length/2));
+    const numSLPairs = Math.floor(playerPool.length/2);
 
     const speakerListenerPairs = [];
     const allRolesPerRound = [];
@@ -133,7 +147,10 @@
       if (playerPool.includes(speakerId) && playerPool.includes(listenerId)){
         var removedSpeakerId = _.remove(playerPool, (id) => id === speakerId);
         var removedListenerId = _.remove(playerPool, (id) => id === listenerId);
-        speakerListenerPairs.push({speaker: speakerId, listener: listenerId, availableAdvisors: [], chosenAdvisors: []})
+        let pair = {speaker: speakerId, listener: listenerId};
+        speakerListenerPairs.push(pair);
+
+        // speakerListenerPairs.push({speaker: speakerId, listener: listenerId, availableAdvisors: [], chosenAdvisors: []})
 
         // Set the role and their respective pair in player fields
         const speakerPlayer = game.players.find((p) => p.get("nodeId") === speakerId);
@@ -151,40 +168,63 @@
         updateAllRecentConnections(speakerPlayer, listenerId);
         updateAllRecentConnections(listenerPlayer, speakerId);
 
+        allRolesPerRound.push(pair);
       }
     }
-    
-    for (let pair of speakerListenerPairs) {
-      const {speaker, listener, availableAdvisors, chosenAdvisors} = pair;
-      const speakerNeighbors = game.players.find((p) => p.get("nodeId") === speaker).get("neighbors");
-      const listenerNeighbors = game.players.find((p) => p.get("nodeId") === listener).get("neighbors");
-      for (let advisor of playerPool) {
-        const advisorPlayer = game.players.find((p) => p.get("nodeId") === advisor);
-        if (reqMutual) {
-          if (speakerNeighbors.includes(advisor) && listenerNeighbors.includes(advisor)) {
-            availableAdvisors.push(advisor);
-            if (advisorPlayer.round.get("role") === "None") {
-              advisorPlayer.round.set("role", "Advisor");
-              advisorPlayer.round.set("requestQueue", []);
-              advisorPlayer.round.set("completedRequests", []);
-            }
-          } 
-        } else {
-          if (listenerNeighbors.includes(advisor)) {
-            availableAdvisors.push(advisor);
-            if (advisorPlayer.round.get("role") === "None") {
-              advisorPlayer.round.set("role", "Advisor");
-              advisorPlayer.round.set("requestQueue", []);
-              advisorPlayer.round.set("completedRequests", []);
-            }
-          }
-        }
-      }
-      const listenerPlayer = game.players.find((p) => p.get("nodeId") === listener);
-      listenerPlayer.round.set("availableAdvisors", availableAdvisors);
-      listenerPlayer.round.set("chosenAdvisors", []);
+
+    console.log(allRolesPerRound);
+
+    // If a player leaves, there will be one player without a pair;
+    if (playerPool.length > 0) {
+      var randomNum = Math.round(Math.random() * speakerListenerPairs.length);
+      var randomSLPair = speakerListenerPairs[randomNum];
+      var speakerId = randomSLPair.speaker;
+      var listenerId = playerPool[0];
+
+      // Set the role and their respective pair in player fields
+      const speakerPlayer = game.players.find((p) => p.get("nodeId") === speakerId);
+      const listenerPlayer = game.players.find((p) => p.get("nodeId") === listenerId);
+      speakerPlayer.round.set("role", "Speaker");
+      speakerPlayer.round.set("pairedListener2", listenerId);
+      listenerPlayer.round.set("role", "Listener");
+      listenerPlayer.round.set("pairedSpeaker", speakerId);
+
+      let pair = {speaker: speakerId, listener: listenerId};
+
       allRolesPerRound.push(pair);
     }
+    
+    // for (let pair of speakerListenerPairs) {
+    //   const {speaker, listener, availableAdvisors, chosenAdvisors} = pair;
+    //   const speakerNeighbors = game.players.find((p) => p.get("nodeId") === speaker).get("neighbors");
+    //   const listenerNeighbors = game.players.find((p) => p.get("nodeId") === listener).get("neighbors");
+    //   for (let advisor of playerPool) {
+    //     const advisorPlayer = game.players.find((p) => p.get("nodeId") === advisor);
+    //     if (reqMutual) {
+    //       if (speakerNeighbors.includes(advisor) && listenerNeighbors.includes(advisor)) {
+    //         availableAdvisors.push(advisor);
+    //         if (advisorPlayer.round.get("role") === "None") {
+    //           advisorPlayer.round.set("role", "Advisor");
+    //           advisorPlayer.round.set("requestQueue", []);
+    //           advisorPlayer.round.set("completedRequests", []);
+    //         }
+    //       } 
+    //     } else {
+    //       if (listenerNeighbors.includes(advisor)) {
+    //         availableAdvisors.push(advisor);
+    //         if (advisorPlayer.round.get("role") === "None") {
+    //           advisorPlayer.round.set("role", "Advisor");
+    //           advisorPlayer.round.set("requestQueue", []);
+    //           advisorPlayer.round.set("completedRequests", []);
+    //         }
+    //       }
+    //     }
+    //   }
+    //   const listenerPlayer = game.players.find((p) => p.get("nodeId") === listener);
+    //   listenerPlayer.round.set("availableAdvisors", availableAdvisors);
+    //   listenerPlayer.round.set("chosenAdvisors", []);
+    //   allRolesPerRound.push(pair);
+    // }
     round.set("allRoles", allRolesPerRound);
     
   }
@@ -247,32 +287,32 @@
     const shift = _.random(numAdvisorsPerPair, allPairs.length-1);
     const allPairsShifted = allPairs.slice(-shift).concat(allPairs.slice(0,-shift)) // Shift numbers to the right
 
-    console.log("Compare pairs and shifted pairs");
-    console.log(shift);
-    console.log(allPairs);
-    console.log(allPairsShifted);
+    // console.log("Compare pairs and shifted pairs");
+    // console.log(shift);
+    // console.log(allPairs);
+    // console.log(allPairsShifted);
     const allPassiveOutcomes = {}
 
     for (const [i, pair] of allPairs.entries()) {
       const {speaker, listener} = pair;
       let passiveOutcomes = []
-      console.log("Pair")
-      console.log(pair);
+      // console.log("Pair")
+      // console.log(pair);
       let slPair = `${speaker}-${listener}`;
       for (const j of Array(numAdvisorsPerPair).keys()) {
         passiveOutcomes.push(allPairsShifted[(i+j) % allPairs.length]);
-        console.log("Passive Outcomes");
-        console.log(allPairsShifted[(i+j) % allPairs.length]);
+        // console.log("Passive Outcomes");
+        // console.log(allPairsShifted[(i+j) % allPairs.length]);
       }
-      console.log("Final");
-      console.log(passiveOutcomes);
+      // console.log("Final");
+      // console.log(passiveOutcomes);
       allPassiveOutcomes[slPair] = passiveOutcomes; 
-      console.log("Updated?")
-      console.log(allPassiveOutcomes);
+      // console.log("Updated?")
+      // console.log(allPassiveOutcomes);
     }
 
-    console.log("PASSIVE OUTCOMES");
-    console.log(allPassiveOutcomes);
+    // console.log("PASSIVE OUTCOMES");
+    // console.log(allPassiveOutcomes);
 
     for (let team of allRolesPerRound) {
       const {speaker, listener, availableAdvisors, chosenAdvisors} = team;

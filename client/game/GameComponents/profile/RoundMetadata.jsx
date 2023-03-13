@@ -6,13 +6,13 @@ export default class RoundMetadata extends React.Component {
   renderProfile() {
     const { player, game } = this.props;
     const role = player.round.get("role");
-    const pairedSpeakers = role === "Advisor" ? player.round.get("pairedSpeakers") : player.round.get("pairedSpeaker");
-    const pairedListeners = role === "Advisor" ? player.round.get("pairedListeners") : player.round.get("pairedListener");
-    const advisors = role === "Listener" ? Object.keys(player.round.get("chosenAdvisors")) : "";
+    // const pairedSpeakers = role === "Advisor" ? player.round.get("pairedSpeakers") : player.round.get("pairedSpeaker");
+    // const pairedListeners = role === "Advisor" ? player.round.get("pairedListeners") : player.round.get("pairedListener");
+    // const advisors = role === "Listener" ? Object.keys(player.round.get("chosenAdvisors")) : "";
     return (
       <div className="profile-container">
         {/* <h4> Name : {player.get("anonymousName")} </h4> */}
-        <div className="profile-role-text"> Your Role : {player.round.get("role")}</div>
+        <div className="profile-role-text"> Your Role : {player.round.get("role")}  {player.get("nodeId")}</div>
         {/* <div className="profile-tab-icon">
           <div div className="profile-icon">
             <img className={`${player.get("anonymousName").toLowerCase()}`}src={`images/profile-icons/profile-${player.round.get("role").toLowerCase()}.svg`} />

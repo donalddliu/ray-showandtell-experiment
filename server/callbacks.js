@@ -26,14 +26,14 @@ Empirica.onRoundStart((game, round) => {
   // Initiate all roles to None, then randomly assign speaker-listener roles
   game.players.forEach(player => {
     player.round.set("role", "None");
-    console.log("NEXT ROUND");
-    console.log(player.get("neighbors"));
-    // player.round.set("activeChats", []);
+
   })
 
   if (round.get("roundType") === "Task") {
-    randomizeRoles(game, round, networkStructure, numSLPairs, reqMutual);
+    randomizeRoles(game, round, reqMutual);
+    console.log(round.get("allRoles"));
     getPuzzles(game, round);
+    console.log(round.get("allRoles"));
     assignPassiveOutcomes(game, round);
   }
 
@@ -84,8 +84,7 @@ Empirica.onStageEnd((game, round, stage) => {
           let inactivePlayers = game.get("inactivePlayers");
           inactivePlayers.push(player.get("nodeId"));
           game.set("inactivePlayers", inactivePlayers);
-          console.log("INACTIVE");
-          console.log(inactivePlayers);
+
         }
       }
     }
