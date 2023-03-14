@@ -37,7 +37,7 @@ export default class PassiveResults extends React.Component {
           <div className="results-container">
 
               <div className="results-content">
-                  <div className="results-text"> Results From Trials on Your Team </div>
+                  <div className="results-text" onClick={() => player.stage.submit()}> Results From Trials on Your Team </div>
                   {/* <br></br> */}
                   <img src={`images/hr-color.png`} width="200px" height="3px" />
                   {/* <br></br> */}

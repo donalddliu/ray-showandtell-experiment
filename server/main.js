@@ -48,8 +48,8 @@ Empirica.gameInit(game => {
   game.set("inactivePlayers", []);
   game.set("networkArray", networkStructure.split(","));
 
-  const numTasksPerSurvey = numTaskRounds/numSurveyRounds;
-  let surveyRoundsAdded = 0;
+  // const numTasksPerSurvey = numTaskRounds/numSurveyRounds;
+  // let surveyRoundsAdded = 0;
   let taskRoundsAdded = 0;
 
   _.times(numTaskRounds, i => {
@@ -74,32 +74,32 @@ Empirica.gameInit(game => {
       name: `Result  ${taskRoundsAdded}`,
       displayName: `Result`,
       // durationInSeconds: resultsDuration,
-      durationInSeconds: 10,
+      durationInSeconds: 99999,
     })
 
     const passiveStage = taskRound.addStage({
       name: `Passive ${taskRoundsAdded}`,
       displayName: `Passive`,
-      durationInSeconds: 10,
+      durationInSeconds: 99999,
     })
 
     taskRound.set("roundType", "Task");
 
 
-    if (taskRoundsAdded > 0 && taskRoundsAdded % numTasksPerSurvey == 0) {
+    // if (taskRoundsAdded > 0 && taskRoundsAdded % numTasksPerSurvey == 0) {
 
-      const surveyRound = game.addRound();
-      surveyRoundsAdded++;
+    //   const surveyRound = game.addRound();
+    //   surveyRoundsAdded++;
 
-      surveyRound.addStage({
-        name: `Survey ${surveyRoundsAdded}`,
-        displayName: `Survey`,
-        durationInSeconds: surveyDuration
-      })
+    //   surveyRound.addStage({
+    //     name: `Survey ${surveyRoundsAdded}`,
+    //     displayName: `Survey`,
+    //     durationInSeconds: surveyDuration
+    //   })
 
-      surveyRound.set("roundType", "Survey");
+    //   surveyRound.set("roundType", "Survey");
 
-    } 
+    // } 
 
   });
 });

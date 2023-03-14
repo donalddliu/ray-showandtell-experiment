@@ -28,13 +28,28 @@ export default class Results4 extends React.Component {
     const resultText = listenerAnswer === speakerPuzzleAnswer ? "Correct" : "Incorrect";
 
 
+    let listenerId2;
+    let listenerPlayer2;
+    let listenerAnswer2;
+    let resultImg2;
+    let resultText2;
+    if (player.round.get("pairedListener2")) {
+        listenerId2 = player.round.get("pairedListener2");
+        listenerPlayer2 = game.players.find((p) => p.get("nodeId") === listenerId2);
+        listenerAnswer2 = listenerPlayer2.round.get("symbolSubmitted");
+        resultImg2 = listenerAnswer2 === speakerPuzzleAnswer ? "images/symbols/circle-checkmark.svg" : "images/symbols/circle-cancel.svg";
+        resultText2 = listenerAnswer2 === speakerPuzzleAnswer ? "Correct" : "Incorrect";
+    }
+
+
 
     return(
         <div className="results-container">
             <div className="results-content">
-                <div className="results-text"> Results From Your Trial </div>
+                <div className="results-text" onClick={() => player.stage.submit()}> Results From Your Trial </div>
                 <img src={`images/hr-color.png`} width="200px" height="3px" />
-                <div className="results-symbol-set-container">
+                {!player.round.get("pairedListener2") ? 
+                    <div className="results-symbol-set-container">
                     {/* <div className="results-symbol-description">
                         Speaker, you asked the Listener to select the : {symbolDescription}
                     </div> */}
@@ -49,6 +64,7 @@ export default class Results4 extends React.Component {
                                         <SymbolDisplayResults
                                             key={symbol}
                                             name={symbol}
+                                            width={'350px'}
                                             selected={symbol === speakerPuzzleAnswer ? "selected" : ""}
                                             {...this.props}
                                         />
@@ -70,11 +86,98 @@ export default class Results4 extends React.Component {
                             <SymbolDisplayResults
                                 key={listenerAnswer}
                                 name={listenerAnswer}
+                                width={'350px'}
                                 {...this.props}
                             />
                         </div>
                     </div>
                 </div>
+
+                :
+
+                // If there are 2 Listeners
+                <div className="results-symbol-set-container" style={{justifyContent: "flex-start"}}>
+                    {/* <div className="results-symbol-description">
+                        Speaker, you asked the Listener to select the : {symbolDescription}
+                    </div> */}
+                    <div className="results-symbol-display">
+                        <div className="results-left-container" style={{width: "fit-content"}}>
+                            <div className="results-symbol-description">
+                                Speaker asked the Listener to select the : {symbolDescription}
+                            </div>
+                            <div className="results-left-symbols-container">               
+                                {speakerPuzzleSet.map((symbol) => {
+                                    return (
+                                        <SymbolDisplayResults
+                                            key={symbol}
+                                            name={symbol}
+                                            width={'280px'}
+                                            selected={symbol === speakerPuzzleAnswer ? "selected" : ""}
+                                            {...this.props}
+                                        />
+                                    )
+                                })}
+                            </div>
+                        </div>
+
+                        <div className="results-middle-container" style={{width: "12.5%"}}>
+                            <div className="results-symbol-description"> <br></br> </div>
+                            <img className="results-img" style={{width:"100px", height:"100px"}} src={`${resultImg}`}/>
+                            {resultText}
+                        </div>
+
+                        <div className="results-right-container" style={{width: "fit-content"}}>
+                            <div className="results-symbol-description">
+                                The Listener selected
+                            </div>
+                            <SymbolDisplayResults
+                                key={listenerAnswer}
+                                name={listenerAnswer}
+                                width={'280px'}
+                                {...this.props}
+                            />
+                        </div>
+                    </div>
+                    <div className="results-symbol-display">
+                        <div className="results-left-container" style={{width: "fit-content"}}>
+                            <div className="results-symbol-description">
+                                Speaker asked the Listener to select the : {symbolDescription}
+                            </div>
+                            <div className="results-left-symbols-container">               
+                                {speakerPuzzleSet.map((symbol) => {
+                                    return (
+                                        <SymbolDisplayResults
+                                            key={symbol}
+                                            name={symbol}
+                                            width={'280px'}
+                                            selected={symbol === speakerPuzzleAnswer ? "selected" : ""}
+                                            {...this.props}
+                                        />
+                                    )
+                                })}
+                            </div>
+                        </div>
+
+                        <div className="results-middle-container" style={{width: "12.5%"}}>
+                            <div className="results-symbol-description"> <br></br> </div>
+                            <img className="results-img" style={{width:"100px", height:"100px"}} src={`${resultImg2}`}/>
+                            {resultText2}
+                        </div>
+
+                        <div className="results-right-container" style={{width: "fit-content"}}>
+                            <div className="results-symbol-description">
+                                The Listener selected
+                            </div>
+                            <SymbolDisplayResults
+                                key={listenerAnswer2}
+                                name={listenerAnswer2}
+                                width={'280px'}
+                                {...this.props}
+                            />
+                        </div>
+                    </div>
+                </div> 
+                }
                 <img className="results-bar-separator" src={`images/hr-color.png`} width="200px" height="3px" />
                 <ResultsTimer stage={stage}/>
             </div>
@@ -104,7 +207,7 @@ export default class Results4 extends React.Component {
     return(
         <div className="results-container">
             <div className="results-content">
-                <div className="results-text"> Results From Your Trial </div>
+                <div className="results-text" onClick={() => player.stage.submit()}> Results From Your Trial </div>
                 <img src={`images/hr-color.png`} width="200px" height="3px" />
                 <div className="results-symbol-set-container">
                     {/* <div className="results-symbol-description">

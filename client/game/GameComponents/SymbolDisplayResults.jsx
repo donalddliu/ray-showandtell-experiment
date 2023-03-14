@@ -6,9 +6,9 @@ class SymbolDisplayResults extends Component {
     }
 
     render() {
-        const { name, selected } = this.props;
+        const { name, selected, width } = this.props;
         return (
-            <div className={`symbol-display-container ${selected}`} >
+            <div className={`symbol-display-container ${selected}`} style={{width: `${width}`}}>
                 <img className={`symbol-img ${selected}`} src={`images/symbols/tangrams/${name}.png`} style={{width:"100%"}} />
             </div>
         );
