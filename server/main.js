@@ -60,14 +60,14 @@ Empirica.gameInit(game => {
       name: `Tell ${taskRoundsAdded}`,
       displayName: `Tell`,
       // durationInSeconds: tellDuration
-      durationInSeconds: 99999
+      durationInSeconds: 30
     })
 
     const listenStage = taskRound.addStage({
       name: `Listen ${taskRoundsAdded}`,
       displayName: `Listen`,
       // durationInSeconds: listenDuration
-      durationInSeconds: 99999
+      durationInSeconds: 30
     })
 
     const resultStage = taskRound.addStage({

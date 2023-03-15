@@ -84,13 +84,14 @@ export default class Results4 extends React.Component {
                                 The Listener selected
                             </div>
                                 <SymbolDisplayResults
-                                    key={listenerAnswer ? listenerAnswer : `images/symbols/no selection white.png`}
-                                    name={listenerAnswer ? listenerAnswer : `images/symbols/no selection white.png`}
+                                    key={listenerAnswer ? listenerAnswer : `no selection white`}
+                                    name={listenerAnswer ? listenerAnswer : `no selection white`}
                                     width={'350px'}
                                     {...this.props}
                                 />
                         </div>
                     </div>
+                    
                 </div>
 
                 :
@@ -131,8 +132,8 @@ export default class Results4 extends React.Component {
                                 The Listener selected
                             </div>
                             <SymbolDisplayResults
-                                    key={listenerAnswer ? listenerAnswer : `images/symbols/no selection white.png`}
-                                    name={listenerAnswer ? listenerAnswer : `images/symbols/no selection white.png`}
+                                    key={listenerAnswer ? listenerAnswer : `no selection white`}
+                                    name={listenerAnswer ? listenerAnswer : `no selection white`}
                                     width={'350px'}
                                     {...this.props}
                             />
@@ -148,7 +149,7 @@ export default class Results4 extends React.Component {
                                     return (
                                         <SymbolDisplayResults
                                             key={symbol}
-                                            name={symbol}
+                                            name={`images/symbols/tangrams/${symbol}.png`}
                                             width={'280px'}
                                             selected={symbol === speakerPuzzleAnswer ? "selected" : ""}
                                             {...this.props}
@@ -169,8 +170,8 @@ export default class Results4 extends React.Component {
                                 The Listener selected
                             </div>
                             <SymbolDisplayResults
-                                    key={listenerAnswer2 ? listenerAnswer2 : `images/symbols/no selection white.png`}
-                                    name={listenerAnswer2 ? listenerAnswer2 : `images/symbols/no selection white.png`}
+                                    key={listenerAnswer2 ? listenerAnswer2 : `no selection white`}
+                                    name={listenerAnswer2 ? listenerAnswer2 : `no selection white`}
                                     width={'350px'}
                                     {...this.props}
                             />
@@ -178,6 +179,16 @@ export default class Results4 extends React.Component {
                     </div>
                 </div> 
                 }
+                { (!(listenerAnswer) || (player.round.get("pairedListener2") && !(listenerAnswer2))) ?
+                    <div className="task-description-missing-text">
+                        Your partner did not select a symbol.
+                        <br></br>
+                        You will be given a different partner in the next round.
+                    </div> 
+                    : 
+                    null
+                }
+
                 <img className="results-bar-separator" src={`images/hr-color.png`} width="200px" height="3px" />
                 <ResultsTimer stage={stage}/>
             </div>

@@ -109,7 +109,7 @@ class ListenStageListenerView extends Component {
                             <div className="task-description-missing-text">
                                 Your partner did not send a description to you. Please take a guess.
                                 <br></br>
-                                You will not be deducted this round and will be given a different partner in the next round.
+                                You will be given a different partner in the next round.
                             </div>
                         }
 
