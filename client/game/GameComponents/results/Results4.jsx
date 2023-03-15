@@ -149,7 +149,7 @@ export default class Results4 extends React.Component {
                                     return (
                                         <SymbolDisplayResults
                                             key={symbol}
-                                            name={`images/symbols/tangrams/${symbol}.png`}
+                                            name={symbol}
                                             width={'280px'}
                                             selected={symbol === speakerPuzzleAnswer ? "selected" : ""}
                                             {...this.props}

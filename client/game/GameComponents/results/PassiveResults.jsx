@@ -82,8 +82,8 @@ export default class PassiveResults extends React.Component {
                                         The Listener selected
                                     </div>
                                     <SymbolDisplayPassiveResults
-                                        key={submission}
-                                        name={submission}
+                                        key={submission ? submission : `no selection white`}
+                                        name={submission ? submission : `no selection white`}
                                         width={"200px"}
                                         {...this.props}
                                     />
