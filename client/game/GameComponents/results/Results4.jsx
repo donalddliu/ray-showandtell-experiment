@@ -83,12 +83,12 @@ export default class Results4 extends React.Component {
                             <div className="results-symbol-description">
                                 The Listener selected
                             </div>
-                            <SymbolDisplayResults
-                                key={listenerAnswer}
-                                name={listenerAnswer}
-                                width={'350px'}
-                                {...this.props}
-                            />
+                                <SymbolDisplayResults
+                                    key={listenerAnswer ? listenerAnswer : `images/symbols/no selection white.png`}
+                                    name={listenerAnswer ? listenerAnswer : `images/symbols/no selection white.png`}
+                                    width={'350px'}
+                                    {...this.props}
+                                />
                         </div>
                     </div>
                 </div>
@@ -131,10 +131,10 @@ export default class Results4 extends React.Component {
                                 The Listener selected
                             </div>
                             <SymbolDisplayResults
-                                key={listenerAnswer}
-                                name={listenerAnswer}
-                                width={'280px'}
-                                {...this.props}
+                                    key={listenerAnswer ? listenerAnswer : `images/symbols/no selection white.png`}
+                                    name={listenerAnswer ? listenerAnswer : `images/symbols/no selection white.png`}
+                                    width={'350px'}
+                                    {...this.props}
                             />
                         </div>
                     </div>
@@ -169,10 +169,10 @@ export default class Results4 extends React.Component {
                                 The Listener selected
                             </div>
                             <SymbolDisplayResults
-                                key={listenerAnswer2}
-                                name={listenerAnswer2}
-                                width={'280px'}
-                                {...this.props}
+                                    key={listenerAnswer2 ? listenerAnswer2 : `images/symbols/no selection white.png`}
+                                    name={listenerAnswer2 ? listenerAnswer2 : `images/symbols/no selection white.png`}
+                                    width={'350px'}
+                                    {...this.props}
                             />
                         </div>
                     </div>
@@ -224,6 +224,7 @@ export default class Results4 extends React.Component {
                                         <SymbolDisplayResults
                                             key={symbol}
                                             name={symbol}
+                                            width={'350px'}
                                             selected={symbol === speakerPuzzleAnswer ? "selected" : ""}
                                             {...this.props}
                                         />
@@ -251,6 +252,7 @@ export default class Results4 extends React.Component {
                             <SymbolDisplayResults
                                 key={listenerAnswer}
                                 name={listenerAnswer}
+                                width={'350px'}
                                 {...this.props}
                             />
                         </div>

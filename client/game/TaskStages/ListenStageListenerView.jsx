@@ -71,10 +71,16 @@ class ListenStageListenerView extends Component {
 
     
     renderListenerSubmitted() {
+        const {stage} = this.props;
         return (
             <div className="task-response-container">
                 <div className="task-response-header">
                     <div className="task-instruction-text"> Please wait until all Listeners have chosen their symbol </div>
+                </div>
+                <div className="task-response-body">
+                </div>
+                <div className="task-response-footer-timer">
+                    <Timer stage={stage}/>
                 </div>
             </div>
         )
@@ -99,6 +105,13 @@ class ListenStageListenerView extends Component {
                         {/* <header> Choose the symbol that best represents the following description given by Player {speakerColor}: </header>
                         <header> { symbolDescription } </header> */}
                         <div className="task-instruction-text">Your partner is asking you to click on the <span style={{fontWeight: "bold"}}> {symbolDescription}</span>. </div> 
+                        { symbolDescription ? null :
+                            <div className="task-description-missing-text">
+                                Your partner did not send a description to you. Please take a guess.
+                                <br></br>
+                                You will not be deducted this round and will be given a different partner in the next round.
+                            </div>
+                        }
 
                     </div>
                     <div className="task-response-body">

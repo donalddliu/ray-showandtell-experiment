@@ -116,20 +116,34 @@ class TellStage extends Component {
     }
 
     renderSpeakerSubmitted() {
+        const {stage} = this.props;
+
         return (
             <div className="task-response-container">
                 <div className="task-response-header">
                     <div className="task-instruction-text"> Please wait until all Speakers have described their symbol </div>
+                </div>
+                <div className="task-response-body">
+                </div>
+                <div className="task-response-footer-timer">
+                    <Timer stage={stage}/>
                 </div>
             </div>
         )
     }
 
     renderWait() {
+        const {stage} = this.props;
+
         return (
             <div className="task-response-container">
                 <div className="task-response-header">
                     <div className="task-instruction-text"> Please wait </div>
+                </div>
+                <div className="task-response-body">
+                </div>
+                <div className="task-response-footer-timer">
+                    <Timer stage={stage}/>
                 </div>
             </div>
         )

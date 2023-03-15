@@ -84,6 +84,7 @@ Empirica.onStageEnd((game, round, stage) => {
           let inactivePlayers = game.get("inactivePlayers");
           inactivePlayers.push(player.get("nodeId"));
           game.set("inactivePlayers", inactivePlayers);
+          player.exit("inactive");
 
         }
       }
@@ -98,6 +99,8 @@ Empirica.onStageEnd((game, round, stage) => {
           let inactivePlayers = game.get("inactivePlayers");
           inactivePlayers.push(player.get("nodeId"));
           game.set("inactivePlayers", inactivePlayers);
+          player.exit("inactive");
+
         }
       }
     }
@@ -124,7 +127,7 @@ Empirica.onRoundEnd((game, round) => {
           p.set("neighbors", updateNeighbors(game, p));
         })
 
-        player.exit("inactive");
+        // player.exit("inactive");
       }
     })
   }

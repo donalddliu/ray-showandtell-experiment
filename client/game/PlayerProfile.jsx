@@ -29,7 +29,7 @@ export default class PlayerProfile extends React.Component {
     return (
       <div className="profile-score">
         <h4>Total score</h4>
-        <span>{(game.get("score") || 0).toFixed(2)}</span>
+        <span>{(player.get("score") || 0).toFixed(2)}</span>
       </div>
     );
   }

@@ -30,8 +30,10 @@ export default class ExitSurvey extends React.Component {
   };
 
   render() {
-    const { player } = this.props;
+    const { player, game } = this.props;
     const { age, gender, strength, fair, feedback, education } = this.state;
+
+    console.log(game.get("score"));
 
     return (
       <Centered>
@@ -42,7 +44,7 @@ export default class ExitSurvey extends React.Component {
             <strong>{player._id}</strong>.
           </p>
           <p>
-            You final <strong>bonus</strong> of {player.get("score")} is in addition of the{" "}
+            You final <strong>bonus</strong> of {game.get("score").toFixed(2)} is in addition of the{" "}
             <strong>1 base reward</strong> for completing the HIT.
           </p>
           <br />

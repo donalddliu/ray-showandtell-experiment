@@ -26,7 +26,7 @@ export default class RoundMetadata extends React.Component {
     const { player, game } = this.props;
     return (
       <div className="earnings-container">
-        <div className="earnings-text">Earnings: {(game.get("score") || 0).toFixed(2)} </div>
+        <div className="earnings-text">Earnings: {(player.get("score") || 0).toFixed(2)} </div>
       </div>
     );
   }
