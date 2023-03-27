@@ -17,7 +17,9 @@ class TellStage extends Component {
 
     handleChange = event => {
         const el = event.currentTarget;
-        this.setState({ [el.name]: el.value.trim() });
+        // this.setState({ [el.name]: el.value.trim() });
+        this.setState({ [el.name]: el.value });
+
     };
 
     handleSubmit = event => {
@@ -57,6 +59,7 @@ class TellStage extends Component {
                         {puzzleAnswer === symbol ? 
                             <form className="task-description-form-container" onSubmit={this.handleSubmit}>
                                 <input
+                                    maxLength={20}
                                     className="task-description-form"
                                     id="symbolDescripition"
                                     name="symbolDescription"

@@ -33,8 +33,6 @@ export default class ExitSurvey extends React.Component {
     const { player, game } = this.props;
     const { age, gender, strength, fair, feedback, education } = this.state;
 
-    console.log(game.get("score"));
-
     return (
       <Centered>
         <div className="exit-survey">
@@ -44,7 +42,7 @@ export default class ExitSurvey extends React.Component {
             <strong>{player._id}</strong>.
           </p>
           <p>
-            You final <strong>bonus</strong> of {game.get("score").toFixed(2)} is in addition of the{" "}
+            You final <strong>bonus</strong> of {player.get("score").toFixed(2)} is in addition of the{" "}
             <strong>1 base reward</strong> for completing the HIT.
           </p>
           <br />
@@ -136,7 +134,7 @@ export default class ExitSurvey extends React.Component {
                 </div>
               </div>
               <div>
-                <label htmlFor="fair">Do you feel the pay was fair?</label>
+                <label htmlFor="fair">What do you think would be a fair bonus for each trial you get correct?</label>
                 <div>
                   <textarea
                     dir="auto"
@@ -149,7 +147,7 @@ export default class ExitSurvey extends React.Component {
               </div>
               <div>
                 <label htmlFor="feedback">
-                  Feedback, including problems you encountered.
+                  Feedback, including problems you encountered (rounds too fast, max description length too short, etc).
                 </label>
                 <div>
                   <textarea

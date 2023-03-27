@@ -31,7 +31,7 @@ export default class PassiveResults extends React.Component {
             passiveOutcomes.push({answer: correctAnswer, description: speakerDescription, puzzleSet:speakerPuzzleSet, submission: listenerSubmission});
         })
 
-        passiveOutcomes.push({answer: "t1", description: "Test", puzzleSet: ["t1", "t2", "t3"], submission: "t1"});
+        // passiveOutcomes.push({answer: "t1", description: "Test", puzzleSet: ["t1", "t2", "t3"], submission: "t1"});
 
         return(
           <div className="results-container">

@@ -385,25 +385,22 @@
       // If listener selects correct answer, give them points, otherwise deduct points
       let taskCorrect = false;
       if (listenerPlayer.round.get("symbolSubmitted") === puzzleAnswer) {
-        let newSpeakerScore = prevSpeakerScore + game.treatment.slReward;
-        let newListenerScore = prevListenerScore + game.treatment.slReward;
-        console.log("CORRECT");
-        console.log(newSpeakerScore);
-        console.log(newListenerScore);
+        // let newSpeakerScore = prevSpeakerScore + game.treatment.slReward;
+        // let newListenerScore = prevListenerScore + game.treatment.slReward;
+
+        let newSpeakerScore = prevSpeakerScore + 1;
+        let newListenerScore = prevListenerScore + 1;
+
 
         speakerPlayer.set("score", newSpeakerScore);
         listenerPlayer.set("score", newListenerScore);
         taskCorrect = true;
       } else {
-        let newSpeakerScore = Math.max(prevSpeakerScore - game.treatment.slPenalty, 0);
-        let newListenerScore = Math.max(prevListenerScore - game.treatment.slPenalty, 0);
+        // let newSpeakerScore = Math.max(prevSpeakerScore - game.treatment.slPenalty, 0);
+        // let newListenerScore = Math.max(prevListenerScore - game.treatment.slPenalty, 0);
 
-        speakerPlayer.set("score", newSpeakerScore);
-        listenerPlayer.set("score", newListenerScore);
-
-        console.log("WRONG");
-        console.log(newSpeakerScore);
-        console.log(newListenerScore);
+        // speakerPlayer.set("score", newSpeakerScore);
+        // listenerPlayer.set("score", newListenerScore);
       }
 
       speakerPlayer.round.set("taskCorrect", taskCorrect);
