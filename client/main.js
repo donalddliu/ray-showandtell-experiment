@@ -49,10 +49,9 @@ Empirica.introSteps((game, treatment) => {
   [TutorialOverview, TutorialSpeaker, TutorialListener, TutorialAdvisor, TutorialResults, TutorialEarnings];
   ;
   const quiz = [QuizOne, QuizTwo];
-  steps = steps.concat(tutorial);
-  return [];
-  return quiz;
+  steps = steps.concat(tutorial, quiz);
   return steps;
+
 });
 
 // The Round component containing the game UI logic.

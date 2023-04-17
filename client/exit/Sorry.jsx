@@ -20,7 +20,7 @@ export default class Sorry extends Component {
                     "You decided to stop waiting, we are sorry it was too long a wait.";
                 break;
             default:
-                msg = "Unfortunately the Game was cancelled...";
+                msg = "Unfortunately, the Game was cancelled...";
                 break;
         }
         if (player.exitReason === "failedQuestion") {
@@ -29,12 +29,16 @@ export default class Sorry extends Component {
         }
         if (player.exitReason === "inactive") {
             msg =
-                "You were inactive.";
+                "Because you have failed to describe the symbol as a Speaker or failed to select a symbol as a Listener, you were deemed inactive. Please return your submission and we will pay you for the total amount of time you actually played rather than the entire session.";
+        }
+        if (player.exitReason === "minPlayerCountNotMet") {
+            msg =
+                "Unfortunately, there were too few players active in this game and the game had to be cancelled. Thank you for participating in this game. Please return your submission and we will pay you for the total amount of time you actually played rather than the entire session."
         }
         // Only for dev
         if (!game && Meteor.isDevelopment) {
             msg =
-                "Unfortunately the Game was cancelled because of failed to init Game (only visible in development, check the logs).";
+                "Unfortunately, the Game was cancelled because of failed to init Game (only visible in development, check the logs).";
         }
         return (
             <Centered>

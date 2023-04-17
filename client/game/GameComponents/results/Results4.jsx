@@ -134,7 +134,7 @@ export default class Results4 extends React.Component {
                             <SymbolDisplayResults
                                     key={listenerAnswer ? listenerAnswer : `no selection white`}
                                     name={listenerAnswer ? listenerAnswer : `no selection white`}
-                                    width={'350px'}
+                                    width={'280px'}
                                     {...this.props}
                             />
                         </div>
@@ -172,7 +172,7 @@ export default class Results4 extends React.Component {
                             <SymbolDisplayResults
                                     key={listenerAnswer2 ? listenerAnswer2 : `no selection white`}
                                     name={listenerAnswer2 ? listenerAnswer2 : `no selection white`}
-                                    width={'350px'}
+                                    width={'280px'}
                                     {...this.props}
                             />
                         </div>
@@ -212,8 +212,6 @@ export default class Results4 extends React.Component {
 
     const resultImg = listenerAnswer === speakerPuzzleAnswer ? "images/symbols/circle-checkmark.svg" : "images/symbols/circle-cancel.svg";
     const resultText = listenerAnswer === speakerPuzzleAnswer ? "Correct" : "Incorrect";
-
-    console.log(symbolDescription);
 
     return(
         <div className="results-container">

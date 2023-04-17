@@ -129,8 +129,8 @@
     })
 
     let network = game.get("networkArray");
-    console.log(playerPool);
-    console.log(Math.floor(playerPool.length/2));
+
+    
     const numSLPairs = Math.floor(playerPool.length/2);
 
     const speakerListenerPairs = [];

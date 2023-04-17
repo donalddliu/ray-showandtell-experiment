@@ -2,7 +2,7 @@ import React from "react";
 
 import { Centered } from "meteor/empirica:core";
 
-const Radio = ({ selected, name, value, label, onChange }) => (
+const Radio = ({ selected, name, value, label, onChange, required }) => (
   <label>
     <input
       type="radio"
@@ -10,6 +10,8 @@ const Radio = ({ selected, name, value, label, onChange }) => (
       value={value}
       checked={selected === value}
       onChange={onChange}
+      required={required ? "required" : ""}
+
     />
     {label}
   </label>
@@ -39,16 +41,14 @@ export default class ExitSurvey extends React.Component {
           <h1> Exit Survey </h1>
           <p>
             Please submit the following code to receive your bonus:{" "}
-            <strong>{player._id}</strong>.
+            <strong> C1MW509G </strong>.
           </p>
           <p>
-            You final <strong>bonus</strong> of {player.get("score").toFixed(2)} is in addition of the{" "}
-            <strong>1 base reward</strong> for completing the HIT.
+            You received a final score of {player.get("score").toFixed(2)}.
           </p>
           <br />
           <p>
-            Please answer the following short survey. You do not have to provide
-            any information you feel uncomfortable with.
+            Please answer the following short survey.
           </p>
           <form onSubmit={this.handleSubmit}>
             <div className="form-line">
@@ -65,6 +65,7 @@ export default class ExitSurvey extends React.Component {
                     name="age"
                     value={age}
                     onChange={this.handleChange}
+                    required
                   />
                 </div>
               </div>
@@ -79,6 +80,7 @@ export default class ExitSurvey extends React.Component {
                     value={gender}
                     onChange={this.handleChange}
                     autoComplete="off"
+                    required
                   />
                 </div>
               </div>
@@ -93,6 +95,7 @@ export default class ExitSurvey extends React.Component {
                   value="high-school"
                   label="High School"
                   onChange={this.handleChange}
+                  required={true}
                 />
                 <Radio
                   selected={education}
@@ -130,6 +133,7 @@ export default class ExitSurvey extends React.Component {
                     name="strength"
                     value={strength}
                     onChange={this.handleChange}
+                    required
                   />
                 </div>
               </div>
@@ -142,12 +146,13 @@ export default class ExitSurvey extends React.Component {
                     name="fair"
                     value={fair}
                     onChange={this.handleChange}
+                    required
                   />
                 </div>
               </div>
               <div>
                 <label htmlFor="feedback">
-                  Feedback, including problems you encountered (rounds too fast, max description length too short, etc).
+                  Feedback, including problems you encountered (rounds too fast, max description length too short, server lag, etc).
                 </label>
                 <div>
                   <textarea
@@ -156,6 +161,7 @@ export default class ExitSurvey extends React.Component {
                     name="feedback"
                     value={feedback}
                     onChange={this.handleChange}
+                    required
                   />
                 </div>
               </div>

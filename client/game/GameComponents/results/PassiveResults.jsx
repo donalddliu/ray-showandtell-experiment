@@ -45,7 +45,6 @@ export default class PassiveResults extends React.Component {
                     {
                       passiveOutcomes.map((outcome) => {
                         const {answer, description, puzzleSet, submission} = outcome;
-                        console.log(puzzleSet);
     
                         const resultImg = answer === submission ? "images/symbols/circle-checkmark.svg" : "images/symbols/circle-cancel.svg";
                         const resultText = answer === submission ? "Correct" : "Incorrect";

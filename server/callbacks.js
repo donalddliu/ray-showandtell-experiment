@@ -31,9 +31,7 @@ Empirica.onRoundStart((game, round) => {
 
   if (round.get("roundType") === "Task") {
     randomizeRoles(game, round, reqMutual);
-    console.log(round.get("allRoles"));
     getPuzzles(game, round);
-    console.log(round.get("allRoles"));
     assignPassiveOutcomes(game, round);
   }
 
@@ -130,6 +128,13 @@ Empirica.onRoundEnd((game, round) => {
         // player.exit("inactive");
       }
     })
+
+   let activePlayers = game.players.filter(p => !p.get("inactive"));
+   if (activePlayers.length <= 1) {
+    activePlayers.forEach((player) => {
+      player.exit("minPlayerCountNotMet");
+    })
+   }
   }
 
 
@@ -180,22 +185,18 @@ Empirica.onSet((
   const allPlayers = game.players;
 
   if (stage.displayName === "Choose" && key === "submitted") {
-    console.log("Choose Submitted")
     const role = "Listener";
     checkToGoNextStage(allPlayers, role);
 
   }
   else if (stage.displayName === "Tell" && key === "submitted") {
-    console.log("Tell Submitted");
     const role = "Speaker";
     checkToGoNextStage(allPlayers, role);
 
   } else if (stage.displayName === "Listen" && key === "submitted") {
-    console.log("Listen Submitted");
     const role = "Listener";
     checkToGoNextStage(allPlayers, role);
   } else if (stage.displayName === "Survey" && key === "submitted") {
-    console.log("Survey Submitted");
     checkEveryoneFinishedSurvey(allPlayers, round);
   }
   // // Example filtering

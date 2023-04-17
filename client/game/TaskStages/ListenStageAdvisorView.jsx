@@ -95,7 +95,6 @@ class ListenStageAdvisorView extends Component {
     renderAdvisorStage() {
         const {game, round, stage, player} = this.props;
         const requestQueue = player.round.get("requestQueue");
-        console.log(requestQueue);
          
         if (requestQueue.length === 0) {
             return this.renderWait();

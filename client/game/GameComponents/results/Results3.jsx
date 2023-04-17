@@ -112,7 +112,6 @@ export default class Results3 extends React.Component {
     const speakerPlayer = game.players.find((p) => p.get("nodeId") === speakerId);
     const symbolDescription = speakerPlayer.round.get("symbolDescription");
 
-    console.log(listenerAnswer);
 
 
     return (

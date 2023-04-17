@@ -22,10 +22,16 @@ export default class TutorialEarnings extends React.Component {
               <img src={`images/hr-color.png`} width="180px" height="2px"/>
               <div className="tutorial-body">
                 { game.treatment.passiveMode ? 
-                    <span> You will be asked to name abstract symbols for a fixed number of trials. Each time you and your partner correctly identify the abstract symbol, you will receive a bonus of {game.treatment.slReward * 100}-cents. </span>:
+                    <span> You will be asked to name abstract symbols for a fixed number of trials. Each time you and your partner correctly identify the abstract symbol, you will receive 1 point. We will be determining an appropriate point to bonus reward conversion based off user feedback and average game performance. </span>:
                     <span> Your team will be asked to name abstract symbols for a fixed number of trials. Every time a listener or advisor selects the correct symbol, your team will receive a bonus. A {game.treatment.slReward * 100}-cent bonus for a correct response from a listener and a {game.treatment.advisorReward * 100}-cent bonus for a correct response from an advisor. </span>  
                 }
               </div>
+              {/* <div className="tutorial-body">
+                { game.treatment.passiveMode ? 
+                    <span> You will be asked to name abstract symbols for a fixed number of trials. Each time you and your partner correctly identify the abstract symbol, you will receive a bonus of {game.treatment.slReward * 100}-cents. </span>:
+                    <span> Your team will be asked to name abstract symbols for a fixed number of trials. Every time a listener or advisor selects the correct symbol, your team will receive a bonus. A {game.treatment.slReward * 100}-cent bonus for a correct response from a listener and a {game.treatment.advisorReward * 100}-cent bonus for a correct response from an advisor. </span>  
+                }
+              </div> */}
             </div>
           </div>
         </Centered>

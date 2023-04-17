@@ -9,7 +9,7 @@ export default class Thanks extends React.Component {
       <div className="finished">
         <div>
           <h4>Finished!</h4>
-          <p>Thank you for participating!</p>
+          <p>Thank you for participating! Please submit the following code: C1MW509G </p>
         </div>
       </div>
     );

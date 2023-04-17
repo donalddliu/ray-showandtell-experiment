@@ -26,7 +26,9 @@ export default class RoundMetadata extends React.Component {
     const { player, game } = this.props;
     return (
       <div className="earnings-container">
-        <div className="earnings-text">Earnings: {(player.get("score") || 0).toFixed(2)} </div>
+        {/* <div className="earnings-text">Earnings: {(player.get("score") || 0).toFixed(2)} </div> */}
+        <div className="earnings-text">Score: {(player.get("score") || 0).toFixed(2)} </div>
+
       </div>
     );
   }
@@ -40,7 +42,6 @@ export default class RoundMetadata extends React.Component {
             <div className="round-number-text"> Task {stageNum} of {totalTaskRounds} </div>
         </div>
     )
-    console.log(stage.name.split(" ")[1]);
 
   }
 
