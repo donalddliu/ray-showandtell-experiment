@@ -11,7 +11,7 @@ class ListenStage extends Component {
     }
 
     renderWait() {
-        const {stage} = this.props; 
+        const {game, round, stage, player} = this.props;
         return (
             <div className="task-response-container">
                 <div className="task-response-header">
@@ -20,7 +20,7 @@ class ListenStage extends Component {
                 <div className="task-response-body">
                 </div>
                 <div className="task-response-footer-timer">
-                    <Timer stage={stage}/>
+                    <Timer stage={stage} player={player}/>
                 </div>
             </div>
         )

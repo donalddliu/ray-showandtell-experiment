@@ -130,7 +130,7 @@ class ListenStageAdvisorView extends Component {
                         </div>
                     </div>
                     <div className="task-response-footer-timer">
-                        <Timer stage = {stage} />
+                        <Timer stage = {stage} player={player}/>
                     </div>
                     
                 </div>

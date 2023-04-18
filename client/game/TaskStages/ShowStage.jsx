@@ -29,7 +29,7 @@ class ShowStage extends Component {
     }
 
     renderStage() {
-        const {stage} = this.props;
+        const {game, round, stage, player} = this.props;
 
         return (
             <div className="task-response-container">
@@ -42,7 +42,7 @@ class ShowStage extends Component {
                     </div>
                 </div>
                 <div className="task-response-footer">
-                    <Timer stage={stage}/>
+                    <Timer stage={stage} player={player}/>
 
                 </div>
                 

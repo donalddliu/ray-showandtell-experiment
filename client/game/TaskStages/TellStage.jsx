@@ -12,6 +12,7 @@ class TellStage extends Component {
         super(props);  
         this.state = {
           symbolDescription: "",
+          descriptionLimit: 40,
         }
     }
 
@@ -43,7 +44,7 @@ class TellStage extends Component {
         const {game, round, stage, player} = this.props;
         const puzzleAnswer = player.round.get("puzzleAnswer");
         const puzzleSet = player.round.get("puzzleSet");
-        const {symbolDescription} = this.state;
+        const {symbolDescription, descriptionLimit} = this.state;
 
 
         return(
@@ -59,7 +60,7 @@ class TellStage extends Component {
                         {puzzleAnswer === symbol ? 
                             <form className="task-description-form-container" onSubmit={this.handleSubmit}>
                                 <input
-                                    maxLength={20}
+                                    maxLength={descriptionLimit}
                                     className="task-description-form"
                                     id="symbolDescripition"
                                     name="symbolDescription"
@@ -67,6 +68,9 @@ class TellStage extends Component {
                                     onChange={this.handleChange}
                                     required
                                 />
+                                <p>
+                                    {symbolDescription.length} / {descriptionLimit} characters left
+                                </p>
                                 <div className="button-container">
                                     <form onSubmit={this.handleSubmit}>
                                         <button 
@@ -86,8 +90,9 @@ class TellStage extends Component {
     }
 
     renderStage() {
-        // const {symbolDescription} = this.state;
-        const {stage} = this.props;
+        const {game, round, stage, player} = this.props;
+        const {symbolDescription, descriptionLimit} = this.state;
+
 
         return (
             <div className="task-response-container">
@@ -101,7 +106,7 @@ class TellStage extends Component {
                     </div>
                 </div>
                 <div className="task-response-footer-timer">
-                    <Timer stage={stage}/>
+                    <Timer stage={stage} player={player} symbolDescription={symbolDescription}/>
                     {/* <form className="task-description-form-container" onSubmit={this.handleSubmit}>
                         <input
                             className="task-description-form"
@@ -119,7 +124,7 @@ class TellStage extends Component {
     }
 
     renderSpeakerSubmitted() {
-        const {stage} = this.props;
+        const {game, round, stage, player} = this.props;
 
         return (
             <div className="task-response-container">
@@ -129,14 +134,14 @@ class TellStage extends Component {
                 <div className="task-response-body">
                 </div>
                 <div className="task-response-footer-timer">
-                    <Timer stage={stage}/>
+                    <Timer stage={stage} player={player}/>
                 </div>
             </div>
         )
     }
 
     renderWait() {
-        const {stage} = this.props;
+        const {game, round, stage, player} = this.props;
 
         return (
             <div className="task-response-container">
@@ -146,7 +151,7 @@ class TellStage extends Component {
                 <div className="task-response-body">
                 </div>
                 <div className="task-response-footer-timer">
-                    <Timer stage={stage}/>
+                    <Timer stage={stage} player={player}/>
                 </div>
             </div>
         )
