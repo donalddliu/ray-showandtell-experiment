@@ -19,8 +19,8 @@ const Radio = ({ selected, name, value, label, onChange }) => (
     </label>
 );
 
-export default class QuizOne extends React.Component {
-  state = {modalIsOpen: false, sum: "", horse: "" };
+export default class QuizTwo extends React.Component {
+  state = {modalIsOpen: false };
 
   componentDidMount() {
     const {player} = this.props;
@@ -31,21 +31,20 @@ export default class QuizOne extends React.Component {
 
   handleChange = event => {
     const el = event.currentTarget;
-    this.setState({ [el.name]: el.value.trim().toLowerCase() });
+    this.setState({ [el.name]: el.value });
   };
 
   handleSubmit = event => {
     const { hasPrev, hasNext, onNext, onPrev, game, player } = this.props;
-
     event.preventDefault();
-    if (this.state.sum === '4' && this.state.horse === "white") {
+    if (this.state.response === 'C') {
         const currentTriesLeft = player.get("attentionCheck2Tries");
-        const attentionCheck2Answer = {sum: this.state.sum, horse: this.state.horse};
+        const attentionCheck2Answer = this.state.response;
         player.set(`attentionCheck2-${currentTriesLeft}`, attentionCheck2Answer);
         onNext();
     } else {
       const currentTriesLeft = player.get("attentionCheck2Tries");
-      const attentionCheck2Answer = {sum: this.state.sum, horse: this.state.horse};
+      const attentionCheck2Answer = this.state.response;
       player.set(`attentionCheck2-${currentTriesLeft}`, attentionCheck2Answer);
       player.set("attentionCheck2Tries", currentTriesLeft-1);
 
@@ -67,44 +66,53 @@ export default class QuizOne extends React.Component {
 
   render() {
     const { player, game } = this.props;
-    const { sum, horse } = this.state;
+    const { response } = this.state;
 
     return (
       <Centered>
         <div className="intro-heading questionnaire-heading"> Questionnaire </div>
             <div className="questionnaire-content-container">
                 <div className="questionnaire-body">
-                    <label>What is 2+2?</label>
-                    <input
-                        type="text"
-                        dir="auto"
-                        id="sum"
-                        name="sum"
-                        placeholder="e.g. 3"
-                        value={sum}
+                    <label className="questionnaire-question">
+                        The Speaker will be given {game.treatment.tellDuration} seconds to describe a highlighted symbol using a name or a label. If the Speaker enters the word sumo for the symbol, the Listener will receive the following message. Descriptions will be limited to a maximum of 40 characters. We do not care if the descriptions are short or long, we care more about how the team coordinates on the symbol. If you fail to submit a description within the allotted time, you will be kicked from the game.
+                        <br></br>
+                        The Listener will be given {game.treatment.listenDuration} seconds to select a symbol using the description provided by the Speaker. If you do not receive a description from a symbol, please do your best to guess a symbol and we will pair you with another player in the next round. If you fail to submit a symbol selection within the allotted time, you will be kicked from the game.
+                    </label>
+                    <p>----------------------------------------------------------------------------------------------------</p>                    
+                    <label>I will be kicked from the game if I ...</label>
+                    <Radio
+                        selected={response}
+                        name="response"
+                        value="A"
+                        label="A. Fail to submit a description as a Speaker"
                         onChange={this.handleChange}
-                        autoComplete="off"
-                        required
                     />
-                    <br></br>
-                    <label> What color was Napoleon's white horse? </label>
-                    <input
-                        type="text"
-                        dir="auto"
-                        id="horse"
-                        name="horse"
-                        placeholder="e.g. brown"
-                        value={horse}
+                    <Radio
+                        selected={response}
+                        name="response"
+                        value="B"
+                        label="B. Fail to submit a symbol selection as a Listener"
                         onChange={this.handleChange}
-                        autoComplete="off"
-                        required
                     />
-                    <br></br>
+                    <Radio
+                        selected={response}
+                        name="response"
+                        value="C"
+                        label="C. Both A and B"
+                        onChange={this.handleChange}
+                    />
+                    <Radio
+                        selected={response}
+                        name="response"
+                        value="D"
+                        label="D. None of the above"
+                        onChange={this.handleChange}
+                    />
                 </div>
                 <form className="questionnaire-btn-container" onSubmit={this.handleSubmit}>
                     <button 
-                        className={!sum && !horse ? "arrow-button button-submit-disabled" : "arrow-button button-submit"}
-                        disabled={!sum && !horse} type="submit"> Submit </button> 
+                        className={!response ? "arrow-button button-submit-disabled" : "arrow-button button-submit"}
+                        disabled={!response} type="submit"> Submit </button> 
                 </form>
                 {this.state.modalIsOpen && <AttentionCheckModal player={player} triesLeft={player.get("attentionCheck2Tries")} onCloseModal={this.onCloseModal} /> }
 
