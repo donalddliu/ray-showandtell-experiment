@@ -26,7 +26,6 @@ class TellStage extends Component {
     handleSubmit = event => {
         const {game, round, stage, player} = this.props;
         event.preventDefault();
-        console.log("submitted")
 
         const symbolDescription = this.state.symbolDescription;
         player.round.set("symbolDescription", symbolDescription); 
@@ -93,7 +92,6 @@ class TellStage extends Component {
     renderStage() {
         const {game, round, stage, player} = this.props;
         const {symbolDescription, descriptionLimit} = this.state;
-        console.log("Original Timer")
 
         return (
             <div className="task-response-container">
@@ -125,7 +123,6 @@ class TellStage extends Component {
     }
 
     renderSpeakerSubmitted() {
-        console.log("Different Timer")
         const {game, round, stage, player} = this.props;
 
         return (
