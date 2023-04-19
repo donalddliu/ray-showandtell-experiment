@@ -26,6 +26,7 @@ class TellStage extends Component {
     handleSubmit = event => {
         const {game, round, stage, player} = this.props;
         event.preventDefault();
+        console.log("submitted")
 
         const symbolDescription = this.state.symbolDescription;
         player.round.set("symbolDescription", symbolDescription); 
@@ -69,16 +70,16 @@ class TellStage extends Component {
                                     required
                                 />
                                 <p>
-                                    {symbolDescription.length} / {descriptionLimit} characters left
+                                    {symbolDescription.length} / {descriptionLimit} characters used
                                 </p>
                                 <div className="button-container">
-                                    <form onSubmit={this.handleSubmit}>
+                                    {/* <form> */}
                                         <button 
                                         className={!symbolDescription ? "arrow-button button-submit-disabled" : "arrow-button button-submit"} 
                                         disabled= {!symbolDescription ? true : false} 
                                         style={{marginTop: "20px"}}
                                         type="submit"> Submit </button> 
-                                    </form>
+                                    {/* </form> */}
                                 </div>
                             </form> :
                             null
@@ -92,7 +93,7 @@ class TellStage extends Component {
     renderStage() {
         const {game, round, stage, player} = this.props;
         const {symbolDescription, descriptionLimit} = this.state;
-
+        console.log("Original Timer")
 
         return (
             <div className="task-response-container">
@@ -124,6 +125,7 @@ class TellStage extends Component {
     }
 
     renderSpeakerSubmitted() {
+        console.log("Different Timer")
         const {game, round, stage, player} = this.props;
 
         return (

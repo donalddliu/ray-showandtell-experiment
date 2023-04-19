@@ -16,9 +16,11 @@ class timer extends React.Component {
       classes.push("lessThan10");
     }
 
-    if (remainingSeconds <= 0) {
+    if (remainingSeconds == 0) {
       if (player.round.get("role") === "Speaker") {
         if (!player.stage.get("submitted") && symbolDescription.length > 0 ) {
+          console.log("Timer ran out")
+
           player.round.set("symbolDescription", symbolDescription); 
           stage.append("log", {
               verb: "symbolDescription",
@@ -31,6 +33,7 @@ class timer extends React.Component {
       if (player.round.get("role") === "Listener") {
         if (!player.stage.get("submitted") && player.round.get("symbolSelected")) {
           const symbolSelected = player.round.get("symbolSelected");
+          console.log("Timer ran out")
           player.round.set("symbolSubmitted", symbolSelected); 
           stage.append("log", {
               verb: "listenerSymbolSubmitted",
@@ -38,8 +41,12 @@ class timer extends React.Component {
               object: symbolSelected,
               at: moment(TimeSync.serverTime(null, 1000)),
           })
+
         }
       }
+
+      player.stage.set("submitted", true);
+
     }
 
     return (
