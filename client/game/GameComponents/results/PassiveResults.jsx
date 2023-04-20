@@ -52,7 +52,7 @@ export default class PassiveResults extends React.Component {
                         return (
                         <div className="results-symbol-set">
                             <div className="results-symbol-display">
-                                <div className="results-left-container" style={{width: "fit-content"}}>
+                                <div className="results-left-container" style={{width: "600px"}}>
                                     <div className="results-symbol-description">
                                         Speaker asked the Listener to select the : {description}
                                     </div>
@@ -71,7 +71,7 @@ export default class PassiveResults extends React.Component {
                                     </div>
                                     </div>
                                     
-                                <div className="results-middle-container" style={{width:"12.5%"}}>
+                                <div className="results-middle-container" style={{width:"225px"}}>
                                     <div className="results-symbol-description"> <br></br> </div>
                                     <img className="results-img" style={{width:"70px", height:"70px"}} src={`${resultImg}`}/>
                                     {resultText}
