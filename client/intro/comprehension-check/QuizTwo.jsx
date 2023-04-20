@@ -74,12 +74,12 @@ export default class QuizTwo extends React.Component {
             <div className="questionnaire-content-container">
                 <div className="questionnaire-body">
                     <label className="questionnaire-question">
-                        The Speaker will be given {game.treatment.tellDuration} seconds to describe a highlighted symbol using a name or a label. If the Speaker enters the word sumo for the symbol, the Listener will receive the following message. Descriptions will be limited to a maximum of 40 characters. We do not care if the descriptions are short or long, we care more about how the team coordinates on the symbol. If you fail to submit a description within the allotted time, you will be kicked from the game.
-                        <br></br>
-                        The Listener will be given {game.treatment.listenDuration} seconds to select a symbol using the description provided by the Speaker. If you do not receive a description from a symbol, please do your best to guess a symbol and we will pair you with another player in the next round. If you fail to submit a symbol selection within the allotted time, you will be kicked from the game.
+                        The Speaker will be given {game.treatment.tellDuration} seconds to describe a highlighted symbol using a name or a label. If the Speaker enters the word sumo for the symbol, the Listener will receive the following message. Descriptions will be limited to a maximum of 40 characters. We do not care if the descriptions are short or long, we care more about how the team coordinates on the symbol. If you fail to submit a description within the allotted time, the game will assume you are no longer interested in playing and you will be removed from the game.
+                        <br></br> <br></br>
+                        The Listener will be given {game.treatment.listenDuration} seconds to select a symbol using the description provided by the Speaker. If you do not receive a description from a symbol, please do your best to guess a symbol and we will pair you with another player in the next round. If you fail to submit a symbol selection within the allotted time, the game will assume you are no longer interested in playing and you will be removed from the game.
                     </label>
                     <p>----------------------------------------------------------------------------------------------------</p>                    
-                    <label>I will be kicked from the game if I ...</label>
+                    <label>I will be removed from the game if I ...</label>
                     <Radio
                         selected={response}
                         name="response"
