@@ -15,7 +15,7 @@ class ListenStage extends Component {
         return (
             <div className="task-response-container">
                 <div className="task-response-header">
-                    <div className="task-instruction-text"> Please wait </div>
+                    <div className="task-instruction-text"> Please wait until the Listener selects a symbol. </div>
                 </div>
                 <div className="task-response-body">
                 </div>

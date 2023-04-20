@@ -65,6 +65,7 @@ class TellStage extends Component {
                                     id="symbolDescripition"
                                     name="symbolDescription"
                                     value={symbolDescription}
+                                    autoComplete="off"
                                     onChange={this.handleChange}
                                     required
                                 />
@@ -145,7 +146,7 @@ class TellStage extends Component {
         return (
             <div className="task-response-container">
                 <div className="task-response-header">
-                    <div className="task-instruction-text"> Please wait </div>
+                    <div className="task-instruction-text"> Please wait until the Speaker provides a description </div>
                 </div>
                 <div className="task-response-body">
                 </div>

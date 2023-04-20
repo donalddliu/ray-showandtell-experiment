@@ -21,7 +21,8 @@ export default class TutorialSpeaker extends React.Component {
               <div className="intro-heading"> Speaker View </div>
               <img src={`images/hr-color.png`} width="180px" height="2px"/>
               <div className="tutorial-body">
-                The Speaker will be given {game.treatment.tellDuration} seconds to describe a highlighted symbol using a name or a label. If the Speaker enters the word sumo for the symbol, the Listener will receive the following message. Descriptions will be limited to a maximum of 40 characters. We do not care if the descriptions are short or long, we care more about how the team coordinates on the symbol. If you fail to submit a description within the allotted time, you will be kicked from the game.              </div>
+                The Speaker will be given {game.treatment.tellDuration} seconds to describe a highlighted symbol using a name or a label. If the Speaker enters the word sumo for the symbol, the Listener will receive the following message. Descriptions will be limited to a maximum of 40 characters. We do not care if the descriptions are short or long, we care more about how the team coordinates on the symbol. If you fail to submit a description within the allotted time, the game will assume you are no longer interested in playing and you will be removed from the game. 
+              </div>
             </div>
           </div>
         </Centered>

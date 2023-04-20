@@ -21,7 +21,7 @@ export default class TutorialListener extends React.Component {
               <div className="intro-heading"> Listener View </div>
               <img src={`images/hr-color.png`} width="180px" height="2px"/>
               <div className="tutorial-body">
-                The Listener will be given {game.treatment.listenDuration} seconds to select a symbol using the description provided by the Speaker. If you do not receive a description from a symbol, please do your best to guess a symbol and we will pair you with another player in the next round. If you fail to submit a symbol selection within the allotted time, you will be kicked from the game.
+                The Listener will be given {game.treatment.listenDuration} seconds to select a symbol using the description provided by the Speaker. If you do not receive a description from a symbol, please do your best to guess a symbol and we will pair you with another player in the next round. If you fail to submit a symbol selection within the allotted time, the game will assume you are no longer interested in playing and you will be removed from the game.
                 {!game.treatment.passiveMode ? <span> On some trials, the Listener can have one or more Advisors. The Advisors will be asked to share their response given the clue given to you by the speaker. Their responses will be shown on the right of the screen. </span> : ""}
                 </div>
             </div>

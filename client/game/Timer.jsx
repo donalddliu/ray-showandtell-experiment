@@ -47,12 +47,37 @@ class timer extends React.Component {
 
     }
 
-    return (
-      <div className={classes.join(" ")}>
-        <h4>Time Remaining</h4>
+    if (stage.displayName === "Tell") {
+      return (
+        <div className={classes.join(" ")}>
+        {
+          player.round.get("role") === "Speaker" ? 
+          <h4>Time Remaining</h4> :
+          <h4>Time Remaining for Speakers</h4>
+        }
         <span className="seconds">{remainingSeconds} seconds </span>
       </div>
-    );
+      )
+    } else if (stage.displayName === "Listen") {
+      return (
+        <div className={classes.join(" ")}>
+        {
+          player.round.get("role") === "Listener" ? 
+          <h4>Time Remaining</h4> :
+          <h4>Time Remaining for Listeners</h4>
+        }
+        <span className="seconds">{remainingSeconds} seconds </span>
+      </div>
+      )
+    } else {
+      return (
+        <div className={classes.join(" ")}>
+          <h4>Time Remaining</h4>
+          <span className="seconds">{remainingSeconds} seconds </span>
+        </div>
+      );
+    }
+
   }
 }
 
