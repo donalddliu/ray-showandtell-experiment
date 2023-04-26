@@ -130,7 +130,7 @@
 
     let network = game.get("networkArray");
 
-    
+
     const numSLPairs = Math.floor(playerPool.length/2);
 
     const speakerListenerPairs = [];
@@ -171,8 +171,6 @@
         allRolesPerRound.push(pair);
       }
     }
-
-    console.log(allRolesPerRound);
 
     // If a player leaves, there will be one player without a pair;
     if (playerPool.length > 0) {

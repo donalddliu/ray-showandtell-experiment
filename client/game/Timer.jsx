@@ -16,10 +16,9 @@ class timer extends React.Component {
       classes.push("lessThan10");
     }
 
-    if (remainingSeconds == 0) {
+    if (remainingSeconds == 0 && !player.stage.get("submitted")) {
       if (player.round.get("role") === "Speaker") {
-        if (!player.stage.get("submitted") && symbolDescription.length > 0 ) {
-
+        if (symbolDescription.length > 0 ) {
           player.round.set("symbolDescription", symbolDescription); 
           stage.append("log", {
               verb: "symbolDescription",
@@ -30,8 +29,10 @@ class timer extends React.Component {
         }
       } 
       if (player.round.get("role") === "Listener") {
-        if (!player.stage.get("submitted") && player.round.get("symbolSelected")) {
+        if (player.round.get("symbolSelected")) {
+
           const symbolSelected = player.round.get("symbolSelected");
+
           player.round.set("symbolSubmitted", symbolSelected); 
           stage.append("log", {
               verb: "listenerSymbolSubmitted",
@@ -42,8 +43,10 @@ class timer extends React.Component {
 
         }
       }
-
-      player.stage.set("submitted", true);
+      
+      if (!player.stage.get("submitted")) {
+        player.stage.set("submitted", true);
+      }
 
     }
 
