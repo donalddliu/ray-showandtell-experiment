@@ -13,8 +13,10 @@ export default class PassiveResults extends React.Component {
     renderPassiveResults = () => {
         const {stage, round, player, game} = this.props;
 
-        const message = "These are some outcomes from other teams";
+        const symbolWidth = 200;
+        const symbolSetContainerWidth = symbolWidth * 4;
 
+        const message = "These are some outcomes from other teams";
         const completedRequests = player.round.get("completedRequests");
         let passiveOutcomes = []
         const passivePairs = player.round.get("passiveOutcomes");
@@ -52,7 +54,7 @@ export default class PassiveResults extends React.Component {
                         return (
                         <div className="results-symbol-set">
                             <div className="results-symbol-display">
-                                <div className="results-left-container" style={{width: "600px"}}>
+                                <div className="results-left-container" style={{width: `${symbolSetContainerWidth}px`}}>
                                     <div className="results-symbol-description">
                                         Speaker asked the Listener to select the : {description}
                                     </div>
@@ -63,7 +65,7 @@ export default class PassiveResults extends React.Component {
                                                         key={symbol}
                                                         name={symbol}
                                                         selected={symbol === answer ? "selected" : ""}
-                                                        width={"200px"}
+                                                        width={`${symbolWidth}px`}
                                                         {...this.props}
                                                     />
                                                 )
@@ -83,7 +85,7 @@ export default class PassiveResults extends React.Component {
                                     <SymbolDisplayPassiveResults
                                         key={submission ? submission : `no selection white`}
                                         name={submission ? submission : `no selection white`}
-                                        width={"200px"}
+                                        width={`${symbolWidth}px`}
                                         {...this.props}
                                     />
                                 </div>

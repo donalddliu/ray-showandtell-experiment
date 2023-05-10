@@ -11,11 +11,8 @@ export default class Results4 extends React.Component {
 
   renderSpeakerResults = () => {
     const { stage, round, player, game } = this.props;
-
-    const correctMessage = "Your team was correct, congratulations!";
-    const incorrectMessage = "Your team was not correct, better luck on the next one.";
-
-    const result = player.round.get("taskCorrect");
+    const symbolWidth = '300px';
+    const symbolWidth2Listeners = '240px';
 
     const speakerPuzzleSet = player.round.get("puzzleSet");
     const speakerPuzzleAnswer = player.round.get("puzzleAnswer");
@@ -64,7 +61,7 @@ export default class Results4 extends React.Component {
                                         <SymbolDisplayResults
                                             key={symbol}
                                             name={symbol}
-                                            width={'350px'}
+                                            width={symbolWidth}
                                             selected={symbol === speakerPuzzleAnswer ? "selected" : ""}
                                             {...this.props}
                                         />
@@ -86,7 +83,7 @@ export default class Results4 extends React.Component {
                                 <SymbolDisplayResults
                                     key={listenerAnswer ? listenerAnswer : `no selection white`}
                                     name={listenerAnswer ? listenerAnswer : `no selection white`}
-                                    width={'350px'}
+                                    width={symbolWidth}
                                     {...this.props}
                                 />
                         </div>
@@ -112,7 +109,7 @@ export default class Results4 extends React.Component {
                                         <SymbolDisplayResults
                                             key={symbol}
                                             name={symbol}
-                                            width={'280px'}
+                                            width={symbolWidth2Listeners}
                                             selected={symbol === speakerPuzzleAnswer ? "selected" : ""}
                                             {...this.props}
                                         />
@@ -134,7 +131,7 @@ export default class Results4 extends React.Component {
                             <SymbolDisplayResults
                                     key={listenerAnswer ? listenerAnswer : `no selection white`}
                                     name={listenerAnswer ? listenerAnswer : `no selection white`}
-                                    width={'280px'}
+                                    width={symbolWidth2Listeners}
                                     {...this.props}
                             />
                         </div>
@@ -150,7 +147,7 @@ export default class Results4 extends React.Component {
                                         <SymbolDisplayResults
                                             key={symbol}
                                             name={symbol}
-                                            width={'280px'}
+                                            width={symbolWidth2Listeners}
                                             selected={symbol === speakerPuzzleAnswer ? "selected" : ""}
                                             {...this.props}
                                         />
@@ -172,7 +169,7 @@ export default class Results4 extends React.Component {
                             <SymbolDisplayResults
                                     key={listenerAnswer2 ? listenerAnswer2 : `no selection white`}
                                     name={listenerAnswer2 ? listenerAnswer2 : `no selection white`}
-                                    width={'280px'}
+                                    width={symbolWidth2Listeners}
                                     {...this.props}
                             />
                         </div>
@@ -199,6 +196,8 @@ export default class Results4 extends React.Component {
 
   renderListenerResults = () => {
     const { stage, round, player, game } = this.props;
+
+    const symbolWidth = '300px';
 
     const listenerPuzzleSet = player.round.get("puzzleSet");
     const listenerPuzzleAnswer = player.round.get("puzzleAnswer");
@@ -233,7 +232,7 @@ export default class Results4 extends React.Component {
                                         <SymbolDisplayResults
                                             key={symbol}
                                             name={symbol}
-                                            width={'350px'}
+                                            width={symbolWidth}
                                             selected={symbol === speakerPuzzleAnswer ? "selected" : ""}
                                             {...this.props}
                                         />
@@ -261,7 +260,7 @@ export default class Results4 extends React.Component {
                             <SymbolDisplayResults
                                 key={listenerAnswer}
                                 name={listenerAnswer}
-                                width={'350px'}
+                                width={symbolWidth}
                                 {...this.props}
                             />
                         </div>

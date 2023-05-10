@@ -77,7 +77,7 @@
 
       const symbolPool = ["t1", "t2", "t3", "t4", "t5", "t6", "t7","t8","t9","t10","t11","t12"];
       const puzzleSet = [];
-      for (let i = 0; i < 3; i++) { //TODO: Update with symbolSetSize
+      for (let i = 0; i < 4; i++) { //TODO: Update with symbolSetSize
         var randomSymbol = symbolPool[_.random(symbolPool.length-1)];
         var removedSymbol = _.remove(symbolPool, (s) => s === randomSymbol);
         puzzleSet.push(randomSymbol);
