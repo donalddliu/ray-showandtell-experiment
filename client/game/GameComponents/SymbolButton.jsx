@@ -13,10 +13,15 @@ class SymbolButton extends Component {
 
     render() {
         const { name, selected } = this.props;
+
+        const zerofilled = ('0000'+name).slice(-4);
+
         return (
             <div className={`symbol-container`} >
                 <button className={`${selected ? "symbolButtonSelected" : "symbolButtonUnselected"}`} onClick={this.handleClick}>
-                    <img className={`symbol-img ${selected ? "selected" : ""}`}src={`images/symbols/tangrams/${name}.png`} style={{width: "100%"}} />
+                    {/* <img className={`symbol-img ${selected ? "selected" : ""}`}src={`images/symbols/tangrams/${name}.png`} style={{width: "100%"}} /> */}
+                    <img className={`symbol-img ${selected ? "selected" : ""}`}src={`images/continuum-symbols/04_shape_pole_${zerofilled}.png`} style={{width: "100%"}} />
+
                 </button>
             </div>
         );

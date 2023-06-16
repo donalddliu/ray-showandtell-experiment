@@ -43,6 +43,8 @@ Empirica.gameInit(game => {
     player.set("neighbors", getNeighbors(networkStructure, player));
     player.set("anonymousName", colors[i]);
     player.set("inactive", false);
+    const imageHistory = new Array(1500).fill(1.0);
+    player.set("imageHistory", imageHistory);
   });
 
   game.set("inactivePlayers", []);
@@ -76,11 +78,11 @@ Empirica.gameInit(game => {
       durationInSeconds: resultsDuration,
     })
 
-    const passiveStage = taskRound.addStage({
-      name: `Passive ${taskRoundsAdded}`,
-      displayName: `Passive`,
-      durationInSeconds: passiveResultsDuration,
-    })
+    // const passiveStage = taskRound.addStage({
+    //   name: `Passive ${taskRoundsAdded}`,
+    //   displayName: `Passive`,
+    //   durationInSeconds: passiveResultsDuration,
+    // })
 
     taskRound.set("roundType", "Task");
 

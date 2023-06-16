@@ -1,4 +1,4 @@
-  import _, { update } from 'lodash';
+  import _, { range, update } from 'lodash';
 
   function updateRecentSLConnections(player, connectionId) {
     const recentSLConnections = new Set(player.get("recentSLConnections"));
@@ -118,6 +118,111 @@
     round.set("allRoles", allRoles);
   }
 
+  function multiplyArrays(array1, array2) {
+    // Multiple 2 Javascript Arrays together
+    const product = [];
+    for (let i = 0; i < array1.length; i++) {
+      product.push(array1[i] * array2[i]);
+    }
+    return product;
+  }
+
+  export function getPuzzles2(game, round) {
+    const allRoles = round.get("allRoles");
+    const numAdvisorsPerPair = game.treatment.numAdvisorsPerPair;
+
+    const numImages = 1500;
+    const bounds = 75;
+
+    for (let team of allRoles) {
+      // const {speaker, listener, availableAdvisors, chosenAdvisors} = team;
+      const {speaker, listener} = team;
+
+      const speakerPlayer = game.players.find((p) => p.get("nodeId") === speaker);
+      const listenerPlayer = game.players.find((p) => p.get("nodeId") === listener);
+
+      let speakerImageHistory = speakerPlayer.get("imageHistory");
+      let listenerImageHistory = listenerPlayer.get("imageHistory");
+      let combinedImageHistory = multiplyArrays(speakerImageHistory, listenerImageHistory);
+
+      // Find the index of a random image excluding the bounds
+      // Pick index b/t 76 and 1500-77. (0-index)
+      // If i = 76, then we are left with 76 - 75 = 1 [0,1)
+      // If i = 1423, then we are left with 1423 + 75 = 1498 [1498 + 1, 1499]
+      const iMid = _.random(bounds+1, numImages-(bounds + 1 + 1));
+
+      let combinedMatrixLeft = _.slice(combinedImageHistory, 0, iMid-bounds);
+
+      let combinedMatrixRight = _.slice(combinedImageHistory, iMid + bounds + 1);
+
+
+      let maxLeft = -1;
+      let maxLeftIdx = -1;
+      let maxRight = -1;
+      let maxRightIdx = -1;
+      for (let i = 0 ; i < combinedMatrixLeft.length; i++) {
+        combinedMatrixLeft[i] = Math.random() * combinedMatrixLeft[i];
+
+        if (combinedMatrixLeft[i] > maxLeft) {
+          maxLeft = combinedMatrixLeft[i];
+          maxLeftIdx = i;
+        }
+
+      }
+
+      for (let i = 0; i< combinedMatrixRight.length; i++) {
+        combinedMatrixRight[i] = Math.random() * combinedMatrixRight[i];
+
+        if (combinedMatrixRight[i] > maxRight) {
+          maxRight = combinedMatrixRight[i];
+          maxRightIdx = i + iMid + bounds + 1;
+        }
+      }
+
+      const puzzleSet = [maxLeftIdx, iMid, maxRightIdx];
+
+      // console.log(puzzleSet);
+
+      for (i of puzzleSet) {
+        speakerImageHistory[i] = 0.0;
+        listenerImageHistory[i] = 0.0;
+      }
+
+      // console.log(speakerImageHistory);
+      // console.log(speakerImageHistory.reduce((partialSum, a) => partialSum + a, 0));
+
+      // console.log(listenerImageHistory);
+      // console.log(listenerImageHistory.reduce((partialSum, a) => partialSum + a, 0));
+
+
+      speakerPlayer.set("imageHistory", speakerImageHistory);
+      listenerPlayer.set("imageHistory", listenerImageHistory);
+
+      const puzzleAnswer = puzzleSet[_.random(puzzleSet.length-1)];
+
+
+      // Set puzzle and puzzle answer to each pair and each speaker/listener player
+      if (speakerPlayer.round.get('puzzleSet')) {
+        team.puzzleSet = speakerPlayer.round.get('puzzleSet');
+        team.puzzleAnswer = speakerPlayer.round.get('puzzleAnswer');
+        listenerPlayer.round.set('puzzleSet', _.shuffle(speakerPlayer.round.get('puzzleSet')));
+        listenerPlayer.round.set('adviceReceived', {});
+        listenerPlayer.round.set('puzzleAnswer', speakerPlayer.round.get('puzzleAnswer'));
+
+      } else {
+        team.puzzleSet = puzzleSet;
+        team.puzzleAnswer = puzzleAnswer;
+        speakerPlayer.round.set('puzzleSet', puzzleSet);
+        listenerPlayer.round.set('puzzleSet', _.shuffle(puzzleSet));
+        listenerPlayer.round.set('adviceReceived', {});
+        speakerPlayer.round.set('puzzleAnswer', puzzleAnswer);
+        listenerPlayer.round.set('puzzleAnswer', puzzleAnswer);
+        listenerPlayer.round.set('adviceReceived', {});
+      }
+
+    }
+    round.set("allRoles", allRoles);
+  }
 
   export function randomizeRoles(game, round, reqMutual) { 
     // Player pool contains nodeId of all players in game
@@ -285,32 +390,21 @@
     const shift = _.random(numAdvisorsPerPair, allPairs.length-1);
     const allPairsShifted = allPairs.slice(-shift).concat(allPairs.slice(0,-shift)) // Shift numbers to the right
 
-    // console.log("Compare pairs and shifted pairs");
-    // console.log(shift);
-    // console.log(allPairs);
-    // console.log(allPairsShifted);
     const allPassiveOutcomes = {}
 
     for (const [i, pair] of allPairs.entries()) {
       const {speaker, listener} = pair;
       let passiveOutcomes = []
-      // console.log("Pair")
-      // console.log(pair);
+
       let slPair = `${speaker}-${listener}`;
       for (const j of Array(numAdvisorsPerPair).keys()) {
         passiveOutcomes.push(allPairsShifted[(i+j) % allPairs.length]);
-        // console.log("Passive Outcomes");
-        // console.log(allPairsShifted[(i+j) % allPairs.length]);
-      }
-      // console.log("Final");
-      // console.log(passiveOutcomes);
-      allPassiveOutcomes[slPair] = passiveOutcomes; 
-      // console.log("Updated?")
-      // console.log(allPassiveOutcomes);
-    }
 
-    // console.log("PASSIVE OUTCOMES");
-    // console.log(allPassiveOutcomes);
+      }
+
+      allPassiveOutcomes[slPair] = passiveOutcomes; 
+
+    }
 
     for (let team of allRolesPerRound) {
       const {speaker, listener, availableAdvisors, chosenAdvisors} = team;
@@ -388,6 +482,10 @@
 
         let newSpeakerScore = prevSpeakerScore + 1;
         let newListenerScore = prevListenerScore + 1;
+        // console.log(`Old S : ${prevSpeakerScore}`)
+        // console.log(`New S : ${newSpeakerScore}`)
+        // console.log(`Old L : ${prevListenerScore}`)
+        // console.log(`New L : ${newListenerScore}`)
 
 
         speakerPlayer.set("score", newSpeakerScore);

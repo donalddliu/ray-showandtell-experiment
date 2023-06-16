@@ -143,9 +143,11 @@
 - Styling the symbol buttons -
 ----------------- */
 
-.symbol-container {
-    /* background-color: var(--blue); */
-    /* border: 5px solid transparent; */
+/* Symbol Tangrams */
+
+
+/* .symbol-container {
+
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -155,7 +157,6 @@
 }
 
 .symbol-display-container {
-    /* background-color: var(--blue); */
     border: 10px solid transparent;
     display: flex;
     width: 100%;
@@ -175,11 +176,11 @@
 
 .symbol-display-container.wrong{
     border: 10px solid red;
-}
+} */
 
+/* 
 .symbolButtonUnselected{
     display: flex;
-    /* border: 0px solid rgb(53, 70, 124); */
     border: 10px solid transparent;
     width: 100%;
     padding: 0;
@@ -215,6 +216,85 @@
 
 .symbol-img.selected {
     background-color: #061a429c;
+    transition: .35s ease-in-out;
+
+} */
+
+/* Symbol Contiuum */
+
+.symbol-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    background-color: transparent;
+    margin: 0px 25px;
+}
+
+.symbol-display-container {
+    border: 10px solid lightgrey;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+}
+
+.symbol-display-container.selected{
+    border: 10px solid black;
+    background-color: var(--white);
+}
+
+.symbol-display-container.correct{
+    border: 10px solid green;
+}
+
+.symbol-display-container.wrong{
+    border: 10px solid red;
+}
+
+.symbolButtonUnselected{
+    display: flex;
+    /* border: 0px solid rgb(53, 70, 124); */
+    border: 10px solid lightgrey;
+    background-color: transparent;
+
+    width: 100%;
+    padding: 0;
+}
+
+.symbolButtonUnselected:hover {
+    background-color: lightgrey;
+    border: 10px solid black;
+}
+  
+.symbolButtonSelected {
+    display: flex;
+    border: 10px solid black;
+    background-color: lightgrey;
+    /* background-color: #061a429c; */
+    width: 100%;
+    padding: 0;
+}
+
+.noHover {
+    pointer-events: none;
+}
+
+.symbolButtonSelected:hover {
+    /* background-color: #061a429c; */
+    background-color: lightgrey;
+    border: 10px solid black;
+}
+
+.symbol-img {
+    background-color: var(--white);
+    transition: .35s ease-in-out;
+
+}
+
+.symbol-img.selected {
+    background-color: var(--white);
     transition: .35s ease-in-out;
 
 }
