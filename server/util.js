@@ -129,7 +129,6 @@
 
   export function getPuzzles2(game, round) {
     const allRoles = round.get("allRoles");
-    const numAdvisorsPerPair = game.treatment.numAdvisorsPerPair;
 
     const numImages = 1500;
     const bounds = 75;
@@ -156,6 +155,7 @@
       let combinedMatrixRight = _.slice(combinedImageHistory, iMid + bounds + 1);
 
 
+      // Find the index from left matrix by choosing largest value after multiplying by a random number
       let maxLeft = -1;
       let maxLeftIdx = -1;
       let maxRight = -1;
@@ -167,9 +167,9 @@
           maxLeft = combinedMatrixLeft[i];
           maxLeftIdx = i;
         }
-
       }
 
+      // Find the index fro the right matrix
       for (let i = 0; i< combinedMatrixRight.length; i++) {
         combinedMatrixRight[i] = Math.random() * combinedMatrixRight[i];
 
@@ -179,21 +179,14 @@
         }
       }
 
+      // Use the indices as the puzzleSet
       const puzzleSet = [maxLeftIdx, iMid, maxRightIdx];
 
-      // console.log(puzzleSet);
 
       for (i of puzzleSet) {
         speakerImageHistory[i] = 0.0;
         listenerImageHistory[i] = 0.0;
       }
-
-      // console.log(speakerImageHistory);
-      // console.log(speakerImageHistory.reduce((partialSum, a) => partialSum + a, 0));
-
-      // console.log(listenerImageHistory);
-      // console.log(listenerImageHistory.reduce((partialSum, a) => partialSum + a, 0));
-
 
       speakerPlayer.set("imageHistory", speakerImageHistory);
       listenerPlayer.set("imageHistory", listenerImageHistory);
