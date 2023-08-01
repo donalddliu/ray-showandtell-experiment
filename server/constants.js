@@ -25,7 +25,7 @@ export const taskRounds =[
       {
         _id: "2",
         taskName: "Task 3",
-        symbols: allSymbols,O
+        symbols: allSymbols,
         answer: "t3",
       },
       {
