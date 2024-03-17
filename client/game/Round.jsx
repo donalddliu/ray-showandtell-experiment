@@ -70,7 +70,7 @@ export default class Round extends React.Component {
 
   }
 
-  renderTaskRound() {
+  renderActiveTaskRound() {
     const { round, stage, player, game } = this.props;
 
     if (stage.displayName == "Result") {
@@ -169,10 +169,15 @@ export default class Round extends React.Component {
         this.renderSurveyRound()
       )
     }  else {
-      return (
-        // this.renderTaskRound()
-        this.renderPassiveTaskRound()
-      )
+      if (game.treatment.passiveMode) {
+        return (
+          this.renderPassiveTaskRound()
+        )
+      } else {
+        return (
+          this.renderActiveTaskRound()
+        )
+      }
     }
   }
 }

@@ -30,9 +30,9 @@ Empirica.onRoundStart((game, round) => {
   })
 
   if (round.get("roundType") === "Task") {
-    randomizeRoles(game, round, reqMutual);
+    randomizeRoles(game, round, numSLPairs, reqMutual);
     getPuzzles2(game, round);
-    // assignPassiveOutcomes(game, round);
+    assignPassiveOutcomes(game, round);
   }
 
   if (round.get("roundType") === "Survey") {

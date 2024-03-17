@@ -28,7 +28,7 @@ Empirica.gameInit(game => {
       slReward,
       slPenalty,
       advisorReward,
-
+      passiveMode,      
     }
   } = game;
 
@@ -61,15 +61,13 @@ Empirica.gameInit(game => {
     const tellStage = taskRound.addStage({
       name: `Tell ${taskRoundsAdded}`,
       displayName: `Tell`,
-      // durationInSeconds: tellDuration
-      durationInSeconds: 30
+      durationInSeconds: tellDuration
     })
 
     const listenStage = taskRound.addStage({
       name: `Listen ${taskRoundsAdded}`,
       displayName: `Listen`,
-      // durationInSeconds: listenDuration
-      durationInSeconds: 30
+      durationInSeconds: listenDuration
     })
 
     const resultStage = taskRound.addStage({
@@ -78,11 +76,13 @@ Empirica.gameInit(game => {
       durationInSeconds: resultsDuration,
     })
 
-    // const passiveStage = taskRound.addStage({
-    //   name: `Passive ${taskRoundsAdded}`,
-    //   displayName: `Passive`,
-    //   durationInSeconds: passiveResultsDuration,
-    // })
+    if (passiveMode) {
+      const passiveStage = taskRound.addStage({
+        name: `Passive ${taskRoundsAdded}`,
+        displayName: `Passive`,
+        durationInSeconds: passiveResultsDuration,
+      })
+    }
 
     taskRound.set("roundType", "Task");
 
